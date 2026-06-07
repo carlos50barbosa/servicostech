@@ -1,0 +1,13 @@
+{
+  "name": "servicostech",
+  "version": "1.0.0",
+  "description": "Site institucional Servicos Tech servido com Node.js.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

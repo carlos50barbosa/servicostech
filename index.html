@@ -3,73 +3,322 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Serviços Tech</title>
+  <title>Site Profissional | Criação de Sites em Até 7 Dias</title>
+  <meta name="description" content="Criação de sites profissionais para pequenas empresas, clínicas, salões, advogados, contadores e prestadores de serviços. Site moderno, responsivo e pronto em até 7 dias." />
+  <meta property="og:title" content="Seu Site Profissional Pronto em Até 7 Dias" />
+  <meta property="og:description" content="Conquiste mais clientes com um site moderno, rápido, responsivo e otimizado para o Google." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" />
+  <meta name="theme-color" content="#16A34A" />
+  <link rel="preconnect" href="https://images.unsplash.com" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="navbar">
-    <div class="container">
-      <h1 class="logo">Serviços <span>Tech</span></h1>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="#servicos">Serviços</a></li>
-          <li><a href="#sobre">Sobre</a></li>
-          <li><a href="#contato">Contato</a></li>
-        </ul>
+  <header class="site-header">
+    <div class="container header-content">
+      <a class="brand" href="#inicio" aria-label="Site Profissional">
+        <span class="brand-mark">SP</span>
+        <span>Site Profissional</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Menu principal">
+        <a href="#inicio">Início</a>
+        <a href="#beneficios">Benefícios</a>
+        <a href="#portfolio">Portfólio</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#contato">Contato</a>
       </nav>
+
+      <a class="header-cta" href="#contato">Solicitar Orçamento</a>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h2>Soluções Inteligentes em Tecnologia</h2>
-      <p>Transformamos sua empresa com inovação e eficiência.</p>
-      <a href="#contato" class="btn">Fale Conosco</a>
-    </div>
-  </section>
+  <main>
+    <section class="hero section-reveal" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Landing pages e sites institucionais</p>
+          <h1>Seu Site Profissional Pronto em Até 7 Dias</h1>
+          <p class="hero-subtitle">Conquiste mais clientes com um site moderno, rápido, responsivo e otimizado para o Google.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contato">Solicitar Orçamento</a>
+            <a class="btn btn-secondary" href="https://wa.me/5500000000000" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+          </div>
+          <div class="hero-stats" aria-label="Destaques do serviço">
+            <div>
+              <strong>7 dias</strong>
+              <span>para entrega</span>
+            </div>
+            <div>
+              <strong>100%</strong>
+              <span>responsivo</span>
+            </div>
+            <div>
+              <strong>SEO</strong>
+              <span>básico incluso</span>
+            </div>
+          </div>
+        </div>
 
-  <section id="servicos" class="servicos">
-    <div class="container">
-      <h3>Nossos Serviços</h3>
-      <div class="cards">
-        <div class="card">
-          <h4>Desenvolvimento Web</h4>
-          <p>Sites modernos, responsivos e otimizados.</p>
-        </div>
-        <div class="card">
-          <h4>Suporte Técnico</h4>
-          <p>Atendimento rápido e eficiente para sua empresa.</p>
-        </div>
-        <div class="card">
-          <h4>Consultoria em TI</h4>
-          <p>Planejamento estratégico para crescer com segurança.</p>
+        <div class="device-showcase" aria-label="Mockup de site em notebook e celular">
+          <div class="notebook">
+            <div class="browser-bar">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="mock-site">
+              <div class="mock-sidebar"></div>
+              <div class="mock-content">
+                <div class="mock-line large"></div>
+                <div class="mock-line"></div>
+                <div class="mock-grid">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="mock-line large"></div>
+              <div class="mock-line"></div>
+              <div class="phone-card"></div>
+              <div class="phone-card small"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="sobre" class="sobre">
-    <div class="container">
-      <h3>Quem Somos</h3>
-      <p>A Serviços Tech é uma empresa especializada em soluções tecnológicas personalizadas, com mais de 10 anos de experiência no mercado.</p>
-    </div>
-  </section>
+    <section class="benefits section-reveal" id="beneficios">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Benefícios</p>
+          <h2>Tudo que seu negócio precisa para vender melhor online</h2>
+        </div>
 
-  <section id="contato" class="contato">
-    <div class="container">
-      <h3>Entre em Contato</h3>
-      <form>
-        <input type="text" placeholder="Seu nome" required />
-        <input type="email" placeholder="Seu e-mail" required />
-        <textarea placeholder="Sua mensagem" required></textarea>
-        <button type="submit">Enviar</button>
-      </form>
-    </div>
-  </section>
+        <div class="benefit-grid">
+          <article class="benefit-card">
+            <span class="icon">✓</span>
+            <h3>Site Responsivo</h3>
+            <p>Funciona perfeitamente em celulares, tablets e computadores.</p>
+          </article>
+          <article class="benefit-card">
+            <span class="icon">✓</span>
+            <h3>Otimizado para Google</h3>
+            <p>Mais chances de aparecer nas pesquisas.</p>
+          </article>
+          <article class="benefit-card">
+            <span class="icon">✓</span>
+            <h3>Carregamento Rápido</h3>
+            <p>Melhor experiência para seus clientes.</p>
+          </article>
+          <article class="benefit-card">
+            <span class="icon">✓</span>
+            <h3>Design Moderno</h3>
+            <p>Visual profissional que transmite credibilidade.</p>
+          </article>
+          <article class="benefit-card">
+            <span class="icon">✓</span>
+            <h3>Integração WhatsApp</h3>
+            <p>Clientes entram em contato com um clique.</p>
+          </article>
+          <article class="benefit-card">
+            <span class="icon">✓</span>
+            <h3>Painel Administrativo</h3>
+            <p>Atualize textos e imagens sem depender de programador.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2025 Serviços Tech. Todos os direitos reservados.</p>
+    <section class="offer section-reveal" aria-labelledby="offer-title">
+      <div class="container offer-box">
+        <div>
+          <span class="offer-badge">Oferta por Tempo Limitado</span>
+          <h2 id="offer-title">Tenha uma presença digital profissional sem alto investimento</h2>
+          <p>Ideal para pequenas empresas, autônomos, clínicas, salões, barbearias e prestadores de serviços.</p>
+        </div>
+        <div class="price-card">
+          <span class="old-price">DE R$ 990,00</span>
+          <span class="price-label">POR APENAS</span>
+          <strong>R$ 397,00</strong>
+          <span class="payment">Pagamento único</span>
+          <a class="btn btn-primary" href="#contato">Solicitar Orçamento</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="portfolio section-reveal" id="portfolio">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Portfólio</p>
+          <h2>Projetos fictícios para diferentes segmentos</h2>
+        </div>
+
+        <div class="portfolio-grid">
+          <article class="project-card">
+            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=700&q=80" alt="Site para clínica médica" loading="lazy" />
+            <div>
+              <span>Clínica</span>
+              <h3>Clínica Vida Plena</h3>
+              <a href="#contato">Ver Projeto</a>
+            </div>
+          </article>
+          <article class="project-card">
+            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80" alt="Site para salão de beleza" loading="lazy" />
+            <div>
+              <span>Beleza</span>
+              <h3>Studio Bella</h3>
+              <a href="#contato">Ver Projeto</a>
+            </div>
+          </article>
+          <article class="project-card">
+            <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=700&q=80" alt="Site para barbearia" loading="lazy" />
+            <div>
+              <span>Barbearia</span>
+              <h3>Barber Prime</h3>
+              <a href="#contato">Ver Projeto</a>
+            </div>
+          </article>
+          <article class="project-card">
+            <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=700&q=80" alt="Site para escritório de advocacia" loading="lazy" />
+            <div>
+              <span>Advocacia</span>
+              <h3>Mendes Advocacia</h3>
+              <a href="#contato">Ver Projeto</a>
+            </div>
+          </article>
+          <article class="project-card">
+            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=700&q=80" alt="Site para contador" loading="lazy" />
+            <div>
+              <span>Contabilidade</span>
+              <h3>ContaFácil</h3>
+              <a href="#contato">Ver Projeto</a>
+            </div>
+          </article>
+          <article class="project-card">
+            <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=700&q=80" alt="Site para prestador de serviços" loading="lazy" />
+            <div>
+              <span>Serviços</span>
+              <h3>Resolve Já</h3>
+              <a href="#contato">Ver Projeto</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials section-reveal" id="depoimentos">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Depoimentos</p>
+          <h2>Clientes que aprovaram o resultado</h2>
+        </div>
+
+        <div class="testimonial-grid">
+          <figure class="testimonial-card">
+            <div class="stars" aria-label="5 estrelas">★★★★★</div>
+            <blockquote>"Meu site ficou incrível e comecei a receber contatos logo na primeira semana."</blockquote>
+            <figcaption>Carlos Mendes</figcaption>
+          </figure>
+          <figure class="testimonial-card">
+            <div class="stars" aria-label="5 estrelas">★★★★★</div>
+            <blockquote>"Atendimento rápido e resultado profissional."</blockquote>
+            <figcaption>Fernanda Lima</figcaption>
+          </figure>
+          <figure class="testimonial-card">
+            <div class="stars" aria-label="5 estrelas">★★★★★</div>
+            <blockquote>"Excelente custo-benefício."</blockquote>
+            <figcaption>Marcos Silva</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="process section-reveal" aria-labelledby="process-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Como Funciona</p>
+          <h2 id="process-title">Do orçamento à publicação em quatro etapas</h2>
+        </div>
+
+        <ol class="process-list">
+          <li>
+            <span>1</span>
+            <h3>Solicite um orçamento</h3>
+          </li>
+          <li>
+            <span>2</span>
+            <h3>Envie suas informações</h3>
+          </li>
+          <li>
+            <span>3</span>
+            <h3>Aprovação do layout</h3>
+          </li>
+          <li>
+            <span>4</span>
+            <h3>Publicação do site</h3>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="final-cta section-reveal">
+      <div class="container final-cta-box">
+        <h2>Pronto para Ter um Site Profissional?</h2>
+        <p>Solicite seu orçamento agora mesmo e coloque sua empresa na internet.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contato">Solicitar Orçamento</a>
+          <a class="btn btn-dark" href="https://wa.me/5500000000000" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact section-reveal" id="contato">
+      <div class="container contact-grid">
+        <div class="contact-copy">
+          <p class="eyebrow">Contato</p>
+          <h2>Receba uma proposta para o seu site</h2>
+          <p>Conte um pouco sobre seu negócio e retornaremos com a melhor solução para sua empresa aparecer com profissionalismo na internet.</p>
+          <ul>
+            <li>Entrega rápida e acompanhamento próximo</li>
+            <li>Site responsivo e preparado para conversão</li>
+            <li>Integração com WhatsApp e SEO básico</li>
+          </ul>
+        </div>
+
+        <form class="contact-form" action="#" method="post">
+          <label for="nome">Nome</label>
+          <input id="nome" name="nome" type="text" placeholder="Seu nome" required />
+
+          <label for="telefone">Telefone</label>
+          <input id="telefone" name="telefone" type="tel" placeholder="(00) 00000-0000" required />
+
+          <label for="email">E-mail</label>
+          <input id="email" name="email" type="email" placeholder="seu@email.com" required />
+
+          <label for="mensagem">Mensagem</label>
+          <textarea id="mensagem" name="mensagem" placeholder="Fale sobre o site que você precisa" required></textarea>
+
+          <button type="submit">Receber Proposta</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <strong>Site Profissional</strong>
+      <div class="footer-links">
+        <a href="https://wa.me/5500000000000" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:contato@siteprofissional.com">E-mail</a>
+      </div>
+      <p>&copy; 2026 Site Profissional. Todos os direitos reservados.</p>
     </div>
   </footer>
 </body>
