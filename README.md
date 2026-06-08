@@ -1,6 +1,12 @@
-# Servicos Tech
+# Serviços Tech
 
-Site institucional servido com Node.js, sem dependencias externas.
+Site institucional da Serviços Tech (`servicostech.com.br`) servido com Node.js, sem dependências externas.
+
+## Canais oficiais
+
+- E-mail: servicos.negocios.digital@gmail.com
+- WhatsApp: (11) 91515-5349
+- Instagram: https://www.instagram.com/carlos50barbosa/
 
 ## Como executar
 
