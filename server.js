@@ -5,6 +5,7 @@ const { projects, getProjectBySlug } = require("./projects");
 
 const PORT = Number(process.env.PORT) || 3000;
 const PUBLIC_DIR = __dirname;
+let requestSequence = 0;
 
 const mimeTypes = {
   ".css": "text/css; charset=utf-8",
@@ -40,6 +41,18 @@ function getClientIp(request) {
   }
 
   return request.socket.remoteAddress || "unknown";
+}
+
+function getAccessLogLevel(statusCode) {
+  if (statusCode >= 500) {
+    return "ERROR";
+  }
+
+  if (statusCode >= 400) {
+    return "WARN";
+  }
+
+  return "INFO";
 }
 
 function resolveRequestPath(requestUrl) {
@@ -337,31 +350,42 @@ async function sendFile(response, filePath) {
 
 const server = http.createServer(async (request, response) => {
   const startedAt = process.hrtime.bigint();
+  const requestId = ++requestSequence;
   const clientIp = getClientIp(request);
+  const method = request.method || "UNKNOWN";
+  let route = "unmatched";
+  let pathname = request.url || "";
 
   response.on("finish", () => {
     const durationMs = Number(process.hrtime.bigint() - startedAt) / 1_000_000;
+    const status = response.statusCode;
 
-    log("INFO", "request", {
-      method: request.method,
+    log(getAccessLogLevel(status), "access", {
+      requestId,
+      method,
+      route,
+      path: pathname,
       url: request.url,
-      status: response.statusCode,
+      status,
       durationMs: Number(durationMs.toFixed(2)),
       ip: clientIp,
+      referer: request.headers.referer || request.headers.referrer || "",
       userAgent: request.headers["user-agent"] || ""
     });
   });
 
   if (!request.url || request.method !== "GET") {
+    route = "method_not_allowed";
     response.writeHead(405, { "Content-Type": "text/plain; charset=utf-8" });
     response.end("Metodo nao permitido");
     return;
   }
 
   const url = new URL(request.url, `http://localhost:${PORT}`);
-  const pathname = decodeURIComponent(url.pathname).replace(/\/+$/, "") || "/";
+  pathname = decodeURIComponent(url.pathname).replace(/\/+$/, "") || "/";
 
   if (pathname === "/portfolio") {
+    route = "portfolio.index";
     sendHtml(response, renderPortfolioIndex());
     return;
   }
@@ -369,8 +393,10 @@ const server = http.createServer(async (request, response) => {
   if (pathname.startsWith("/portfolio/")) {
     const slug = pathname.split("/").filter(Boolean)[1];
     const project = getProjectBySlug(slug);
+    route = "portfolio.detail";
 
     if (!project) {
+      route = "portfolio.not_found";
       sendHtml(response, renderProjectNotFound(slug || ""), 404);
       return;
     }
@@ -382,23 +408,30 @@ const server = http.createServer(async (request, response) => {
   const filePath = resolveRequestPath(request.url);
 
   if (!filePath) {
+    route = "static.forbidden";
     response.writeHead(403, { "Content-Type": "text/plain; charset=utf-8" });
     response.end("Acesso negado");
     return;
   }
 
   try {
+    route = pathname === "/" ? "static.index" : `static${pathname}`;
     await sendFile(response, filePath);
   } catch (error) {
     const statusCode = error.code === "ENOENT" ? 404 : 500;
+    route = statusCode === 404 ? "static.not_found" : "static.error";
 
-    log(statusCode === 404 ? "INFO" : "ERROR", "file_response_error", {
-      url: request.url,
-      filePath,
-      status: statusCode,
-      code: error.code || "UNKNOWN",
-      message: error.message
-    });
+    if (statusCode >= 500) {
+      log("ERROR", "file_response_error", {
+        requestId,
+        url: request.url,
+        path: pathname,
+        filePath,
+        status: statusCode,
+        code: error.code || "UNKNOWN",
+        message: error.message
+      });
+    }
 
     response.writeHead(statusCode, { "Content-Type": "text/plain; charset=utf-8" });
     response.end(statusCode === 404 ? "Arquivo nao encontrado" : "Erro interno");
