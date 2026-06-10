@@ -5,6 +5,7 @@ const { projects, getProjectBySlug } = require("./projects");
 
 const PORT = Number(process.env.PORT) || 3000;
 const PUBLIC_DIR = __dirname;
+const LOG_STATIC = process.env.LOG_STATIC === "true";
 let requestSequence = 0;
 
 const mimeTypes = {
@@ -53,6 +54,74 @@ function getAccessLogLevel(statusCode) {
   }
 
   return "INFO";
+}
+
+function isStaticAssetPath(pathname) {
+  return /\.(?:css|js|ico|svg|png|jpg|jpeg|webp|gif|avif|woff2?)$/i.test(pathname);
+}
+
+function shouldLogAccess(statusCode, pathname) {
+  if (statusCode >= 400) {
+    return true;
+  }
+
+  return LOG_STATIC || !isStaticAssetPath(pathname);
+}
+
+function getStaticRoute(pathname) {
+  if (pathname === "/" || pathname === "/index.html") {
+    return "page.home";
+  }
+
+  if (pathname === "/style.css") {
+    return "asset.css";
+  }
+
+  if (pathname === "/favicon.ico") {
+    return "asset.favicon";
+  }
+
+  if (pathname.startsWith("/assets/")) {
+    return "asset.site";
+  }
+
+  return `static${pathname}`;
+}
+
+function getUserAgentSummary(userAgent) {
+  if (!userAgent) {
+    return "unknown";
+  }
+
+  const browserMatch =
+    userAgent.match(/Edg\/([\d.]+)/) ||
+    userAgent.match(/Chrome\/([\d.]+)/) ||
+    userAgent.match(/Firefox\/([\d.]+)/) ||
+    userAgent.match(/Version\/([\d.]+).*Safari/) ||
+    userAgent.match(/Safari\/([\d.]+)/);
+  const browserName = userAgent.includes("Edg/")
+    ? "Edge"
+    : userAgent.includes("Chrome/")
+      ? "Chrome"
+      : userAgent.includes("Firefox/")
+        ? "Firefox"
+        : userAgent.includes("Safari/")
+          ? "Safari"
+          : "Browser";
+  const browserVersion = browserMatch ? browserMatch[1].split(".")[0] : "";
+  const os = userAgent.includes("Windows")
+    ? "Windows"
+    : userAgent.includes("Android")
+      ? "Android"
+      : userAgent.includes("iPhone") || userAgent.includes("iPad")
+        ? "iOS"
+        : userAgent.includes("Mac OS X")
+          ? "macOS"
+          : userAgent.includes("Linux")
+            ? "Linux"
+            : "unknown OS";
+
+  return browserVersion ? `${browserName} ${browserVersion} / ${os}` : `${browserName} / ${os}`;
 }
 
 function resolveRequestPath(requestUrl) {
@@ -155,6 +224,7 @@ function renderLayout({ title, description, canonicalPath, image, content }) {
   <meta property="og:url" content="${canonicalUrl}" />
   <meta property="og:image" content="${escapeHtml(image || "https://servicostech.com.br/og-image.jpg")}" />
   <meta name="theme-color" content="#2563EB" />
+  <link rel="icon" href="/assets/servicos-tech-mark.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
@@ -341,10 +411,15 @@ function sendHtml(response, html, statusCode = 200) {
 async function sendFile(response, filePath) {
   const file = await fs.readFile(filePath);
   const extension = path.extname(filePath).toLowerCase();
-
-  response.writeHead(200, {
+  const headers = {
     "Content-Type": mimeTypes[extension] || "application/octet-stream"
-  });
+  };
+
+  if (isStaticAssetPath(filePath)) {
+    headers["Cache-Control"] = "public, max-age=3600";
+  }
+
+  response.writeHead(200, headers);
   response.end(file);
 }
 
@@ -359,6 +434,11 @@ const server = http.createServer(async (request, response) => {
   response.on("finish", () => {
     const durationMs = Number(process.hrtime.bigint() - startedAt) / 1_000_000;
     const status = response.statusCode;
+    const userAgent = request.headers["user-agent"] || "";
+
+    if (!shouldLogAccess(status, pathname)) {
+      return;
+    }
 
     log(getAccessLogLevel(status), "access", {
       requestId,
@@ -370,7 +450,7 @@ const server = http.createServer(async (request, response) => {
       durationMs: Number(durationMs.toFixed(2)),
       ip: clientIp,
       referer: request.headers.referer || request.headers.referrer || "",
-      userAgent: request.headers["user-agent"] || ""
+      ua: getUserAgentSummary(userAgent)
     });
   });
 
@@ -385,7 +465,7 @@ const server = http.createServer(async (request, response) => {
   pathname = decodeURIComponent(url.pathname).replace(/\/+$/, "") || "/";
 
   if (pathname === "/portfolio") {
-    route = "portfolio.index";
+    route = "page.portfolio";
     sendHtml(response, renderPortfolioIndex());
     return;
   }
@@ -393,10 +473,10 @@ const server = http.createServer(async (request, response) => {
   if (pathname.startsWith("/portfolio/")) {
     const slug = pathname.split("/").filter(Boolean)[1];
     const project = getProjectBySlug(slug);
-    route = "portfolio.detail";
+    route = "page.project";
 
     if (!project) {
-      route = "portfolio.not_found";
+      route = "page.project_not_found";
       sendHtml(response, renderProjectNotFound(slug || ""), 404);
       return;
     }
@@ -414,8 +494,14 @@ const server = http.createServer(async (request, response) => {
     return;
   }
 
+  if (pathname === "/favicon.ico") {
+    route = "asset.favicon";
+    await sendFile(response, path.join(PUBLIC_DIR, "assets", "servicos-tech-mark.svg"));
+    return;
+  }
+
   try {
-    route = pathname === "/" ? "static.index" : `static${pathname}`;
+    route = getStaticRoute(pathname);
     await sendFile(response, filePath);
   } catch (error) {
     const statusCode = error.code === "ENOENT" ? 404 : 500;
