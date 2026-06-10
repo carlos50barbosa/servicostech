@@ -316,7 +316,7 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css?v=20260610-mobile-dropdown" />
+  <link rel="stylesheet" href="/style.css?v=20260610-modern-mobile-menu" />
 </head>
 <body>
   ${renderSiteHeader(headerVariant)}
@@ -329,6 +329,33 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
     </span>
   </a>
   ${renderSiteFooter()}
+  <script>
+    document.querySelectorAll(".mobile-menu").forEach((menu) => {
+      menu.addEventListener("toggle", () => {
+        if (!menu.open) return;
+        document.querySelectorAll(".mobile-menu[open]").forEach((openMenu) => {
+          if (openMenu !== menu) openMenu.removeAttribute("open");
+        });
+      });
+
+      menu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => menu.removeAttribute("open"));
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      document.querySelectorAll(".mobile-menu[open]").forEach((menu) => {
+        if (!menu.contains(event.target)) menu.removeAttribute("open");
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      document.querySelectorAll(".mobile-menu[open]").forEach((menu) => {
+        menu.removeAttribute("open");
+      });
+    });
+  </script>
 </body>
 </html>`;
 }
