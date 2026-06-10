@@ -296,7 +296,7 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css?v=20260610-advogado" />
+  <link rel="stylesheet" href="/style.css?v=20260610-menu-mobile" />
 </head>
 <body>
   ${renderSiteHeader(headerVariant)}

@@ -132,7 +132,7 @@ ul {
 
 .main-nav {
   order: 3;
-  display: flex;
+  display: flex !important;
   width: 100%;
   gap: 10px;
   overflow-x: auto;
