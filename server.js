@@ -214,6 +214,16 @@ function renderSiteHeader(variant = "default") {
         <nav class="main-nav" aria-label="Navegação da landing page">
           ${navLinks.map((link) => `<a href="${link.href}">${link.label}</a>`).join("")}
         </nav>
+        <details class="mobile-menu">
+          <summary aria-label="Abrir menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </summary>
+          <nav aria-label="Menu mobile">
+            ${navLinks.map((link) => `<a href="${link.href}">${link.label}</a>`).join("")}
+          </nav>
+        </details>
         <a class="header-action quote-action" href="${buildWhatsAppUrl(quoteMessage)}" target="_blank" rel="noopener">
           <span class="quote-action-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M5 12h12" /><path d="m13 6 6 6-6 6" /></svg>
@@ -242,6 +252,16 @@ function renderSiteHeader(variant = "default") {
           <a href="/#oferta">Oferta</a>
           <a href="/#contato">Contato</a>
         </nav>
+        <details class="mobile-menu">
+          <summary aria-label="Abrir menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </summary>
+          <nav aria-label="Menu mobile">
+            ${navLinks.map((link) => `<a href="${link.href}">${link.label}</a>`).join("")}
+          </nav>
+        </details>
         <a class="header-action quote-action" href="${buildWhatsAppUrl("Olá! Vim pelo site da Serviços Tech e gostaria de solicitar um orçamento para criação de site.")}" target="_blank" rel="noopener">
           <span class="quote-action-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M5 12h12" /><path d="m13 6 6 6-6 6" /></svg>
@@ -296,7 +316,7 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css?v=20260610-menu-mobile" />
+  <link rel="stylesheet" href="/style.css?v=20260610-mobile-dropdown" />
 </head>
 <body>
   ${renderSiteHeader(headerVariant)}
