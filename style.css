@@ -1234,6 +1234,133 @@ h3 {
   font-size: 18px;
 }
 
+.lawyer-theme {
+  --lawyer-navy: #071528;
+  --lawyer-navy-2: #0e243a;
+  --lawyer-gold: #c6a15b;
+  --lawyer-gold-dark: #9f7b35;
+  --lawyer-cream: #f7f2e8;
+  --lawyer-ink: #172033;
+  color: var(--lawyer-ink);
+  background: var(--lawyer-cream);
+}
+
+.lawyer-theme .project-detail-hero {
+  color: var(--white);
+  background:
+    radial-gradient(circle at 80% 18%, rgba(198, 161, 91, 0.28), transparent 26%),
+    linear-gradient(135deg, var(--lawyer-navy) 0%, var(--lawyer-navy-2) 58%, #102b47 100%);
+}
+
+.lawyer-theme .project-detail-hero::before {
+  background:
+    linear-gradient(rgba(198, 161, 91, 0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(198, 161, 91, 0.13) 1px, transparent 1px);
+  opacity: 0.52;
+}
+
+.lawyer-theme .back-link,
+.lawyer-theme .eyebrow,
+.lawyer-theme .detail-card > span,
+.lawyer-theme .about-proof-card > span,
+.lawyer-theme .specialty-card a {
+  color: var(--lawyer-gold);
+}
+
+.lawyer-theme .project-hero-copy h1,
+.lawyer-theme .project-detail-hero h2 {
+  color: var(--white);
+}
+
+.lawyer-theme .project-hero-copy > p:not(.eyebrow) {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.lawyer-theme .project-stats div {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(198, 161, 91, 0.38);
+  box-shadow: 0 20px 46px rgba(0, 0, 0, 0.18);
+}
+
+.lawyer-theme .project-stats strong {
+  color: var(--lawyer-gold);
+}
+
+.lawyer-theme .project-stats span {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.lawyer-theme .project-meta span,
+.lawyer-theme .tech-list span {
+  color: var(--lawyer-cream);
+  background: rgba(198, 161, 91, 0.14);
+  border-color: rgba(198, 161, 91, 0.38);
+}
+
+.lawyer-theme .project-actions .btn-primary,
+.lawyer-theme .conversion-box .btn-primary {
+  color: var(--lawyer-navy);
+  background: linear-gradient(135deg, #e6cf93, var(--lawyer-gold));
+  box-shadow: 0 18px 42px rgba(198, 161, 91, 0.28);
+}
+
+.lawyer-theme .project-actions .btn-secondary {
+  color: var(--lawyer-gold);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(198, 161, 91, 0.42);
+}
+
+.lawyer-theme .project-hero-media {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(198, 161, 91, 0.46);
+  box-shadow: 0 34px 100px rgba(0, 0, 0, 0.32);
+}
+
+.lawyer-theme .project-hero-media::before {
+  background: linear-gradient(135deg, rgba(198, 161, 91, 0.42), transparent);
+}
+
+.lawyer-theme .specialty-section,
+.lawyer-theme .project-about-section,
+.lawyer-theme .faq-section,
+.lawyer-theme .project-gallery-section {
+  background: var(--lawyer-cream);
+}
+
+.lawyer-theme .project-detail-section:not(.specialty-section):not(.project-about-section):not(.faq-section):not(.project-gallery-section) {
+  background: #fffaf0;
+}
+
+.lawyer-theme .specialty-card,
+.lawyer-theme .faq-item,
+.lawyer-theme .about-proof-card,
+.lawyer-theme .detail-card,
+.lawyer-theme .gallery-card {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(198, 161, 91, 0.28);
+  box-shadow: 0 18px 42px rgba(7, 21, 40, 0.08);
+}
+
+.lawyer-theme .specialty-card:hover,
+.lawyer-theme .gallery-card:hover {
+  border-color: rgba(198, 161, 91, 0.62);
+  box-shadow: 0 24px 58px rgba(7, 21, 40, 0.14);
+}
+
+.lawyer-theme .feature-list li::before {
+  background: var(--lawyer-gold);
+}
+
+.lawyer-theme .conversion-box {
+  background:
+    radial-gradient(circle at 82% 18%, rgba(198, 161, 91, 0.28), transparent 22%),
+    linear-gradient(135deg, var(--lawyer-navy), var(--lawyer-navy-2));
+}
+
+.lawyer-theme .conversion-box .eyebrow {
+  color: var(--lawyer-gold);
+}
+
 .testimonial-card {
   display: grid;
   gap: 18px;

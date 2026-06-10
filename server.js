@@ -251,7 +251,7 @@ function renderLayout({ title, description, canonicalPath, image, content }) {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/style.css?v=20260610-advogado" />
 </head>
 <body>
   ${renderSiteHeader()}
@@ -413,19 +413,17 @@ function renderProjectPage(project) {
     canonicalPath: `/portfolio/${project.slug}`,
     image: project.image,
     content: `
-      <main class="project-detail-page">
+      <main class="project-detail-page ${project.slug === "site-para-advogado" ? "lawyer-theme" : ""}">
         <section class="project-detail-hero">
           <div class="container project-hero-grid">
             <div class="project-hero-copy">
               <a class="back-link" href="/#portfolio">← Voltar ao portfólio</a>
               <p class="eyebrow">${escapeHtml(project.category)}</p>
-              <h1>${escapeHtml(project.name)}</h1>
-              <p>${escapeHtml(project.description)}</p>
+              <h1>${escapeHtml(project.heroTitle || project.name)}</h1>
+              <p>${escapeHtml(project.heroSubtitle || project.description)}</p>
               ${renderProjectStats(project)}
               <div class="project-meta">
-                <span>Site responsivo</span>
-                <span>SEO básico</span>
-                <span>CTA WhatsApp</span>
+                ${(project.badges || ["Site responsivo", "SEO basico", "CTA WhatsApp"]).map((badge) => `<span>${escapeHtml(badge)}</span>`).join("")}
               </div>
               <div class="project-actions">
                 <a class="btn btn-primary" href="${buildWhatsAppUrl(whatsappMessage)}" target="_blank" rel="noopener">Quero um projeto parecido</a>

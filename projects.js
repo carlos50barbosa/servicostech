@@ -61,6 +61,9 @@ const projects = [
     slug: "site-para-advogado",
     name: "Defesa Digital Advocacia",
     category: "Advocacia consumerista e digital",
+    heroTitle: "Advogado Especialista em Fraudes Bancarias, Contas Bloqueadas e Direito Digital",
+    heroSubtitle:
+      "Modelo para escritorio que atende consumidores contra bancos, plataformas digitais, golpes online e bloqueios de contas, com captacao direta pelo WhatsApp.",
     description:
       "Modelo de site para advogado especialista em fraudes bancarias, contas bloqueadas, negativacao indevida e recuperacao de contas digitais.",
     objective:
@@ -83,9 +86,14 @@ const projects = [
       "FAQ preparado para reduzir objecoes antes do contato"
     ],
     stats: [
-      { value: "+350", label: "atendimentos digitais simulados" },
-      { value: "100%", label: "estrutura pensada para atendimento online" },
-      { value: "24h", label: "promessa de retorno comercial" }
+      { value: "+3.500", label: "clientes atendidos" },
+      { value: "100%", label: "atendimento digital" },
+      { value: "Brasil", label: "atuacao nacional" }
+    ],
+    badges: [
+      "Atendimento de qualidade",
+      "Direito do consumidor",
+      "Contato agil via WhatsApp"
     ],
     specialties: [
       {
