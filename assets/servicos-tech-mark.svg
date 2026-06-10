@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
-  <title id="title">Servicos Tech</title>
-  <desc id="desc">Marca abstrata da Servicos Tech com monograma tecnologico.</desc>
+  <title id="title">Serviços Tech</title>
+  <desc id="desc">Marca abstrata da Serviços Tech com monograma tecnológico.</desc>
   <defs>
     <linearGradient id="markGradient" x1="10" y1="8" x2="56" y2="58" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#60A5FA" />

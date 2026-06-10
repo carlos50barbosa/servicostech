@@ -182,43 +182,43 @@ function renderSiteHeader(variant = "default") {
   const isLawyer = variant === "lawyer";
   const navLinks = isLawyer
     ? [
-        { href: "#inicio", label: "Inicio" },
+        { href: "#inicio", label: "Início" },
         { href: "#sobre", label: "Sobre" },
-        { href: "#areas", label: "Areas de Atuacao" },
+        { href: "#areas", label: "Áreas de Atuação" },
         { href: "#diferenciais", label: "Diferenciais" },
         { href: "#contato-projeto", label: "Contato" }
       ]
     : [
-        { href: "/#beneficios", label: "Beneficios" },
-        { href: "/#portfolio", label: "Portfolio" },
+        { href: "/#beneficios", label: "Benefícios" },
+        { href: "/#portfolio", label: "Portfólio" },
         { href: "/#oferta", label: "Oferta" },
         { href: "/#contato", label: "Contato" }
       ];
   const quoteMessage = isLawyer
-    ? "Ola! Vi o modelo de site para advogado no portfolio da Servicos Tech e gostaria de solicitar um orcamento."
-    : "Ola! Vim pelo site da Servicos Tech e gostaria de solicitar um orcamento para criacao de site.";
+    ? "Olá! Vi o modelo de site para advogado no portfólio da Serviços Tech e gostaria de solicitar um orçamento."
+    : "Olá! Vim pelo site da Serviços Tech e gostaria de solicitar um orçamento para criação de site.";
 
   if (isLawyer) {
     return `
     <header class="site-header portfolio-advogado-header">
       <div class="container header-inner">
-        <a class="brand" href="/" aria-label="Servicos Tech">
+        <a class="brand" href="/" aria-label="Serviços Tech">
           <span class="brand-icon" aria-hidden="true">
             <img src="/assets/servicos-tech-mark.svg" alt="" />
           </span>
           <span>
-            Servicos Tech
+            Serviços Tech
             <small>servicostech.com.br</small>
           </span>
         </a>
-        <nav class="main-nav" aria-label="Navegacao da landing page">
+        <nav class="main-nav" aria-label="Navegação da landing page">
           ${navLinks.map((link) => `<a href="${link.href}">${link.label}</a>`).join("")}
         </nav>
         <a class="header-action quote-action" href="${buildWhatsAppUrl(quoteMessage)}" target="_blank" rel="noopener">
           <span class="quote-action-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M5 12h12" /><path d="m13 6 6 6-6 6" /></svg>
           </span>
-          Solicitar orcamento
+          Solicitar orçamento
         </a>
       </div>
     </header>`;
@@ -304,7 +304,7 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
   <a class="whatsapp-float" href="${buildWhatsAppUrl("Olá! Vim pelo site da Serviços Tech e gostaria de solicitar um orçamento para criação de site.")}" target="_blank" rel="noopener" aria-label="Falar com a Serviços Tech no WhatsApp">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.4 18.7 6.2 15A7.8 7.8 0 1 1 9 17.8l-3.6.9Z"></path><path d="M9.3 8.6c.2-.5.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.6c.1.3 0 .5-.2.7l-.4.5c.5.9 1.3 1.7 2.3 2.1l.6-.7c.2-.2.4-.3.7-.2l1.6.8c.3.1.4.3.4.6v.5c0 .3-.1.5-.4.7-.5.3-1 .5-1.7.5-1.6 0-3.3-.9-4.6-2.2C9.2 12 8.4 10.4 8.4 9.3c0-.2.4-.6.9-.7Z"></path></svg>
     <span>
-      <strong>Atendimendo</strong>
+      <strong>Atendimento</strong>
       <small>WhatsApp</small>
     </span>
   </a>
@@ -355,7 +355,7 @@ function renderProjectSpecialties(project) {
       <div class="container">
         <div class="section-heading">
           <p class="eyebrow">Especialidades</p>
-          <h2>Problemas juridicos apresentados de forma clara</h2>
+          <h2>Problemas jurídicos apresentados de forma clara</h2>
         </div>
         <div class="specialty-grid">
           ${project.specialties.map((specialty) => `
@@ -387,7 +387,7 @@ function renderProjectAbout(project) {
           <span>Modelo ideal para</span>
           <ul class="feature-list">
             <li>Advogados consumeristas</li>
-            <li>Direito bancario e digital</li>
+            <li>Direito bancário e digital</li>
             <li>Atendimento nacional por WhatsApp</li>
           </ul>
         </div>
@@ -405,7 +405,7 @@ function renderProjectFaqs(project) {
       <div class="container faq-grid">
         <div class="section-heading">
           <p class="eyebrow">FAQ</p>
-          <h2>Duvidas frequentes antes do contato</h2>
+          <h2>Dúvidas frequentes antes do contato</h2>
         </div>
         <div class="faq-list">
           ${project.faqs.map((faq) => `
@@ -450,14 +450,14 @@ function renderPortfolioIndex() {
 }
 
 function renderLawyerProjectPage(project) {
-  const whatsappMessage = "Ola! Vi o modelo de site para advogado no portfolio da Servicos Tech e gostaria de solicitar um orcamento.";
+  const whatsappMessage = "Olá! Vi o modelo de site para advogado no portfólio da Serviços Tech e gostaria de solicitar um orçamento.";
   const featureLabels = project.features || [];
   const specialties = project.specialties || [];
   const differentials = project.lawyerDifferentials || project.differentials || [];
   const processSteps = project.process || [];
 
   return renderLayout({
-    title: `${project.name} | Portfolio Servicos Tech`,
+    title: `${project.name} | Portfólio Serviços Tech`,
     description: project.description,
     canonicalPath: `/portfolio/${project.slug}`,
     image: project.image,
@@ -467,41 +467,41 @@ function renderLawyerProjectPage(project) {
         <section class="portfolio-advogado-hero" id="inicio">
           <div class="container portfolio-advogado-hero-grid">
             <div class="portfolio-advogado-hero-copy">
-              <a class="back-link portfolio-advogado-back" href="/#portfolio">Voltar ao portfolio</a>
+              <a class="back-link portfolio-advogado-back" href="/#portfolio">Voltar ao portfólio</a>
               <p class="eyebrow portfolio-advogado-eyebrow">${escapeHtml(project.category)}</p>
               <h1>${escapeHtml(project.heroTitle)}</h1>
               <p>${escapeHtml(project.heroSubtitle)}</p>
               <div class="portfolio-advogado-actions">
                 <a class="btn btn-primary" href="${buildWhatsAppUrl(whatsappMessage)}" target="_blank" rel="noopener">Quero um site assim</a>
-                <a class="btn btn-secondary" href="#areas">Ver secoes do modelo</a>
+                <a class="btn btn-secondary" href="#areas">Ver seções do modelo</a>
               </div>
               <div class="portfolio-advogado-trust">
                 ${(project.badges || []).map((badge) => `<span>${escapeHtml(badge)}</span>`).join("")}
               </div>
             </div>
-            <div class="portfolio-advogado-mockup" aria-label="Mockup demonstrativo de site juridico">
+            <div class="portfolio-advogado-mockup" aria-label="Mockup demonstrativo de site jurídico">
               <div class="portfolio-advogado-browser">
                 <span></span><span></span><span></span>
               </div>
               <div class="portfolio-advogado-mockup-hero">
-                <p>Escritorio juridico</p>
+                <p>Escritório jurídico</p>
                 <strong>Atendimento online com clareza e autoridade</strong>
                 <a href="${buildWhatsAppUrl(whatsappMessage)}" target="_blank" rel="noopener">WhatsApp</a>
               </div>
               <div class="portfolio-advogado-mockup-grid">
                 <article>
                   <span>01</span>
-                  <strong>Areas de atuacao</strong>
-                  <p>Servicos organizados por necessidade.</p>
+                  <strong>Áreas de atuação</strong>
+                  <p>Serviços organizados por necessidade.</p>
                 </article>
                 <article>
                   <span>02</span>
-                  <strong>Consulta estrategica</strong>
+                  <strong>Consulta estratégica</strong>
                   <p>Chamada objetiva para contato qualificado.</p>
                 </article>
               </div>
               <div class="portfolio-advogado-mockup-bar">
-                <span>Resposta rapida pelo WhatsApp</span>
+                <span>Resposta rápida pelo WhatsApp</span>
                 <strong>Solicitar atendimento</strong>
               </div>
             </div>
@@ -511,14 +511,16 @@ function renderLawyerProjectPage(project) {
         <section class="portfolio-advogado-section portfolio-advogado-intro" id="sobre">
           <div class="container portfolio-advogado-split">
             <div>
-              <p class="eyebrow portfolio-advogado-eyebrow">Presenca digital juridica</p>
+              <p class="eyebrow portfolio-advogado-eyebrow">Presença digital jurídica</p>
               <h2>Um site pensado para transmitir autoridade</h2>
               <p>${escapeHtml(project.lawyerIntro)}</p>
             </div>
             <div class="portfolio-advogado-feature-grid">
               ${featureLabels.map((feature) => `
                 <article class="portfolio-advogado-card portfolio-advogado-feature-card">
-                  <span aria-hidden="true">${escapeHtml(feature.slice(0, 1))}</span>
+                  <span aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false"><path d="m5 12 4 4 10-10" /></svg>
+                  </span>
                   <h3>${escapeHtml(feature)}</h3>
                 </article>
               `).join("")}
@@ -529,14 +531,16 @@ function renderLawyerProjectPage(project) {
         <section class="portfolio-advogado-section portfolio-advogado-about">
           <div class="container portfolio-advogado-about-grid">
             <div class="portfolio-advogado-photo-placeholder" aria-hidden="true">
-              <span>Foto</span>
-              <strong>Advogado</strong>
+              <svg viewBox="0 0 96 96" focusable="false">
+                <path d="M48 50c11.6 0 21-9.4 21-21S59.6 8 48 8 27 17.4 27 29s9.4 21 21 21Z" />
+                <path d="M16 86c4.7-18.5 16.2-28 32-28s27.3 9.5 32 28" />
+              </svg>
             </div>
             <div>
               <p class="eyebrow portfolio-advogado-eyebrow">Quem sou</p>
               <h2>${escapeHtml(project.about.title)}</h2>
               <p>${escapeHtml(project.about.text)}</p>
-              <a class="btn btn-secondary" href="${buildWhatsAppUrl(whatsappMessage)}" target="_blank" rel="noopener">Solicitar avaliacao do projeto</a>
+              <a class="btn btn-secondary" href="${buildWhatsAppUrl(whatsappMessage)}" target="_blank" rel="noopener">Solicitar avaliação do projeto</a>
             </div>
           </div>
         </section>
@@ -544,8 +548,8 @@ function renderLawyerProjectPage(project) {
         <section class="portfolio-advogado-section portfolio-advogado-areas" id="areas">
           <div class="container">
             <div class="section-heading portfolio-advogado-heading">
-              <p class="eyebrow portfolio-advogado-eyebrow">Areas de atuacao</p>
-              <h2>Servicos juridicos apresentados com ordem e clareza</h2>
+              <p class="eyebrow portfolio-advogado-eyebrow">Áreas de atuação</p>
+              <h2>Serviços jurídicos apresentados com ordem e clareza</h2>
             </div>
             <div class="portfolio-advogado-areas-grid">
               ${specialties.map((specialty, index) => `
@@ -598,9 +602,9 @@ function renderLawyerProjectPage(project) {
             <div>
               <p class="eyebrow portfolio-advogado-eyebrow">Projeto sob medida</p>
               <h2>Quer um site profissional como este?</h2>
-              <p>A Servicos Tech cria sites modernos para advogados, escritorios e profissionais liberais que querem transmitir mais autoridade e conquistar mais clientes.</p>
+              <p>A Serviços Tech cria sites modernos para advogados, escritórios e profissionais liberais que querem transmitir mais autoridade e conquistar mais clientes.</p>
             </div>
-            <a class="btn btn-primary btn-large" href="${buildWhatsAppUrl(whatsappMessage)}" target="_blank" rel="noopener">Solicitar orcamento pelo WhatsApp</a>
+            <a class="btn btn-primary btn-large" href="${buildWhatsAppUrl(whatsappMessage)}" target="_blank" rel="noopener">Solicitar orçamento pelo WhatsApp</a>
           </div>
         </section>
       </main>`
@@ -630,7 +634,7 @@ function renderProjectPage(project) {
               <p>${escapeHtml(project.heroSubtitle || project.description)}</p>
               ${renderProjectStats(project)}
               <div class="project-meta">
-                ${(project.badges || ["Site responsivo", "SEO basico", "CTA WhatsApp"]).map((badge) => `<span>${escapeHtml(badge)}</span>`).join("")}
+                ${(project.badges || ["Site responsivo", "SEO básico", "CTA WhatsApp"]).map((badge) => `<span>${escapeHtml(badge)}</span>`).join("")}
               </div>
               <div class="project-actions">
                 <a class="btn btn-primary" href="${buildWhatsAppUrl(whatsappMessage)}" target="_blank" rel="noopener">Quero um projeto parecido</a>

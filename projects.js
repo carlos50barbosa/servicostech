@@ -1,26 +1,26 @@
 const projects = [
   {
     slug: "site-para-clinica",
-    name: "Clinica Vida Plena",
-    category: "Clinica premium",
+    name: "Clínica Vida Plena",
+    category: "Clínica premium",
     description:
-      "Site institucional para clinica com apresentacao das especialidades, autoridade medica e captacao direta pelo WhatsApp.",
+      "Site institucional para clínica com apresentação das especialidades, autoridade médica e captação direta pelo WhatsApp.",
     objective:
-      "Criar uma presenca digital confiavel para transformar visitantes em pacientes interessados, com navegacao simples e mensagens claras de atendimento.",
+      "Criar uma presença digital confiável para transformar visitantes em pacientes interessados, com navegação simples e mensagens claras de atendimento.",
     image:
       "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1400&q=85",
     features: [
-      "Paginas de especialidades",
+      "Páginas de especialidades",
       "Agendamento via WhatsApp",
       "SEO local para buscas regionais",
-      "Apresentacao de equipe e estrutura",
+      "Apresentação de equipe e estrutura",
       "Depoimentos e prova social"
     ],
-    technologies: ["HTML semantico", "CSS responsivo", "SEO on-page", "Schema LocalBusiness", "Integracao WhatsApp"],
+    technologies: ["HTML semântico", "CSS responsivo", "SEO on-page", "Schema LocalBusiness", "Integração WhatsApp"],
     differentials: [
-      "Visual limpo e confiavel para area da saude",
-      "Hierarquia de conteudo pensada para conversao",
-      "Experiencia otimizada para celular"
+      "Visual limpo e confiável para área da saúde",
+      "Hierarquia de conteúdo pensada para conversão",
+      "Experiência otimizada para celular"
     ],
     gallery: [
       "https://images.unsplash.com/photo-1581091870622-1e7e19f08eba?auto=format&fit=crop&w=900&q=85",
@@ -33,23 +33,23 @@ const projects = [
     name: "Studio Bella",
     category: "Landing page profissional",
     description:
-      "Landing page elegante para servicos de beleza, com oferta clara, prova social e CTA direto para reservas pelo WhatsApp.",
+      "Landing page elegante para serviços de beleza, com oferta clara, prova social e CTA direto para reservas pelo WhatsApp.",
     objective:
-      "Aumentar a procura por servicos do estudio e facilitar reservas rapidas por meio de uma pagina visualmente premium.",
+      "Aumentar a procura por serviços do estúdio e facilitar reservas rápidas por meio de uma página visualmente premium.",
     image:
       "https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1400&q=85",
     features: [
-      "Secao de servicos e precos",
-      "Destaque para promocoes",
+      "Seção de serviços e preços",
+      "Destaque para promoções",
       "Depoimentos de clientes",
-      "CTA de reserva sempre visivel",
+      "CTA de reserva sempre visível",
       "Layout otimizado para campanhas"
     ],
     technologies: ["HTML", "CSS moderno", "Design responsivo", "Performance web", "WhatsApp CTA"],
     differentials: [
-      "Design visual forte para campanhas de trafego pago",
-      "Secoes curtas e persuasivas",
-      "Apresentacao premium dos servicos"
+      "Design visual forte para campanhas de tráfego pago",
+      "Seções curtas e persuasivas",
+      "Apresentação premium dos serviços"
     ],
     gallery: [
       "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=900&q=85",
@@ -60,93 +60,93 @@ const projects = [
   {
     slug: "site-para-advogado",
     name: "Site para Advogados",
-    category: "Landing page juridica premium",
+    category: "Landing page jurídica premium",
     heroTitle: "Site profissional para advogados",
     heroSubtitle:
-      "Um modelo de presenca digital moderno, estrategico e pensado para transmitir autoridade, confianca e gerar contatos qualificados.",
+      "Um modelo de presença digital moderno, estratégico e pensado para transmitir autoridade, confiança e gerar contatos qualificados.",
     description:
-      "Landing page demonstrativa para advogados e escritorios que precisam apresentar servicos juridicos com autoridade, clareza e foco em conversao.",
+      "Landing page demonstrativa para advogados e escritórios que precisam apresentar serviços jurídicos com autoridade, clareza e foco em conversão.",
     objective:
-      "Apresentar um exemplo de site juridico premium, com secoes comerciais, areas de atuacao, diferenciais e contato direto pelo WhatsApp.",
+      "Apresentar um exemplo de site jurídico premium, com seções comerciais, áreas de atuação, diferenciais e contato direto pelo WhatsApp.",
     image:
       "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1400&q=85",
     features: [
       "Design profissional",
       "Layout responsivo",
-      "Integracao com WhatsApp",
-      "Estrutura otimizada para conversao"
+      "Integração com WhatsApp",
+      "Estrutura otimizada para conversão"
     ],
-    technologies: ["HTML semantico", "CSS responsivo", "SEO juridico", "Open Graph", "Schema ProfessionalService"],
+    technologies: ["HTML semântico", "CSS responsivo", "SEO jurídico", "Open Graph", "Schema ProfessionalService"],
     differentials: [
-      "Estrutura inspirada em sites juridicos de alta conversao",
+      "Estrutura inspirada em sites jurídicos de alta conversão",
       "Especialidades organizadas por dor do cliente",
       "Atendimento digital destacado desde a primeira dobra",
-      "FAQ preparado para reduzir objecoes antes do contato"
+      "FAQ preparado para reduzir objeções antes do contato"
     ],
     stats: [
       { value: "+3.500", label: "clientes atendidos" },
       { value: "100%", label: "atendimento digital" },
-      { value: "Brasil", label: "atuacao nacional" }
+      { value: "Brasil", label: "atuação nacional" }
     ],
     badges: [
       "Atendimento online",
-      "Areas de atuacao",
-      "Consulta estrategica",
+      "Áreas de atuação",
+      "Consulta estratégica",
       "WhatsApp"
     ],
     specialties: [
       {
         title: "Direito do Consumidor",
-        description: "Espaco para apresentar defesa em relacoes de consumo com linguagem simples e profissional."
+        description: "Espaço para apresentar defesa em relações de consumo com linguagem simples e profissional."
       },
       {
-        title: "Direito Bancario",
-        description: "Secao voltada a demandas envolvendo bancos, contas digitais e contratos financeiros."
+        title: "Direito Bancário",
+        description: "Seção voltada a demandas envolvendo bancos, contas digitais e contratos financeiros."
       },
       {
         title: "Direito Digital",
-        description: "Apresentacao clara para casos ligados a plataformas, dados, contas e ambiente online."
+        description: "Apresentação clara para casos ligados a plataformas, dados, contas e ambiente online."
       },
       {
         title: "Fraudes e Golpes",
-        description: "Bloco preparado para orientar visitantes que buscam suporte juridico apos prejuizos digitais."
+        description: "Bloco preparado para orientar visitantes que buscam suporte jurídico após prejuízos digitais."
       },
       {
-        title: "Negativacao Indevida",
-        description: "Conteudo objetivo para explicar atuacao em apontamentos indevidos e protecao de reputacao."
+        title: "Negativação Indevida",
+        description: "Conteúdo objetivo para explicar atuação em apontamentos indevidos e proteção de reputação."
       },
       {
         title: "Contratos",
-        description: "Area para destacar analise, elaboracao e revisao de documentos juridicos importantes."
+        description: "Área para destacar análise, elaboração e revisão de documentos jurídicos importantes."
       },
       {
-        title: "Familia e Sucessoes",
-        description: "Card demonstrativo para servicos sensiveis que exigem acolhimento, clareza e discricao."
+        title: "Família e Sucessões",
+        description: "Card demonstrativo para serviços sensíveis que exigem acolhimento, clareza e discrição."
       },
       {
         title: "Trabalhista",
-        description: "Espaco para comunicar atuacao em relacoes de trabalho de forma direta e confiavel."
+        description: "Espaço para comunicar atuação em relações de trabalho de forma direta e confiável."
       }
     ],
     about: {
-      title: "Sobre o escritorio",
+      title: "Sobre o escritório",
       text:
-        "Este modelo foi criado para advogados e escritorios que desejam apresentar sua atuacao de forma clara, objetiva e profissional. A estrutura valoriza a experiencia, as areas de atuacao e facilita o contato direto com o cliente."
+        "Este modelo foi criado para advogados e escritórios que desejam apresentar sua atuação de forma clara, objetiva e profissional. A estrutura valoriza a experiência, as áreas de atuação e facilita o contato direto com o cliente."
     },
     lawyerIntro:
-      "Advogados precisam de um site claro, profissional e confiavel para apresentar seus servicos, fortalecer sua imagem e facilitar o contato com potenciais clientes. Este modelo organiza a mensagem, reduz atritos e conduz o visitante para uma conversa pelo WhatsApp.",
+      "Advogados precisam de um site claro, profissional e confiável para apresentar seus serviços, fortalecer sua imagem e facilitar o contato com potenciais clientes. Este modelo organiza a mensagem, reduz atritos e conduz o visitante para uma conversa pelo WhatsApp.",
     lawyerDifferentials: [
       "Passa mais credibilidade",
       "Facilita o contato pelo WhatsApp",
-      "Apresenta servicos de forma organizada",
+      "Apresenta serviços de forma organizada",
       "Funciona bem no celular",
-      "Ajuda em campanhas de trafego pago",
-      "Pode ser adaptado para qualquer area juridica"
+      "Ajuda em campanhas de tráfego pago",
+      "Pode ser adaptado para qualquer área jurídica"
     ],
     process: [
-      "Entendemos sua area de atuacao",
+      "Entendemos sua área de atuação",
       "Criamos o layout personalizado",
-      "Ajustamos textos e secoes",
+      "Ajustamos textos e seções",
       "Publicamos o site pronto para receber clientes"
     ],
     faqs: [
@@ -156,11 +156,11 @@ const projects = [
       },
       {
         question: "Como o site ajuda a filtrar casos melhores?",
-        answer: "As especialidades, perguntas frequentes e formulario de triagem orientam o visitante antes do contato."
+        answer: "As especialidades, perguntas frequentes e formulário de triagem orientam o visitante antes do contato."
       },
       {
-        question: "Esse modelo pode receber blog juridico?",
-        answer: "Sim. A estrutura ja foi pensada para crescer com artigos sobre fraudes, bancos, negativacao e direito digital."
+        question: "Esse modelo pode receber blog jurídico?",
+        answer: "Sim. A estrutura já foi pensada para crescer com artigos sobre fraudes, bancos, negativação e direito digital."
       }
     ],
     gallery: [
@@ -171,25 +171,25 @@ const projects = [
   },
   {
     slug: "sistema-de-agendamentos",
-    name: "AgendaPro Servicos",
+    name: "AgendaPro Serviços",
     category: "Sistema de agendamentos",
     description:
-      "Pagina de apresentacao para sistema de agendamentos online com fluxo de reserva, lembretes e gestao de horarios.",
+      "Página de apresentação para sistema de agendamentos online com fluxo de reserva, lembretes e gestão de horários.",
     objective:
-      "Demonstrar uma solucao pratica para negocios que precisam receber agendamentos, reduzir faltas e organizar atendimentos.",
+      "Demonstrar uma solução prática para negócios que precisam receber agendamentos, reduzir faltas e organizar atendimentos.",
     image:
       "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1400&q=85",
     features: [
       "Agenda online responsiva",
-      "Integracao com WhatsApp",
-      "Confirmacao de horarios",
+      "Integração com WhatsApp",
+      "Confirmação de horários",
       "Painel administrativo",
-      "Apresentacao de planos e beneficios"
+      "Apresentação de planos e benefícios"
     ],
-    technologies: ["Node.js", "HTML", "CSS", "Integracao WhatsApp", "Design system responsivo"],
+    technologies: ["Node.js", "HTML", "CSS", "Integração WhatsApp", "Design system responsivo"],
     differentials: [
-      "Fluxo claro para servicos recorrentes",
-      "Pagina preparada para explicar software e conversao",
+      "Fluxo claro para serviços recorrentes",
+      "Página preparada para explicar software e conversão",
       "Boa leitura em desktop e celular"
     ],
     gallery: [

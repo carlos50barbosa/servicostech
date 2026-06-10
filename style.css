@@ -1703,8 +1703,10 @@ h3 {
 .portfolio-advogado-hero-copy h1 {
   max-width: 720px;
   margin-top: 14px;
+  color: var(--white);
   font-size: clamp(40px, 7vw, 72px);
   line-height: 0.98;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
 }
 
 .portfolio-advogado-hero-copy > p:not(.eyebrow) {
@@ -1932,6 +1934,16 @@ h3 {
   font-weight: 950;
 }
 
+.portfolio-advogado-feature-card svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: var(--law-ink);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+}
+
 .portfolio-advogado-feature-card h3,
 .portfolio-advogado-area-card h3,
 .portfolio-advogado-differential-card h3,
@@ -1945,8 +1957,8 @@ h3 {
 
 .portfolio-advogado-photo-placeholder {
   display: grid;
+  place-items: center;
   min-height: 430px;
-  align-content: end;
   padding: 28px;
   border-radius: 26px;
   color: var(--white);
@@ -1956,16 +1968,15 @@ h3 {
   box-shadow: 0 24px 70px rgba(16, 27, 45, 0.16);
 }
 
-.portfolio-advogado-photo-placeholder span {
-  color: var(--law-gold-soft);
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.portfolio-advogado-photo-placeholder strong {
-  margin-top: 6px;
-  font-size: 34px;
-  line-height: 1;
+.portfolio-advogado-photo-placeholder svg {
+  width: min(190px, 52vw);
+  height: auto;
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.9);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 5;
+  filter: drop-shadow(0 16px 28px rgba(16, 27, 45, 0.3));
 }
 
 .portfolio-advogado-about-grid .btn {
@@ -2005,14 +2016,22 @@ h3 {
   color: var(--white);
 }
 
+.portfolio-advogado-differentials .portfolio-advogado-eyebrow {
+  color: #f5d78d;
+}
+
 .portfolio-advogado-differential-card {
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  color: var(--white);
+  color: rgba(255, 255, 255, 0.92);
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.12);
   box-shadow: none;
+}
+
+.portfolio-advogado-differential-card h3 {
+  color: rgba(255, 255, 255, 0.94);
 }
 
 .portfolio-advogado-differential-card span {
