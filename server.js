@@ -19,10 +19,18 @@ const mimeTypes = {
   ".webp": "image/webp"
 };
 
+function formatValue(value) {
+  if (typeof value === "number" || typeof value === "boolean") {
+    return String(value);
+  }
+
+  return JSON.stringify(value);
+}
+
 function log(level, message, meta = {}) {
   const timestamp = new Date().toISOString();
   const fields = Object.entries(meta)
-    .map(([key, value]) => `${key}=${JSON.stringify(value)}`)
+    .map(([key, value]) => `${key}=${formatValue(value)}`)
     .join(" ");
   const line = fields ? `[${timestamp}] ${level} ${message} ${fields}` : `[${timestamp}] ${level} ${message}`;
 
@@ -122,6 +130,21 @@ function getUserAgentSummary(userAgent) {
             : "unknown OS";
 
   return browserVersion ? `${browserName} ${browserVersion} / ${os}` : `${browserName} / ${os}`;
+}
+
+function getRefererPath(request) {
+  const referer = request.headers.referer || request.headers.referrer;
+
+  if (typeof referer !== "string" || referer.length === 0) {
+    return "";
+  }
+
+  try {
+    const url = new URL(referer);
+    return `${url.pathname}${url.search}`;
+  } catch {
+    return referer;
+  }
 }
 
 function resolveRequestPath(requestUrl) {
@@ -401,11 +424,32 @@ function renderProjectNotFound(slug) {
   });
 }
 
+function renderSitemap() {
+  const urls = [
+    "https://servicostech.com.br/",
+    "https://servicostech.com.br/portfolio",
+    ...projects.map((project) => `https://servicostech.com.br/portfolio/${project.slug}`)
+  ];
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((url) => `  <url><loc>${escapeHtml(url)}</loc></url>`).join("\n")}
+</urlset>
+`;
+}
+
 function sendHtml(response, html, statusCode = 200) {
   response.writeHead(statusCode, {
     "Content-Type": "text/html; charset=utf-8"
   });
   response.end(html);
+}
+
+function sendText(response, text, contentType = "text/plain; charset=utf-8", statusCode = 200) {
+  response.writeHead(statusCode, {
+    "Content-Type": contentType
+  });
+  response.end(text);
 }
 
 async function sendFile(response, filePath) {
@@ -441,15 +485,12 @@ const server = http.createServer(async (request, response) => {
     }
 
     log(getAccessLogLevel(status), "access", {
-      requestId,
-      method,
       route,
       path: pathname,
-      url: request.url,
       status,
-      durationMs: Number(durationMs.toFixed(2)),
+      ms: Number(durationMs.toFixed(2)),
       ip: clientIp,
-      referer: request.headers.referer || request.headers.referrer || "",
+      from: getRefererPath(request),
       ua: getUserAgentSummary(userAgent)
     });
   });
@@ -482,6 +523,21 @@ const server = http.createServer(async (request, response) => {
     }
 
     sendHtml(response, renderProjectPage(project));
+    return;
+  }
+
+  if (pathname === "/robots.txt") {
+    route = "bot.robots";
+    sendText(
+      response,
+      "User-agent: *\nAllow: /\nSitemap: https://servicostech.com.br/sitemap.xml\n"
+    );
+    return;
+  }
+
+  if (pathname === "/sitemap.xml") {
+    route = "bot.sitemap";
+    sendText(response, renderSitemap(), "application/xml; charset=utf-8");
     return;
   }
 
