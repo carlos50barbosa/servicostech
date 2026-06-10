@@ -59,24 +59,22 @@ const projects = [
   },
   {
     slug: "site-para-advogado",
-    name: "Defesa Digital Advocacia",
-    category: "Advocacia consumerista e digital",
-    heroTitle: "Advogado Especialista em Fraudes Bancarias, Contas Bloqueadas e Direito Digital",
+    name: "Site para Advogados",
+    category: "Landing page juridica premium",
+    heroTitle: "Site profissional para advogados",
     heroSubtitle:
-      "Modelo para escritorio que atende consumidores contra bancos, plataformas digitais, golpes online e bloqueios de contas, com captacao direta pelo WhatsApp.",
+      "Um modelo de presenca digital moderno, estrategico e pensado para transmitir autoridade, confianca e gerar contatos qualificados.",
     description:
-      "Modelo de site para advogado especialista em fraudes bancarias, contas bloqueadas, negativacao indevida e recuperacao de contas digitais.",
+      "Landing page demonstrativa para advogados e escritorios que precisam apresentar servicos juridicos com autoridade, clareza e foco em conversao.",
     objective:
-      "Criar uma pagina de alta conversao para atendimento juridico 100% digital, com especialidades claras, prova de autoridade e contato imediato pelo WhatsApp.",
+      "Apresentar um exemplo de site juridico premium, com secoes comerciais, areas de atuacao, diferenciais e contato direto pelo WhatsApp.",
     image:
       "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1400&q=85",
     features: [
-      "Hero com promessa juridica objetiva",
-      "Cards de especialidades por problema",
-      "CTA direto para falar com advogado",
-      "Secao de prova social e numeros",
-      "FAQ para duvidas juridicas recorrentes",
-      "Formulario de triagem por area de atuacao"
+      "Design profissional",
+      "Layout responsivo",
+      "Integracao com WhatsApp",
+      "Estrutura otimizada para conversao"
     ],
     technologies: ["HTML semantico", "CSS responsivo", "SEO juridico", "Open Graph", "Schema ProfessionalService"],
     differentials: [
@@ -91,41 +89,66 @@ const projects = [
       { value: "Brasil", label: "atuacao nacional" }
     ],
     badges: [
-      "Atendimento de qualidade",
-      "Direito do consumidor",
-      "Contato agil via WhatsApp"
+      "Atendimento online",
+      "Areas de atuacao",
+      "Consulta estrategica",
+      "WhatsApp"
     ],
     specialties: [
       {
-        title: "Fraudes bancarias",
-        description: "Pagina preparada para captar casos de Pix indevido, emprestimos nao reconhecidos e golpes por falsa central."
+        title: "Direito do Consumidor",
+        description: "Espaco para apresentar defesa em relacoes de consumo com linguagem simples e profissional."
       },
       {
-        title: "Contas bloqueadas",
-        description: "Area dedicada a clientes com saldo retido, bloqueio de banco digital ou encerramento unilateral de conta."
+        title: "Direito Bancario",
+        description: "Secao voltada a demandas envolvendo bancos, contas digitais e contratos financeiros."
       },
       {
-        title: "Negativacao indevida",
-        description: "Conteudo focado em remocao de apontamentos indevidos e orientacao sobre possivel reparacao financeira."
+        title: "Direito Digital",
+        description: "Apresentacao clara para casos ligados a plataformas, dados, contas e ambiente online."
       },
       {
-        title: "WhatsApp banido",
-        description: "Fluxo de conversao para recuperar ferramenta de trabalho bloqueada sem justificativa clara."
+        title: "Fraudes e Golpes",
+        description: "Bloco preparado para orientar visitantes que buscam suporte juridico apos prejuizos digitais."
       },
       {
-        title: "Perfil hackeado",
-        description: "Secao para casos de Instagram invadido, perda de acesso e falhas de suporte da plataforma."
+        title: "Negativacao Indevida",
+        description: "Conteudo objetivo para explicar atuacao em apontamentos indevidos e protecao de reputacao."
       },
       {
-        title: "Problemas com apostas",
-        description: "Modelo para orientar usuarios com saque retido, conta suspensa ou saldo bloqueado em plataformas digitais."
+        title: "Contratos",
+        description: "Area para destacar analise, elaboracao e revisao de documentos juridicos importantes."
+      },
+      {
+        title: "Familia e Sucessoes",
+        description: "Card demonstrativo para servicos sensiveis que exigem acolhimento, clareza e discricao."
+      },
+      {
+        title: "Trabalhista",
+        description: "Espaco para comunicar atuacao em relacoes de trabalho de forma direta e confiavel."
       }
     ],
     about: {
-      title: "Advocacia especializada em consumidor, bancos e direito digital",
+      title: "Sobre o escritorio",
       text:
-        "O layout apresenta o advogado como especialista, explica a atuacao em linguagem direta e conduz o visitante para uma conversa qualificada. A pagina combina autoridade, clareza e velocidade para transformar duvidas urgentes em pedidos de atendimento."
+        "Este modelo foi criado para advogados e escritorios que desejam apresentar sua atuacao de forma clara, objetiva e profissional. A estrutura valoriza a experiencia, as areas de atuacao e facilita o contato direto com o cliente."
     },
+    lawyerIntro:
+      "Advogados precisam de um site claro, profissional e confiavel para apresentar seus servicos, fortalecer sua imagem e facilitar o contato com potenciais clientes. Este modelo organiza a mensagem, reduz atritos e conduz o visitante para uma conversa pelo WhatsApp.",
+    lawyerDifferentials: [
+      "Passa mais credibilidade",
+      "Facilita o contato pelo WhatsApp",
+      "Apresenta servicos de forma organizada",
+      "Funciona bem no celular",
+      "Ajuda em campanhas de trafego pago",
+      "Pode ser adaptado para qualquer area juridica"
+    ],
+    process: [
+      "Entendemos sua area de atuacao",
+      "Criamos o layout personalizado",
+      "Ajustamos textos e secoes",
+      "Publicamos o site pronto para receber clientes"
+    ],
     faqs: [
       {
         question: "O atendimento pode ser feito totalmente online?",
