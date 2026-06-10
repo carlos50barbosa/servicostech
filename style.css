@@ -80,9 +80,11 @@ ul {
 
 .header-inner {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   min-height: 72px;
+  padding: 10px 0 12px;
   gap: 18px;
 }
 
@@ -124,9 +126,37 @@ ul {
   object-fit: contain;
 }
 
-.main-nav,
 .site-header .header-action {
   display: none;
+}
+
+.main-nav {
+  order: 3;
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  color: var(--graphite);
+  font-size: 13px;
+  font-weight: 900;
+  scrollbar-width: none;
+}
+
+.main-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.main-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  flex: 0 0 auto;
+  padding: 8px 12px;
+  border: 1px solid rgba(37, 99, 235, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 8px 22px rgba(17, 24, 39, 0.06);
 }
 
 .header-tools {
@@ -2134,16 +2164,31 @@ h3 {
 }
 
 @media (min-width: 860px) {
+  .header-inner {
+    flex-wrap: nowrap;
+    padding: 0;
+  }
+
   .main-nav {
     display: flex;
+    order: 0;
+    width: auto;
     align-items: center;
     gap: 26px;
+    overflow: visible;
+    padding-bottom: 0;
     color: var(--graphite);
     font-size: 15px;
     font-weight: 800;
   }
 
   .main-nav a {
+    min-height: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
     transition: color 180ms ease;
   }
 
@@ -2317,7 +2362,14 @@ h3 {
 
 @media (min-width: 860px) and (max-width: 1080px) {
   .portfolio-advogado-header .main-nav {
-    display: none;
+    gap: 14px;
+    font-size: 13px;
+  }
+
+  .portfolio-advogado-header .header-action {
+    min-height: 44px;
+    padding-inline: 14px;
+    font-size: 13px;
   }
 }
 
