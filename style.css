@@ -902,6 +902,37 @@ h3 {
   margin-top: 24px;
 }
 
+.project-stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.project-stats div {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(37, 99, 235, 0.16);
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(17, 24, 39, 0.06);
+  backdrop-filter: blur(14px);
+}
+
+.project-stats strong {
+  display: block;
+  color: var(--primary-dark);
+  font-size: 28px;
+  line-height: 1;
+}
+
+.project-stats span {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
 .project-meta span,
 .tech-list span {
   display: inline-flex;
@@ -955,6 +986,97 @@ h3 {
 
 .project-detail-section {
   padding: 58px 0;
+}
+
+.specialty-section {
+  background: var(--white);
+}
+
+.specialty-grid,
+.faq-list {
+  display: grid;
+  gap: 18px;
+}
+
+.specialty-card,
+.faq-item,
+.about-proof-card {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(229, 231, 235, 0.92);
+  border-radius: 22px;
+  box-shadow: var(--shadow-sm);
+}
+
+.specialty-card {
+  display: grid;
+  gap: 12px;
+  padding: 24px;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.specialty-card:hover {
+  border-color: rgba(37, 99, 235, 0.32);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.specialty-card h3,
+.faq-item h3 {
+  font-size: 18px;
+}
+
+.specialty-card p,
+.faq-item p,
+.project-about-grid p {
+  color: var(--muted);
+}
+
+.specialty-card a {
+  width: max-content;
+  max-width: 100%;
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.project-about-section,
+.faq-section {
+  background: var(--support);
+}
+
+.project-about-grid,
+.faq-grid {
+  display: grid;
+  gap: 28px;
+}
+
+.project-about-grid h2 {
+  max-width: 760px;
+}
+
+.project-about-grid p:not(.eyebrow) {
+  max-width: 760px;
+  margin-top: 16px;
+  font-size: 18px;
+}
+
+.about-proof-card {
+  padding: 24px;
+}
+
+.about-proof-card > span {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.faq-item {
+  padding: 22px;
+}
+
+.faq-item p {
+  margin-top: 10px;
 }
 
 .project-detail-grid {
@@ -1431,6 +1553,10 @@ h3 {
     grid-template-columns: repeat(3, 1fr);
   }
 
+  .project-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1518,6 +1644,16 @@ h3 {
 
   .project-detail-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .specialty-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .project-about-grid,
+  .faq-grid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1fr);
+    align-items: start;
   }
 
   .detail-card-large {

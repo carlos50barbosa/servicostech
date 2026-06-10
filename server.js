@@ -284,6 +284,96 @@ function renderProjectCard(project) {
     </article>`;
 }
 
+function renderProjectStats(project) {
+  if (!Array.isArray(project.stats) || project.stats.length === 0) {
+    return "";
+  }
+
+  return `
+    <div class="project-stats">
+      ${project.stats.map((stat) => `
+        <div>
+          <strong>${escapeHtml(stat.value)}</strong>
+          <span>${escapeHtml(stat.label)}</span>
+        </div>
+      `).join("")}
+    </div>`;
+}
+
+function renderProjectSpecialties(project) {
+  if (!Array.isArray(project.specialties) || project.specialties.length === 0) {
+    return "";
+  }
+
+  return `
+    <section class="project-detail-section specialty-section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Especialidades</p>
+          <h2>Problemas juridicos apresentados de forma clara</h2>
+        </div>
+        <div class="specialty-grid">
+          ${project.specialties.map((specialty) => `
+            <article class="specialty-card">
+              <h3>${escapeHtml(specialty.title)}</h3>
+              <p>${escapeHtml(specialty.description)}</p>
+              <a href="#contato-projeto">Ver estrutura de atendimento</a>
+            </article>
+          `).join("")}
+        </div>
+      </div>
+    </section>`;
+}
+
+function renderProjectAbout(project) {
+  if (!project.about) {
+    return "";
+  }
+
+  return `
+    <section class="project-detail-section project-about-section">
+      <div class="container project-about-grid">
+        <div>
+          <p class="eyebrow">Quem sou</p>
+          <h2>${escapeHtml(project.about.title)}</h2>
+          <p>${escapeHtml(project.about.text)}</p>
+        </div>
+        <div class="about-proof-card">
+          <span>Modelo ideal para</span>
+          <ul class="feature-list">
+            <li>Advogados consumeristas</li>
+            <li>Direito bancario e digital</li>
+            <li>Atendimento nacional por WhatsApp</li>
+          </ul>
+        </div>
+      </div>
+    </section>`;
+}
+
+function renderProjectFaqs(project) {
+  if (!Array.isArray(project.faqs) || project.faqs.length === 0) {
+    return "";
+  }
+
+  return `
+    <section class="project-detail-section faq-section">
+      <div class="container faq-grid">
+        <div class="section-heading">
+          <p class="eyebrow">FAQ</p>
+          <h2>Duvidas frequentes antes do contato</h2>
+        </div>
+        <div class="faq-list">
+          ${project.faqs.map((faq) => `
+            <article class="faq-item">
+              <h3>${escapeHtml(faq.question)}</h3>
+              <p>${escapeHtml(faq.answer)}</p>
+            </article>
+          `).join("")}
+        </div>
+      </div>
+    </section>`;
+}
+
 function renderPortfolioIndex() {
   return renderLayout({
     title: "Portfólio de Projetos | Serviços Tech",
@@ -331,6 +421,7 @@ function renderProjectPage(project) {
               <p class="eyebrow">${escapeHtml(project.category)}</p>
               <h1>${escapeHtml(project.name)}</h1>
               <p>${escapeHtml(project.description)}</p>
+              ${renderProjectStats(project)}
               <div class="project-meta">
                 <span>Site responsivo</span>
                 <span>SEO básico</span>
@@ -346,6 +437,9 @@ function renderProjectPage(project) {
             </div>
           </div>
         </section>
+
+        ${renderProjectSpecialties(project)}
+        ${renderProjectAbout(project)}
 
         <section class="project-detail-section">
           <div class="container project-detail-grid">
@@ -390,7 +484,9 @@ function renderProjectPage(project) {
           </div>
         </section>
 
-        <section class="project-conversion">
+        ${renderProjectFaqs(project)}
+
+        <section class="project-conversion" id="contato-projeto">
           <div class="container">
             <div class="conversion-box">
               <p class="eyebrow">Gostou desse projeto?</p>
