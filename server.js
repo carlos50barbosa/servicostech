@@ -363,12 +363,12 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
 function renderProjectCard(project) {
   return `
     <article class="project-card">
-      <a class="project-image" href="/portfolio/${project.slug}" aria-label="Ver detalhes do projeto ${escapeHtml(project.name)}">
-        <img src="${escapeHtml(project.image)}" alt="Mockup do projeto ${escapeHtml(project.name)}" loading="lazy" />
+      <a class="project-image" href="/portfolio/${project.slug}" aria-label="Ver detalhes do projeto ${escapeHtml(project.cardTitle || project.name)}">
+        <img src="${escapeHtml(project.image)}" alt="Mockup do projeto ${escapeHtml(project.cardTitle || project.name)}" loading="lazy" />
       </a>
       <div class="project-copy">
         <span>${escapeHtml(project.category)}</span>
-        <h3>${escapeHtml(project.name)}</h3>
+        <h3>${escapeHtml(project.cardTitle || project.name)}</h3>
         <p>${escapeHtml(project.description)}</p>
         <ul>${renderList(project.features.slice(0, 3))}</ul>
         <a class="project-link" href="/portfolio/${project.slug}">Ver detalhes</a>
@@ -467,9 +467,13 @@ function renderProjectFaqs(project) {
 }
 
 function renderPortfolioIndex() {
+  return renderPortfolioIndexPage();
+}
+
+function renderPortfolioIndexPage() {
   return renderLayout({
     title: "Portfólio de Projetos | Serviços Tech",
-    description: "Conheça exemplos de sites profissionais, landing pages e sistemas digitais criados pela Serviços Tech.",
+    description: "Conheça exemplos de sites profissionais para clínicas, advogados, barbearias, restaurantes, estética e consultorias.",
     canonicalPath: "/portfolio",
     image: projects[0].image,
     content: `
@@ -478,8 +482,8 @@ function renderPortfolioIndex() {
           <div class="container project-hero-grid">
             <div class="project-hero-copy">
               <p class="eyebrow">Portfólio</p>
-              <h1>Projetos digitais com visual profissional e foco em conversão</h1>
-              <p>Veja exemplos práticos de sites, landing pages e soluções digitais que podemos adaptar para a sua empresa.</p>
+              <h1>Modelos de sites profissionais por segmento</h1>
+              <p>Escolha um projeto para ver conteúdo, seções, diferenciais e chamada de WhatsApp adaptados ao nicho.</p>
               <a class="btn btn-primary" href="/#portfolio">Voltar para a página inicial</a>
             </div>
             <div class="project-hero-media">
@@ -659,96 +663,190 @@ function renderLawyerProjectPage(project) {
 }
 
 function renderProjectPage(project) {
-  if (project.slug === "site-para-advogado") {
-    return renderLawyerProjectPage(project);
-  }
-
-  const whatsappMessage = `Olá! Vim pelo site da Serviços Tech e gostaria de solicitar um orçamento para um projeto parecido com ${project.name}.`;
+  const sections = project.sections || {};
+  const areas = sections.areas || [];
+  const processSteps = sections.process || [];
+  const finalCta = sections.finalCta || {
+    title: "Quer um site profissional como este?",
+    text: "A Serviços Tech cria sites modernos para empresas que querem transmitir mais confiança e gerar mais contatos.",
+    button: "Solicitar orçamento pelo WhatsApp"
+  };
+  const whatsappMessage =
+    project.whatsappMessage ||
+    `Olá! Vi o modelo ${project.name} no portfólio da Serviços Tech e gostaria de solicitar um orçamento.`;
+  const badges = project.features.slice(0, 4);
+  const cardTitle = project.cardTitle || project.name;
 
   return renderLayout({
-    title: `${project.name} | Portfólio Serviços Tech`,
+    title: `${project.title || project.name} | Portfólio Serviços Tech`,
     description: project.description,
     canonicalPath: `/portfolio/${project.slug}`,
     image: project.image,
     content: `
-      <main class="project-detail-page ${project.slug === "site-para-advogado" ? "lawyer-theme" : ""}">
-        <section class="project-detail-hero">
-          <div class="container project-hero-grid">
-            <div class="project-hero-copy">
-              <a class="back-link" href="/#portfolio">← Voltar ao portfólio</a>
+      <main class="portfolio-detail-page project-detail-page" style="--portfolio-accent: ${escapeHtml(project.accentColor || "#2563eb")}">
+        <section class="portfolio-detail-hero project-detail-hero" id="inicio">
+          <div class="container portfolio-detail-hero-grid project-hero-grid">
+            <div class="portfolio-detail-hero-content project-hero-copy">
+              <a class="back-link" href="/portfolio">Voltar ao portfólio</a>
               <p class="eyebrow">${escapeHtml(project.category)}</p>
-              <h1>${escapeHtml(project.heroTitle || project.name)}</h1>
-              <p>${escapeHtml(project.heroSubtitle || project.description)}</p>
-              ${renderProjectStats(project)}
-              <div class="project-meta">
-                ${(project.badges || ["Site responsivo", "SEO básico", "CTA WhatsApp"]).map((badge) => `<span>${escapeHtml(badge)}</span>`).join("")}
+              <h1>${escapeHtml(project.title || project.name)}</h1>
+              <p>${escapeHtml(project.subtitle || project.description)}</p>
+              <div class="portfolio-detail-tags project-meta">
+                ${badges.map((badge) => `<span>${escapeHtml(badge)}</span>`).join("")}
               </div>
-              <div class="project-actions">
-                <a class="btn btn-primary" href="${buildWhatsAppUrl(whatsappMessage)}" target="_blank" rel="noopener">Quero um projeto parecido</a>
-                <a class="btn btn-secondary" href="${buildWhatsAppUrl(whatsappMessage)}" target="_blank" rel="noopener">Falar no WhatsApp</a>
+              <div class="portfolio-detail-actions project-actions">
+                <a class="btn btn-primary" href="${buildWhatsAppUrl(whatsappMessage)}" target="_blank" rel="noopener">${escapeHtml(project.primaryCta || "Quero um site assim")}</a>
+                <a class="btn btn-secondary" href="#areas">${escapeHtml(project.secondaryCta || "Ver seções do modelo")}</a>
               </div>
             </div>
-            <div class="project-hero-media">
-              <img src="${escapeHtml(project.image)}" alt="Imagem principal do projeto ${escapeHtml(project.name)}" />
+            <div class="portfolio-detail-mockup">
+              <div class="portfolio-detail-browser">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="portfolio-detail-mockup-visual">
+                <img src="${escapeHtml(project.image)}" alt="Imagem principal do projeto ${escapeHtml(cardTitle)}" />
+                <div>
+                  <p>${escapeHtml(project.category)}</p>
+                  <strong>${escapeHtml(project.heroMockupTitle || project.title || project.name)}</strong>
+                  <a href="${buildWhatsAppUrl(whatsappMessage)}" target="_blank" rel="noopener">${escapeHtml(project.heroMockupButton || "WhatsApp")}</a>
+                </div>
+              </div>
+              <div class="portfolio-detail-mockup-grid">
+                ${areas.slice(0, 2).map((area, index) => `
+                  <article>
+                    <span>${String(index + 1).padStart(2, "0")}</span>
+                    <strong>${escapeHtml(area.title)}</strong>
+                    <p>${escapeHtml(area.description)}</p>
+                  </article>
+                `).join("")}
+              </div>
             </div>
           </div>
         </section>
 
-        ${renderProjectSpecialties(project)}
-        ${renderProjectAbout(project)}
-
-        <section class="project-detail-section">
-          <div class="container project-detail-grid">
-            <article class="detail-card detail-card-large">
+        <section class="portfolio-detail-section" id="apresentacao">
+          <div class="container portfolio-detail-split">
+            <div>
+              <p class="eyebrow">Apresentação</p>
+              <h2>${escapeHtml(sections.presentation?.title || "Uma presença digital pensada para converter")}</h2>
+              <p>${escapeHtml(sections.presentation?.text || project.objective)}</p>
+            </div>
+            <div class="portfolio-detail-card">
               <span>Objetivo</span>
-              <h2>O que o projeto precisava resolver</h2>
+              <h3>O que o projeto resolve</h3>
               <p>${escapeHtml(project.objective)}</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="portfolio-detail-section portfolio-detail-about" id="sobre">
+          <div class="container portfolio-detail-split">
+            <article class="portfolio-detail-card">
+              <span>Sobre</span>
+              <h2>${escapeHtml(sections.about?.title || cardTitle)}</h2>
+              <p>${escapeHtml(sections.about?.text || project.description)}</p>
             </article>
-            <article class="detail-card">
-              <span>Funcionalidades</span>
-              <h2>Principais recursos</h2>
+            <article class="portfolio-detail-card">
+              <span>Recursos</span>
+              <h2>Principais entregas</h2>
               <ul class="feature-list">${renderList(project.features)}</ul>
             </article>
-            <article class="detail-card">
-              <span>Tecnologias</span>
-              <h2>Base técnica</h2>
-              <div class="tech-list">
-                ${project.technologies.map((technology) => `<span>${escapeHtml(technology)}</span>`).join("")}
-              </div>
-            </article>
-            <article class="detail-card detail-card-large">
-              <span>Diferenciais</span>
-              <h2>Por que esse projeto transmite mais valor</h2>
-              <ul class="feature-list">${renderList(project.differentials)}</ul>
-            </article>
           </div>
         </section>
 
-        <section class="project-detail-section project-gallery-section">
+        <section class="portfolio-detail-section portfolio-detail-areas" id="areas">
+          <div class="container">
+            <div class="section-heading">
+              <p class="eyebrow">Serviços</p>
+              <h2>Seções pensadas para este segmento</h2>
+            </div>
+            <div class="portfolio-detail-areas-grid">
+              ${areas.map((area, index) => `
+                <article class="portfolio-detail-card">
+                  <span>${String(index + 1).padStart(2, "0")}</span>
+                  <h3>${escapeHtml(area.title)}</h3>
+                  <p>${escapeHtml(area.description)}</p>
+                </article>
+              `).join("")}
+            </div>
+          </div>
+        </section>
+
+        <section class="portfolio-detail-section portfolio-detail-diferenciais" id="diferenciais">
+          <div class="container portfolio-detail-split">
+            <div>
+              <p class="eyebrow">Diferenciais</p>
+              <h2>Por que esse modelo funciona?</h2>
+              <p>O conteúdo, os blocos e os botões foram pensados para reduzir dúvidas e conduzir o visitante para uma conversa qualificada.</p>
+            </div>
+            <div class="portfolio-detail-diferenciais-grid">
+              ${project.differentials.map((item) => `
+                <article class="portfolio-detail-card">
+                  <span aria-hidden="true"></span>
+                  <h3>${escapeHtml(item)}</h3>
+                </article>
+              `).join("")}
+            </div>
+          </div>
+        </section>
+
+        <section class="portfolio-detail-section portfolio-detail-processo" id="processo">
+          <div class="container portfolio-detail-processo-grid">
+            <div>
+              <p class="eyebrow">Processo</p>
+              <h2>Como criamos seu site</h2>
+            </div>
+            <div class="portfolio-detail-steps">
+              ${processSteps.map((step, index) => `
+                <article class="portfolio-detail-card">
+                  <span>${String(index + 1).padStart(2, "0")}</span>
+                  <h3>${escapeHtml(step)}</h3>
+                </article>
+              `).join("")}
+            </div>
+          </div>
+        </section>
+
+        <section class="portfolio-detail-section project-gallery-section">
           <div class="container">
             <div class="section-heading">
               <p class="eyebrow">Galeria</p>
-              <h2>Prints e referências visuais do projeto</h2>
+              <h2>Referências visuais do projeto</h2>
             </div>
             <div class="gallery-grid">
               ${project.gallery.map((image, index) => `
                 <figure class="gallery-card">
-                  <img src="${escapeHtml(image)}" alt="Imagem ${index + 1} do projeto ${escapeHtml(project.name)}" loading="lazy" />
+                  <img src="${escapeHtml(image)}" alt="Imagem ${index + 1} do projeto ${escapeHtml(cardTitle)}" loading="lazy" />
                 </figure>
               `).join("")}
             </div>
           </div>
         </section>
 
-        ${renderProjectFaqs(project)}
+        <section class="portfolio-detail-section">
+          <div class="container project-detail-grid">
+            <article class="portfolio-detail-card">
+              <span>Tecnologias</span>
+              <h2>Base técnica</h2>
+              <div class="tech-list">
+                ${project.technologies.map((technology) => `<span>${escapeHtml(technology)}</span>`).join("")}
+              </div>
+            </article>
+            <article class="portfolio-detail-card">
+              <span>Contato</span>
+              <h2>Mensagem personalizada</h2>
+              <p>${escapeHtml(whatsappMessage)}</p>
+            </article>
+          </div>
+        </section>
 
-        <section class="project-conversion" id="contato-projeto">
+        <section class="portfolio-detail-cta" id="contato-projeto">
           <div class="container">
-            <div class="conversion-box">
-              <p class="eyebrow">Gostou desse projeto?</p>
-              <h2>Podemos criar algo parecido para sua empresa.</h2>
-              <p>Solicite uma proposta e receba uma orientação objetiva para transformar sua ideia em um site profissional.</p>
-              <a class="btn btn-primary btn-large" href="${buildWhatsAppUrl(whatsappMessage)}" target="_blank" rel="noopener">Solicitar orçamento</a>
+            <div class="portfolio-detail-cta-box conversion-box">
+              <p class="eyebrow">Projeto sob medida</p>
+              <h2>${escapeHtml(finalCta.title)}</h2>
+              <p>${escapeHtml(finalCta.text)}</p>
+              <a class="btn btn-primary btn-large" href="${buildWhatsAppUrl(whatsappMessage)}" target="_blank" rel="noopener">${escapeHtml(finalCta.button)}</a>
             </div>
           </div>
         </section>
@@ -768,8 +866,8 @@ function renderProjectNotFound(slug) {
           <div class="container not-found-box">
             <p class="eyebrow">Portfólio</p>
             <h1>Projeto não encontrado</h1>
-            <p>O projeto que você tentou acessar não existe ou mudou de endereço.</p>
-            <a class="btn btn-primary" href="/#portfolio">Voltar ao portfólio</a>
+            <p>O modelo que você está procurando não está disponível no momento.</p>
+            <a class="btn btn-primary" href="/portfolio">Voltar para o portfólio</a>
           </div>
         </section>
       </main>`
@@ -859,7 +957,7 @@ const server = http.createServer(async (request, response) => {
 
   if (pathname === "/portfolio") {
     route = "page.portfolio";
-    sendHtml(response, renderPortfolioIndex());
+    sendHtml(response, renderPortfolioIndexPage());
     return;
   }
 
