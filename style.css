@@ -1780,7 +1780,61 @@ h3 {
 }
 
 .portfolio-advogado-header {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(16, 27, 45, 0.94);
+  border-bottom-color: rgba(214, 178, 94, 0.24);
+  box-shadow: 0 18px 46px rgba(6, 12, 24, 0.22);
+  backdrop-filter: blur(18px);
+}
+
+.portfolio-advogado-header .brand {
+  color: var(--white);
+}
+
+.portfolio-advogado-header .brand small {
+  color: rgba(245, 234, 209, 0.72);
+}
+
+.portfolio-advogado-header .brand-icon {
+  background: rgba(214, 178, 94, 0.14);
+  border-color: rgba(214, 178, 94, 0.36);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.24);
+}
+
+.portfolio-advogado-header .main-nav a {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.portfolio-advogado-header .main-nav a:hover {
+  color: #f5d78d;
+}
+
+.portfolio-advogado-header .header-action {
+  color: #101b2d;
+  background: linear-gradient(135deg, #f0d894, #d6b25e);
+  box-shadow: 0 16px 38px rgba(214, 178, 94, 0.26);
+}
+
+.portfolio-advogado-header .header-action:hover {
+  background: linear-gradient(135deg, #f7e7ad, #d6b25e);
+}
+
+.portfolio-advogado-header .mobile-menu summary {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(214, 178, 94, 0.34);
+}
+
+.portfolio-advogado-header .mobile-menu summary span {
+  background: #f5d78d;
+}
+
+.portfolio-advogado-header .mobile-menu nav {
+  background: #101b2d;
+  border-color: rgba(214, 178, 94, 0.28);
+}
+
+.portfolio-advogado-header .mobile-menu nav a {
+  color: rgba(255, 255, 255, 0.86);
 }
 
 .portfolio-advogado-page {
@@ -2493,11 +2547,27 @@ h3 {
     linear-gradient(180deg, var(--white), var(--support) 44%, var(--white));
 }
 
+.portfolio-detail-lawyer {
+  --portfolio-accent: #d6b25e;
+  --lawyer-navy: #101b2d;
+  --lawyer-ink: #172033;
+  --lawyer-cream: #f7f1e4;
+  background:
+    radial-gradient(circle at 82% 4%, rgba(214, 178, 94, 0.16), transparent 28%),
+    linear-gradient(180deg, #fffaf0, #f7f1e4 44%, #ffffff);
+}
+
 .portfolio-detail-hero {
   color: var(--white);
   background:
     radial-gradient(circle at 80% 18%, color-mix(in srgb, var(--portfolio-accent, #2563eb) 30%, transparent), transparent 26%),
     linear-gradient(135deg, #0f172a, #111827 58%, #1f2937);
+}
+
+.portfolio-detail-lawyer .portfolio-detail-hero {
+  background:
+    radial-gradient(circle at 78% 18%, rgba(214, 178, 94, 0.28), transparent 26%),
+    linear-gradient(135deg, #101b2d, #172033 58%, #24314a);
 }
 
 .portfolio-detail-hero::before {
@@ -2506,6 +2576,13 @@ h3 {
     linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   background-size: 32px 32px;
   opacity: 0.35;
+}
+
+.portfolio-detail-lawyer .portfolio-detail-hero::before {
+  background:
+    linear-gradient(rgba(214, 178, 94, 0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(214, 178, 94, 0.13) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
 .portfolio-detail-hero-content h1 {
@@ -2528,10 +2605,23 @@ h3 {
   background: linear-gradient(135deg, var(--portfolio-accent, var(--primary)), var(--primary-dark));
 }
 
+.portfolio-detail-lawyer .portfolio-detail-hero .btn-primary,
+.portfolio-detail-lawyer .portfolio-detail-cta .btn-primary {
+  color: #101b2d;
+  background: linear-gradient(135deg, #f0d894, #d6b25e);
+  box-shadow: 0 18px 42px rgba(214, 178, 94, 0.26);
+}
+
 .portfolio-detail-hero .btn-secondary {
   color: var(--white);
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.24);
+}
+
+.portfolio-detail-lawyer .portfolio-detail-hero .btn-secondary {
+  color: #f5d78d;
+  border-color: rgba(214, 178, 94, 0.42);
+  background: rgba(214, 178, 94, 0.1);
 }
 
 .portfolio-detail-mockup {
@@ -2542,6 +2632,12 @@ h3 {
   background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 34px 100px rgba(0, 0, 0, 0.32);
   backdrop-filter: blur(18px);
+}
+
+.portfolio-detail-lawyer .portfolio-detail-mockup {
+  border-color: rgba(214, 178, 94, 0.32);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 34px 100px rgba(0, 0, 0, 0.34);
 }
 
 .portfolio-detail-browser {
@@ -2665,6 +2761,13 @@ h3 {
   background: var(--support);
 }
 
+.portfolio-detail-lawyer .portfolio-detail-about,
+.portfolio-detail-lawyer .portfolio-detail-areas,
+.portfolio-detail-lawyer .portfolio-detail-processo,
+.portfolio-detail-lawyer .project-gallery-section {
+  background: #f7f1e4;
+}
+
 .portfolio-detail-areas-grid {
   margin-top: 28px;
 }
@@ -2672,6 +2775,10 @@ h3 {
 .portfolio-detail-diferenciais {
   color: var(--white);
   background: #111827;
+}
+
+.portfolio-detail-lawyer .portfolio-detail-diferenciais {
+  background: #101b2d;
 }
 
 .portfolio-detail-diferenciais h2 {
@@ -2712,6 +2819,10 @@ h3 {
 .portfolio-detail-cta {
   padding: 74px 0;
   background: linear-gradient(135deg, #0f172a, #111827 58%, #23324c);
+}
+
+.portfolio-detail-lawyer .portfolio-detail-cta {
+  background: linear-gradient(135deg, #172033, #101b2d 58%, #23324c);
 }
 
 .portfolio-detail-cta-box {

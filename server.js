@@ -178,64 +178,36 @@ function renderList(items) {
   return items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
 }
 
-function renderSiteHeader(variant = "default") {
-  const isLawyer = variant === "lawyer";
-  const navLinks = isLawyer
-    ? [
-        { href: "#inicio", label: "Início" },
-        { href: "#sobre", label: "Sobre" },
-        { href: "#areas", label: "Áreas de Atuação" },
-        { href: "#diferenciais", label: "Diferenciais" },
-        { href: "#contato-projeto", label: "Contato" }
-      ]
-    : [
-        { href: "/#beneficios", label: "Benefícios" },
-        { href: "/#portfolio", label: "Portfólio" },
-        { href: "/#oferta", label: "Oferta" },
-        { href: "/#contato", label: "Contato" }
-      ];
-  const quoteMessage = isLawyer
-    ? "Olá! Vi o modelo de site para advogado no portfólio da Serviços Tech e gostaria de solicitar um orçamento."
-    : "Olá! Vim pelo site da Serviços Tech e gostaria de solicitar um orçamento para criação de site.";
-
-  if (isLawyer) {
-    return `
-    <header class="site-header portfolio-advogado-header">
-      <div class="container header-inner">
-        <a class="brand" href="/" aria-label="Serviços Tech">
-          <span class="brand-icon" aria-hidden="true">
-            <img src="/assets/servicos-tech-mark.svg" alt="" />
-          </span>
-          <span>
-            Serviços Tech
-            <small>servicostech.com.br</small>
-          </span>
-        </a>
-        <nav class="main-nav" aria-label="Navegação da landing page">
-          ${navLinks.map((link) => `<a href="${link.href}">${link.label}</a>`).join("")}
-        </nav>
-        <details class="mobile-menu">
-          <summary aria-label="Abrir menu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </summary>
-          <nav aria-label="Menu mobile">
-            ${navLinks.map((link) => `<a href="${link.href}">${link.label}</a>`).join("")}
-          </nav>
-        </details>
-        <a class="header-action quote-action" href="${buildWhatsAppUrl(quoteMessage)}" target="_blank" rel="noopener">
-          <span class="quote-action-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M5 12h12" /><path d="m13 6 6 6-6 6" /></svg>
-          </span>
-          Solicitar orçamento
-        </a>
-      </div>
-    </header>`;
-  }
+function renderSiteHeader(options = {}) {
+  const config = typeof options === "string" ? { variant: options } : options;
+  const defaultLinks = [
+    { href: "/#beneficios", label: "Benefícios" },
+    { href: "/#portfolio", label: "Portfólio" },
+    { href: "/#oferta", label: "Oferta" },
+    { href: "/#contato", label: "Contato" }
+  ];
+  const portfolioLinks = [
+    { href: "#inicio", label: "Início" },
+    { href: "#sobre", label: "Sobre" },
+    { href: "#areas", label: "Áreas de Atuação" },
+    { href: "#diferenciais", label: "Diferenciais" },
+    { href: "#contato", label: "Contato" }
+  ];
+  const navLinks =
+    config.linksDaPagina ||
+    config.navLinks ||
+    (config.variant === "portfolio" || config.variant === "lawyer" ? portfolioLinks : defaultLinks);
+  const quoteMessage =
+    config.whatsappMensagem ||
+    config.quoteMessage ||
+    "Olá! Vim pelo site da Serviços Tech e gostaria de solicitar um orçamento para criação de site.";
+  const ctaText = config.ctaTexto || "Solicitar Orçamento";
+  const headerClass = ["site-header", config.variant === "lawyer" ? "portfolio-advogado-header" : ""]
+    .filter(Boolean)
+    .join(" ");
 
   return `
-    <header class="site-header">
+    <header class="${headerClass}">
       <div class="container header-inner">
         <a class="brand" href="/" aria-label="Serviços Tech">
           <span class="brand-icon" aria-hidden="true">
@@ -247,10 +219,7 @@ function renderSiteHeader(variant = "default") {
           </span>
         </a>
         <nav class="main-nav" aria-label="Navegação principal">
-          <a href="/#beneficios">Benefícios</a>
-          <a href="/#portfolio">Portfólio</a>
-          <a href="/#oferta">Oferta</a>
-          <a href="/#contato">Contato</a>
+          ${navLinks.map((link) => `<a href="${escapeHtml(link.href)}">${escapeHtml(link.label)}</a>`).join("")}
         </nav>
         <details class="mobile-menu">
           <summary aria-label="Abrir menu">
@@ -259,14 +228,14 @@ function renderSiteHeader(variant = "default") {
             <span></span>
           </summary>
           <nav aria-label="Menu mobile">
-            ${navLinks.map((link) => `<a href="${link.href}">${link.label}</a>`).join("")}
+            ${navLinks.map((link) => `<a href="${escapeHtml(link.href)}">${escapeHtml(link.label)}</a>`).join("")}
           </nav>
         </details>
-        <a class="header-action quote-action" href="${buildWhatsAppUrl("Olá! Vim pelo site da Serviços Tech e gostaria de solicitar um orçamento para criação de site.")}" target="_blank" rel="noopener">
+        <a class="header-action quote-action" href="${buildWhatsAppUrl(quoteMessage)}" target="_blank" rel="noopener">
           <span class="quote-action-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M5 12h12" /><path d="m13 6 6 6-6 6" /></svg>
           </span>
-          Solicitar Orçamento
+          ${escapeHtml(ctaText)}
         </a>
       </div>
     </header>`;
@@ -295,7 +264,7 @@ function renderSiteFooter() {
     </footer>`;
 }
 
-function renderLayout({ title, description, canonicalPath, image, content, headerVariant = "default" }) {
+function renderLayout({ title, description, canonicalPath, image, content, headerVariant = "default", headerOptions }) {
   const canonicalUrl = `https://servicostech.com.br${canonicalPath}`;
 
   return `<!DOCTYPE html>
@@ -316,10 +285,10 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css?v=20260610-modern-mobile-menu" />
+  <link rel="stylesheet" href="/style.css?v=20260611-portfolio-dynamic-header" />
 </head>
 <body>
-  ${renderSiteHeader(headerVariant)}
+  ${renderSiteHeader(headerOptions || headerVariant)}
   ${content}
   <a class="whatsapp-float" href="${buildWhatsAppUrl("Olá! Vim pelo site da Serviços Tech e gostaria de solicitar um orçamento para criação de site.")}" target="_blank" rel="noopener" aria-label="Falar com a Serviços Tech no WhatsApp">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.4 18.7 6.2 15A7.8 7.8 0 1 1 9 17.8l-3.6.9Z"></path><path d="M9.3 8.6c.2-.5.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.6c.1.3 0 .5-.2.7l-.4.5c.5.9 1.3 1.7 2.3 2.1l.6-.7c.2-.2.4-.3.7-.2l1.6.8c.3.1.4.3.4.6v.5c0 .3-.1.5-.4.7-.5.3-1 .5-1.7.5-1.6 0-3.3-.9-4.6-2.2C9.2 12 8.4 10.4 8.4 9.3c0-.2.4-.6.9-.7Z"></path></svg>
@@ -409,7 +378,7 @@ function renderProjectSpecialties(project) {
             <article class="specialty-card">
               <h3>${escapeHtml(specialty.title)}</h3>
               <p>${escapeHtml(specialty.description)}</p>
-              <a href="#contato-projeto">Ver estrutura de atendimento</a>
+              <a href="#contato">Ver estrutura de atendimento</a>
             </article>
           `).join("")}
         </div>
@@ -648,7 +617,7 @@ function renderLawyerProjectPage(project) {
           </div>
         </section>
 
-        <section class="portfolio-advogado-cta" id="contato-projeto">
+        <section class="portfolio-advogado-cta" id="contato">
           <div class="container portfolio-advogado-cta-box">
             <div>
               <p class="eyebrow portfolio-advogado-eyebrow">Projeto sob medida</p>
@@ -682,8 +651,20 @@ function renderProjectPage(project) {
     description: project.description,
     canonicalPath: `/portfolio/${project.slug}`,
     image: project.image,
+    headerOptions: {
+      variant: project.slug === "site-para-advogado" ? "lawyer" : "portfolio",
+      whatsappMensagem: whatsappMessage,
+      ctaTexto: "Solicitar orçamento",
+      linksDaPagina: [
+        { href: "#inicio", label: "Início" },
+        { href: "#sobre", label: "Sobre" },
+        { href: "#areas", label: "Áreas de Atuação" },
+        { href: "#diferenciais", label: "Diferenciais" },
+        { href: "#contato", label: "Contato" }
+      ]
+    },
     content: `
-      <main class="portfolio-detail-page project-detail-page" style="--portfolio-accent: ${escapeHtml(project.accentColor || "#2563eb")}">
+      <main class="portfolio-detail-page project-detail-page ${project.slug === "site-para-advogado" ? "portfolio-detail-lawyer" : ""}" style="--portfolio-accent: ${escapeHtml(project.accentColor || "#2563eb")}">
         <section class="portfolio-detail-hero project-detail-hero" id="inicio">
           <div class="container portfolio-detail-hero-grid project-hero-grid">
             <div class="portfolio-detail-hero-content project-hero-copy">
@@ -840,7 +821,7 @@ function renderProjectPage(project) {
           </div>
         </section>
 
-        <section class="portfolio-detail-cta" id="contato-projeto">
+        <section class="portfolio-detail-cta" id="contato">
           <div class="container">
             <div class="portfolio-detail-cta-box conversion-box">
               <p class="eyebrow">Projeto sob medida</p>

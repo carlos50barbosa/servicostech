@@ -15,7 +15,7 @@ const projects = [
     primaryCta: "Quero um site assim",
     secondaryCta: "Ver secoes do modelo",
     whatsappMessage:
-      "Ola! Vi o modelo de site para advogado no portfolio da Servicos Tech e gostaria de solicitar um orcamento.",
+      "Olá! Vi o modelo de site para advogado no portfólio da Serviços Tech e gostaria de solicitar um orçamento.",
     description:
       "Modelo para advogado especialista em fraudes bancarias, contas bloqueadas e direito digital.",
     objective:
@@ -113,7 +113,7 @@ const projects = [
     primaryCta: "Quero um site para minha clinica",
     secondaryCta: "Ver estrutura do modelo",
     whatsappMessage:
-      "Ola! Vi o modelo de site para clinica no portfolio da Servicos Tech e gostaria de solicitar um orcamento.",
+      "Olá! Vi o modelo de site para clínica no portfólio da Serviços Tech e gostaria de solicitar um orçamento.",
     description:
       "Site institucional para clinica com apresentacao das especialidades, autoridade medica e captacao direta pelo WhatsApp.",
     objective:
@@ -187,7 +187,7 @@ const projects = [
     primaryCta: "Quero um site para minha barbearia",
     secondaryCta: "Ver servicos",
     whatsappMessage:
-      "Ola! Vi o modelo de site para barbearia no portfolio da Servicos Tech e gostaria de solicitar um orcamento.",
+      "Olá! Vi o modelo de site para barbearia no portfólio da Serviços Tech e gostaria de solicitar um orçamento.",
     description:
       "Site para barbearia com servicos, galeria, equipe, horarios e chamadas diretas para agendamento.",
     objective:
@@ -255,7 +255,7 @@ const projects = [
     primaryCta: "Quero um site para meu restaurante",
     secondaryCta: "Ver cardapio do modelo",
     whatsappMessage:
-      "Ola! Vi o modelo de site para restaurante no portfolio da Servicos Tech e gostaria de solicitar um orcamento.",
+      "Olá! Vi o modelo de site para restaurante no portfólio da Serviços Tech e gostaria de solicitar um orçamento.",
     description:
       "Site para restaurante com cardapio digital, reservas, delivery, fotos de pratos e localizacao.",
     objective:
@@ -323,7 +323,7 @@ const projects = [
     primaryCta: "Quero um site para minha estetica",
     secondaryCta: "Ver tratamentos",
     whatsappMessage:
-      "Ola! Vi o modelo de site para estetica no portfolio da Servicos Tech e gostaria de solicitar um orcamento.",
+      "Olá! Vi o modelo de site para estética no portfólio da Serviços Tech e gostaria de solicitar um orçamento.",
     description:
       "Landing page elegante para clinicas de estetica, beleza e bem-estar com foco em agendamento.",
     objective:
@@ -391,7 +391,7 @@ const projects = [
     primaryCta: "Quero um site para minha consultoria",
     secondaryCta: "Ver metodologia",
     whatsappMessage:
-      "Ola! Vi o modelo de site para consultoria no portfolio da Servicos Tech e gostaria de solicitar um orcamento.",
+      "Olá! Vi o modelo de site para consultoria no portfólio da Serviços Tech e gostaria de solicitar um orçamento.",
     description:
       "Site institucional para consultoria com metodologia, servicos, cases e chamada para reuniao comercial.",
     objective:
