@@ -285,7 +285,7 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css?v=20260611-portfolio-dynamic-header" />
+  <link rel="stylesheet" href="/style.css?v=20260614-corporate-refine" />
 </head>
 <body>
   ${renderSiteHeader(headerOptions || headerVariant)}
@@ -324,6 +324,38 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
         menu.removeAttribute("open");
       });
     });
+
+    const revealTargets = [
+      ".section-heading",
+      ".project-card",
+      ".project-hero-copy",
+      ".project-hero-media",
+      ".portfolio-detail-hero-content",
+      ".portfolio-detail-mockup",
+      ".portfolio-detail-card",
+      ".portfolio-detail-cta-box",
+      ".gallery-card",
+      ".conversion-box",
+      ".not-found-box"
+    ];
+
+    document.querySelectorAll(revealTargets.join(",")).forEach((element) => {
+      element.classList.add("reveal");
+    });
+
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.14 });
+
+      document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
+    } else {
+      document.querySelectorAll(".reveal").forEach((element) => element.classList.add("is-visible"));
+    }
   </script>
 </body>
 </html>`;
