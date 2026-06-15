@@ -1,5 +1,6 @@
 const GTAG_SCRIPT_ID = "servicos-tech-ga4";
 const GTAG_SCRIPT_BASE_URL = "https://www.googletagmanager.com/gtag/js";
+const COOKIE_CONSENT_KEY = "cookieConsent";
 
 let analyticsInitialized = false;
 let scriptLoadingPromise = null;
@@ -30,6 +31,16 @@ function getViteMeasurementId() {
 
 export function getMeasurementId() {
   return (getRuntimeMeasurementId() || getViteMeasurementId()).trim();
+}
+
+export function hasAnalyticsConsent() {
+  if (!canUseBrowserApis()) return false;
+
+  try {
+    return window.localStorage.getItem(COOKIE_CONSENT_KEY) === "accepted";
+  } catch (error) {
+    return false;
+  }
 }
 
 export function loadGoogleAnalyticsScript(measurementId = getMeasurementId()) {
@@ -77,7 +88,7 @@ function setupDataLayer() {
 }
 
 export async function initializeAnalytics() {
-  if (!canUseBrowserApis() || analyticsInitialized) {
+  if (!canUseBrowserApis() || !hasAnalyticsConsent() || analyticsInitialized) {
     return analyticsInitialized;
   }
 
@@ -89,7 +100,8 @@ export async function initializeAnalytics() {
   setupDataLayer();
 
   const scriptLoaded = await loadGoogleAnalyticsScript(measurementId);
-  if (!scriptLoaded || typeof window.gtag !== "function") {
+  if (!scriptLoaded || !hasAnalyticsConsent() || typeof window.gtag !== "function") {
+    disableAnalytics();
     return false;
   }
 
@@ -104,8 +116,31 @@ export function isAnalyticsInitialized() {
   return analyticsInitialized;
 }
 
+export function disableAnalytics() {
+  if (!canUseBrowserApis()) {
+    analyticsInitialized = false;
+    scriptLoadingPromise = null;
+    return;
+  }
+
+  const script = document.getElementById(GTAG_SCRIPT_ID);
+  if (script) {
+    script.remove();
+  }
+
+  analyticsInitialized = false;
+  scriptLoadingPromise = null;
+  window.dataLayer = [];
+  window.gtag = undefined;
+}
+
 export function trackPageView(params = {}) {
-  if (!canUseBrowserApis() || !analyticsInitialized || typeof window.gtag !== "function") {
+  if (
+    !canUseBrowserApis() ||
+    !hasAnalyticsConsent() ||
+    !analyticsInitialized ||
+    typeof window.gtag !== "function"
+  ) {
     return false;
   }
 
@@ -122,6 +157,7 @@ export function trackPageView(params = {}) {
 export function trackEvent(eventName, params = {}) {
   if (
     !canUseBrowserApis() ||
+    !hasAnalyticsConsent() ||
     !eventName ||
     !analyticsInitialized ||
     typeof window.gtag !== "function"

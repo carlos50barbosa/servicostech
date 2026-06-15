@@ -1,4 +1,5 @@
 import {
+  disableAnalytics,
   initializeAnalytics,
   isAnalyticsInitialized,
   trackEvent,
@@ -45,6 +46,7 @@ async function acceptCookies(banner) {
 
 function rejectCookies(banner) {
   setConsent("rejected");
+  disableAnalytics();
   hideBanner(banner);
 }
 
