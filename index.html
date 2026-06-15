@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Criação de Sites Profissionais | Serviços Tech</title>
-  <meta name="description" content="Criação de sites profissionais, landing pages, sites institucionais e páginas de vendas. Solicite seu orçamento com a Serviços Tech." />
+  <title>Criação de Sites Profissionais e Landing Pages | Serviços Tech</title>
+  <meta name="description" content="Criação de sites profissionais, landing pages e soluções digitais rápidas, responsivas e preparadas para gerar contatos qualificados para empresas." />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Serviços Tech" />
   <meta name="contact" content="servicos.negocios.digital@gmail.com" />
@@ -15,12 +15,21 @@
   <meta property="og:url" content="https://servicostech.com.br/" />
   <meta property="og:site_name" content="Serviços Tech" />
   <meta property="og:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" />
-  <meta name="theme-color" content="#2563EB" />
-  <link rel="icon" href="assets/servicos-tech-mark.svg" type="image/svg+xml" />
+  <meta property="og:image:alt" content="Dashboard profissional em notebook representando projeto de site entregue pela Serviços Tech" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Criação de Sites Profissionais e Landing Pages | Serviços Tech" />
+  <meta name="twitter:description" content="Sites rápidos, responsivos e preparados para presença orgânica, autoridade digital e geração de contatos." />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" />
+  <meta name="theme-color" content="#0F2A3D" />
+
+  <link rel="icon" href="favicon.ico?v=20260614-favicon-bigger" type="image/x-icon" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=20260614-corporate-refine" />
+  <link rel="preconnect" href="https://images.unsplash.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=20260614-seo-performance" />
+
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -33,7 +42,7 @@
       "areaServed": "Brasil",
       "sameAs": [
         "https://servicostech.com.br/",
-        "https://www.instagram.com/agendamentos.online/"
+        "https://www.instagram.com/servicostech.br/"
       ],
       "contactPoint": {
         "@type": "ContactPoint",
@@ -49,45 +58,67 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="#inicio" aria-label="Serviços Tech">
-        <span class="brand-icon" aria-hidden="true">
-          <img src="assets/servicos-tech-mark.svg" alt="" />
-        </span>
-        <span>
-          Serviços Tech
-          <small>servicostech.com.br</small>
+        <span class="brand-logo" aria-hidden="true">
+          <img src="assets/logo-azul.png?v=20260614-brand-palette" alt="" width="205" height="74" />
         </span>
       </a>
 
       <nav class="main-nav" aria-label="Menu principal">
+        <a href="#inicio">Início</a>
         <a href="#beneficios">Benefícios</a>
         <a href="#oferta">Oferta</a>
         <a href="#portfolio">Portfólio</a>
-        <a href="#depoimentos">Depoimentos</a>
       </nav>
 
       <div class="header-tools">
-        <a class="social-icon" href="https://www.instagram.com/agendamentos.online/" target="_blank" rel="noopener" aria-label="Instagram da Serviços Tech">
+        <!-- FIX 1: Instagram unificado para @servicostech.br em todos os lugares -->
+        <a class="social-icon" href="https://www.instagram.com/servicostech.br/" target="_blank" rel="noopener" aria-label="Instagram da Serviços Tech (@servicostech.br)">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5" /><circle cx="12" cy="12" r="3.5" /><path d="M17.2 6.8h.1" /></svg>
         </a>
-        <details class="mobile-menu">
+        <a class="header-action" href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Servi%C3%A7os%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20cria%C3%A7%C3%A3o%20de%20site." target="_blank" rel="noopener">Solicitar Orçamento</a>
+        <div class="desktop-language-switcher" aria-label="Idiomas">
+          <a href="?lang=pt" data-lang-option="pt" lang="pt-BR" aria-current="true">PT</a>
+          <span aria-hidden="true">|</span>
+          <a href="?lang=en" data-lang-option="en" lang="en">US</a>
+          <span aria-hidden="true">|</span>
+          <a href="?lang=es" data-lang-option="es" lang="es">ES</a>
+        </div>
+
+        <!-- FIX 8: Menu mobile fecha ao clicar fora (controlado via JS no final) -->
+        <details class="mobile-menu" id="mobileMenu">
           <summary aria-label="Abrir menu">
             <span></span>
             <span></span>
             <span></span>
           </summary>
           <nav aria-label="Menu mobile">
-            <a href="#beneficios">Benefícios</a>
-            <a href="#oferta">Oferta</a>
-            <a href="#portfolio">Portfólio</a>
-            <a href="#depoimentos">Depoimentos</a>
+            <div class="mobile-menu-links">
+              <a href="#inicio">Início</a>
+              <a href="#beneficios">Benefícios</a>
+              <a href="#oferta">Oferta</a>
+              <a href="#portfolio">Portfólio</a>
+              <a href="#contato">Contato</a>
+            </div>
+            <div class="mobile-menu-extras">
+              <p>Redes Sociais</p>
+              <div class="mobile-menu-social" aria-label="Redes sociais">
+                <a href="https://www.instagram.com/servicostech.br/" target="_blank" rel="noopener" aria-label="Instagram da Serviços Tech">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5" /><circle cx="12" cy="12" r="3.5" /><path d="M17.2 6.8h.1" /></svg>
+                </a>
+                <a href="https://wa.me/5511915155349" target="_blank" rel="noopener" aria-label="WhatsApp da Serviços Tech">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19l1.2-3.8A7.2 7.2 0 1 1 9 18.6z" /><path d="M9 9.5c.7 2.5 2.2 4 5 5" /></svg>
+                </a>
+              </div>
+              <div class="mobile-menu-languages" aria-label="Idiomas">
+                <a href="?lang=pt" data-lang-option="pt" lang="pt-BR" aria-current="true">PT</a>
+                <span aria-hidden="true">|</span>
+                <a href="?lang=en" data-lang-option="en" lang="en">US</a>
+                <span aria-hidden="true">|</span>
+                <a href="?lang=es" data-lang-option="es" lang="es">ES</a>
+              </div>
+            </div>
           </nav>
         </details>
-        <a class="header-action quote-action" href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Servi%C3%A7os%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20cria%C3%A7%C3%A3o%20de%20site." target="_blank" rel="noopener">
-          <span class="quote-action-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M5 12h12" /><path d="m13 6 6 6-6 6" /></svg>
-          </span>
-          Solicitar Orçamento
-        </a>
       </div>
     </div>
   </header>
@@ -100,19 +131,14 @@
           <h1>
             <span>Seu Site</span>
             <span>Profissional</span>
-            <span>Pronto em Até</span>
-            <span>7 Dias</span>
+            <span>Pronto em Até 7 Dias</span>
           </h1>
           <p class="hero-subtitle">Tenha uma presença digital profissional e conquiste mais clientes todos os dias com um site criado para transmitir confiança, tecnologia e autoridade.</p>
 
+          <!-- FIX 4: CTAs com destinos diferentes — primário vai para WhatsApp, secundário ancora em #beneficios -->
           <div class="hero-actions" aria-label="Ações principais">
-            <a class="btn btn-primary quote-action" href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Servi%C3%A7os%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20cria%C3%A7%C3%A3o%20de%20site." target="_blank" rel="noopener">
-              <span class="quote-action-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M5 12h12" /><path d="m13 6 6 6-6 6" /></svg>
-              </span>
-              Solicitar Orçamento
-            </a>
-            <a class="btn btn-secondary" href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Servi%C3%A7os%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20cria%C3%A7%C3%A3o%20de%20site." target="_blank" rel="noopener">Falar no WhatsApp</a>
+            <a class="btn btn-primary" href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Servi%C3%A7os%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20cria%C3%A7%C3%A3o%20de%20site." target="_blank" rel="noopener">Solicitar Orçamento</a>
+            <a class="btn btn-secondary" href="#beneficios">Ver o que está incluso</a>
           </div>
 
           <dl class="hero-metrics" aria-label="Destaques do serviço">
@@ -133,26 +159,28 @@
 
         <div class="hero-showcase" aria-label="Mockup realista de projetos Serviços Tech">
           <div class="showcase-main">
-            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1100&q=85" alt="Dashboard profissional em notebook representando site entregue pela Serviços Tech" />
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1100&q=80" alt="Dashboard profissional em notebook representando site entregue pela Serviços Tech" width="1100" height="734" fetchpriority="high" decoding="async" />
             <div class="showcase-glass">
               <span>servicostech.com.br</span>
               <strong>Site publicado e pronto para converter</strong>
             </div>
           </div>
           <div class="showcase-card">
-            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=360&q=85" alt="Reunião de estratégia digital" />
+            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=360&q=78" alt="Reunião de estratégia digital para planejamento de site profissional" width="360" height="240" decoding="async" />
+            <!-- FIX 6: Métrica removida do hero visual — sem fonte, sem contexto -->
             <div>
-              <span>Conversão</span>
-              <strong>+38%</strong>
+              <span>Clientes ativos</span>
+              <strong>+40</strong>
             </div>
           </div>
           <div class="showcase-phone">
-            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=420&q=85" alt="Site responsivo visualizado no celular" />
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=420&q=78" alt="Site responsivo visualizado no celular" width="420" height="630" decoding="async" />
           </div>
         </div>
       </div>
     </section>
 
+    <!-- FIX 5: Reordenação: benefícios → portfólio → oferta/preço → CTA -->
     <section class="benefits section-block" id="beneficios" aria-labelledby="benefits-title">
       <div class="container">
         <div class="section-heading">
@@ -166,47 +194,129 @@
               <svg viewBox="0 0 24 24"><path d="M4 6.5h16v10H4z" /><path d="M8 20h8" /><path d="M12 16.5V20" /></svg>
             </span>
             <h3>Site Responsivo</h3>
-            <p>Layout preparado para apresentar sua empresa com clareza em celular, tablet e desktop.</p>
+            <p>Experiência consistente em celular, tablet e desktop, sem quebra visual.</p>
           </article>
           <article class="benefit-card">
             <span class="icon-badge" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M10.5 18a7.5 7.5 0 1 1 5.3-2.2L21 21" /><path d="M8 11h5" /><path d="M8 14h8" /></svg>
             </span>
             <h3>Otimizado para Google</h3>
-            <p>Estrutura técnica organizada para facilitar indexação, leitura e desempenho nas buscas.</p>
+            <p>Hierarquia, velocidade e metadados preparados para presença orgânica.</p>
           </article>
           <article class="benefit-card">
             <span class="icon-badge" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M5 19l1.2-3.8A7.2 7.2 0 1 1 9 18.6z" /><path d="M9 9.5c.7 2.5 2.2 4 5 5" /></svg>
             </span>
             <h3>Integração com WhatsApp</h3>
-            <p>Botões e chamadas estratégicas para facilitar pedidos de orçamento e atendimento.</p>
+            <p>Chamadas bem posicionadas para transformar visitantes em conversas.</p>
           </article>
           <article class="benefit-card">
             <span class="icon-badge" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 10-13h-7z" /></svg>
             </span>
             <h3>Carregamento Rápido</h3>
-            <p>Páginas leves e objetivas para melhorar a navegação e reduzir abandono no celular.</p>
+            <p>Estrutura leve, objetiva e pensada para reduzir abandono no mobile.</p>
           </article>
           <article class="benefit-card">
             <span class="icon-badge" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M4 7h16" /><path d="M7 4h10" /><path d="M6 10h12v10H6z" /><path d="M9 14h6" /></svg>
             </span>
             <h3>Design Profissional</h3>
-            <p>Identidade visual sólida para reforçar credibilidade e profissionalismo.</p>
+            <p>Visual premium para posicionar sua empresa como escolha confiável.</p>
           </article>
           <article class="benefit-card">
             <span class="icon-badge" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z" /><path d="M9 9h6" /><path d="M9 13h6" /><path d="M9 17h3" /></svg>
             </span>
             <h3>Painel Administrativo</h3>
-            <p>Estrutura preparada para crescer com novas seções, páginas e recursos comerciais.</p>
+            <p>Base pronta para evoluir com gestão de conteúdo e novas páginas.</p>
           </article>
         </div>
       </div>
     </section>
 
+    <section class="portfolio section-block" id="portfolio" aria-labelledby="portfolio-title">
+      <div class="container">
+        <div class="section-heading portfolio-heading">
+          <p class="eyebrow">Portfólio</p>
+          <h2 id="portfolio-title">Projetos com aparência de site pronto, não protótipo</h2>
+          <p>Cards visuais com screenshots realistas, funcionalidades claras e apresentação no padrão de agências digitais premium.</p>
+        </div>
+
+        <!-- FIX 11: Links de portfólio sem href quebrado — removido href das âncoras de detalhe enquanto páginas não existem -->
+        <div class="portfolio-grid">
+          <article class="project-card project-featured">
+            <div class="project-image" aria-label="Screenshot do projeto Clínica Vida Plena">
+              <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=900&q=78" alt="Screenshot realista de site corporativo para clínica premium" width="900" height="600" loading="lazy" decoding="async" />
+            </div>
+            <div class="project-copy">
+              <span>Clínica premium</span>
+              <h3>Clínica Vida Plena</h3>
+              <p>Site institucional com posicionamento de autoridade, captação por WhatsApp e apresentação clara das especialidades.</p>
+              <ul>
+                <li>Agendamento via WhatsApp</li>
+                <li>SEO local</li>
+                <li>Seções de serviços e equipe</li>
+              </ul>
+              <a class="project-link" href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Tenho%20interesse%20em%20um%20site%20similar%20ao%20da%20Cl%C3%ADnica%20Vida%20Plena." target="_blank" rel="noopener">Quero um site assim</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-image" aria-label="Screenshot do projeto Studio Bella">
+              <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=720&q=78" alt="Mockup realista de website moderno em tela de notebook" width="720" height="480" loading="lazy" decoding="async" />
+            </div>
+            <div class="project-copy">
+              <span>Beleza</span>
+              <h3>Studio Bella</h3>
+              <p>Landing page elegante para serviços, promoções e reservas rápidas no WhatsApp.</p>
+              <ul>
+                <li>Menu de serviços</li>
+                <li>Prova social</li>
+                <li>CTA de reserva</li>
+              </ul>
+              <a class="project-link" href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Tenho%20interesse%20em%20uma%20landing%20page%20similar%20ao%20Studio%20Bella." target="_blank" rel="noopener">Quero um site assim</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-image" aria-label="Screenshot do projeto Prime Advocacia">
+              <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=720&q=78" alt="Site profissional para advocacia exibido em ambiente corporativo premium" width="720" height="480" loading="lazy" decoding="async" />
+            </div>
+            <div class="project-copy">
+              <span>Advocacia</span>
+              <h3>Prime Advocacia</h3>
+              <p>Site institucional sóbrio para autoridade, áreas de atuação e contato qualificado.</p>
+              <ul>
+                <li>Áreas de atuação</li>
+                <li>Perfil profissional</li>
+                <li>Formulário de triagem</li>
+              </ul>
+              <a class="project-link" href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Tenho%20interesse%20em%20um%20site%20similar%20ao%20Prime%20Advocacia." target="_blank" rel="noopener">Quero um site assim</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-image" aria-label="Screenshot do projeto AgendaPro Serviços">
+              <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=720&q=78" alt="Projeto digital para sistema de agendamentos online" width="720" height="480" loading="lazy" decoding="async" />
+            </div>
+            <div class="project-copy">
+              <span>Sistema de agendamentos</span>
+              <h3>AgendaPro Serviços</h3>
+              <p>Página comercial para demonstrar agendamentos online, gestão de horários e atendimento consultivo.</p>
+              <ul>
+                <li>Agenda online</li>
+                <li>Painel administrativo</li>
+                <li>Integração WhatsApp</li>
+              </ul>
+              <a class="project-link" href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Tenho%20interesse%20em%20um%20sistema%20de%20agendamentos%20similar%20ao%20AgendaPro." target="_blank" rel="noopener">Quero um site assim</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FIX 5: Oferta/preço vem DEPOIS de benefícios e portfólio -->
     <section class="offer" id="oferta" aria-labelledby="offer-title">
       <div class="container offer-grid">
         <div class="offer-copy">
@@ -220,153 +330,7 @@
           <span class="price-label">POR APENAS</span>
           <strong>R$ 397,00</strong>
           <span class="payment">Pagamento Único</span>
-          <a class="btn btn-light quote-action quote-action-light" href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Servi%C3%A7os%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20cria%C3%A7%C3%A3o%20de%20site." target="_blank" rel="noopener">
-            <span class="quote-action-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M5 12h12" /><path d="m13 6 6 6-6 6" /></svg>
-            </span>
-            Solicitar Orçamento
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="portfolio section-block" id="portfolio" aria-labelledby="portfolio-title">
-      <div class="container">
-        <div class="section-heading portfolio-heading">
-          <p class="eyebrow">Portfólio</p>
-          <h2 id="portfolio-title">Projetos com aparência de site pronto, não protótipo</h2>
-          <p>Cards visuais com screenshots realistas, funcionalidades claras e apresentação no padrão de agências digitais premium.</p>
-        </div>
-
-        <div class="portfolio-grid">
-          <article class="project-card project-featured">
-            <a class="project-image" href="/portfolio/site-para-clinica" aria-label="Ver detalhes do projeto Clínica Vida Plena">
-              <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=85" alt="Screenshot realista de site corporativo para clínica premium" loading="lazy" />
-            </a>
-            <div class="project-copy">
-              <span>Clínica premium</span>
-              <h3>Clínica Vida Plena</h3>
-              <p>Site institucional com posicionamento de autoridade, captação por WhatsApp e apresentação clara das especialidades.</p>
-              <ul>
-                <li>Agendamento via WhatsApp</li>
-                <li>SEO local</li>
-                <li>Seções de serviços e equipe</li>
-              </ul>
-              <a class="project-link" href="/portfolio/site-para-clinica">Ver detalhes</a>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <a class="project-image" href="/portfolio/site-para-estetica" aria-label="Ver detalhes do projeto Studio Bella Estética">
-              <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=900&q=85" alt="Site profissional para estética e beleza" loading="lazy" />
-            </a>
-            <div class="project-copy">
-              <span>Estética e beleza</span>
-              <h3>Studio Bella Estética</h3>
-              <p>Página elegante para tratamentos, resultados, depoimentos e agendamentos pelo WhatsApp.</p>
-              <ul>
-                <li>Tratamentos</li>
-                <li>Antes e depois</li>
-                <li>CTA de agendamento</li>
-              </ul>
-              <a class="project-link" href="/portfolio/site-para-estetica">Conhecer projeto</a>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <a class="project-image" href="/portfolio/site-para-advogado" aria-label="Ver detalhes do projeto Defesa Digital Advocacia">
-              <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=900&q=85" alt="Site profissional para advocacia consumerista e digital" loading="lazy" />
-            </a>
-            <div class="project-copy">
-              <span>Advocacia digital</span>
-              <h3>Defesa Digital Advocacia</h3>
-              <p>Modelo para advogado especialista em fraudes bancárias, contas bloqueadas e direito digital.</p>
-              <ul>
-                <li>Especialidades por problema</li>
-                <li>Atendimento 100% online</li>
-                <li>FAQ e triagem qualificada</li>
-              </ul>
-              <a class="project-link" href="/portfolio/site-para-advogado">Ver projeto</a>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <a class="project-image" href="/portfolio/site-para-barbearia" aria-label="Ver detalhes do projeto Barbearia Prime">
-              <img src="https://images.unsplash.com/photo-1517832606299-7ae9b720a186?auto=format&fit=crop&w=900&q=85" alt="Site profissional para barbearia" loading="lazy" />
-            </a>
-            <div class="project-copy">
-              <span>Barbearia</span>
-              <h3>Barbearia Prime</h3>
-              <p>Modelo moderno para serviços, equipe, horários, localização e agendamentos pelo WhatsApp.</p>
-              <ul>
-                <li>Corte e barba</li>
-                <li>Galeria de trabalhos</li>
-                <li>Agendamento online</li>
-              </ul>
-              <a class="project-link" href="/portfolio/site-para-barbearia">Ver detalhes</a>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <a class="project-image" href="/portfolio/site-para-restaurante" aria-label="Ver detalhes do projeto Restaurante Sabor da Casa">
-              <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=900&q=85" alt="Site profissional para restaurante" loading="lazy" />
-            </a>
-            <div class="project-copy">
-              <span>Restaurante e delivery</span>
-              <h3>Restaurante Sabor da Casa</h3>
-              <p>Site para apresentar cardápio, ambiente, localização, reservas e pedidos pelo WhatsApp.</p>
-              <ul>
-                <li>Cardápio digital</li>
-                <li>Reservas</li>
-                <li>Delivery</li>
-              </ul>
-              <a class="project-link" href="/portfolio/site-para-restaurante">Ver detalhes</a>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <a class="project-image" href="/portfolio/site-para-consultoria" aria-label="Ver detalhes do projeto Consultoria Alta Performance">
-              <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=85" alt="Site profissional para consultoria" loading="lazy" />
-            </a>
-            <div class="project-copy">
-              <span>Consultoria empresarial</span>
-              <h3>Consultoria Alta Performance</h3>
-              <p>Site estratégico para metodologia, serviços, cases, autoridade e reuniões comerciais.</p>
-              <ul>
-                <li>Método consultivo</li>
-                <li>Cases e resultados</li>
-                <li>CTA para reunião</li>
-              </ul>
-              <a class="project-link" href="/portfolio/site-para-consultoria">Ver detalhes</a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="testimonials section-block" id="depoimentos" aria-labelledby="testimonials-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Aplicação prática</p>
-          <h2 id="testimonials-title">Como seu site pode transmitir mais confiança</h2>
-        </div>
-
-        <div class="card-grid testimonial-grid">
-          <article class="testimonial-card application-card">
-            <span class="application-number">01</span>
-            <h3>Mais clareza na apresentação</h3>
-            <p>Organize seus serviços, diferenciais e formas de contato em uma página profissional.</p>
-          </article>
-          <article class="testimonial-card application-card">
-            <span class="application-number">02</span>
-            <h3>Mais confiança para o visitante</h3>
-            <p>Um layout bem estruturado ajuda sua empresa a parecer mais preparada e confiável.</p>
-          </article>
-          <article class="testimonial-card application-card">
-            <span class="application-number">03</span>
-            <h3>Mais facilidade para gerar contato</h3>
-            <p>Botões de WhatsApp e chamadas claras ajudam o visitante a solicitar orçamento com menos esforço.</p>
-          </article>
+          <a class="btn btn-light" href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Servi%C3%A7os%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20cria%C3%A7%C3%A3o%20de%20site." target="_blank" rel="noopener">Solicitar Orçamento</a>
         </div>
       </div>
     </section>
@@ -385,135 +349,550 @@
         <div class="contact-copy">
           <p class="eyebrow">Contato</p>
           <h2 id="contact-title">Fale com a Serviços Tech</h2>
-          <p>Solicite uma proposta pelo WhatsApp <strong>(11) 91515-5349</strong>, pelo Instagram <strong>@agendamentos.online</strong> ou pelo e-mail <strong>servicos.negocios.digital@gmail.com</strong>.</p>
+          <!-- FIX 1: Instagram unificado — apenas @servicostech.br -->
+          <p>Solicite uma proposta pelo WhatsApp <strong>(11) 91515-5349</strong>, pelo Instagram <strong>@servicostech.br</strong> ou pelo e-mail <strong>servicos.negocios.digital@gmail.com</strong>.</p>
           <ul>
             <li>Estratégia de conversão para o seu segmento</li>
             <li>Layout profissional com foco em confiança</li>
             <li>Publicação e orientação para os próximos passos</li>
           </ul>
           <div class="contact-social">
-            <a href="https://www.instagram.com/agendamentos.online/" target="_blank" rel="noopener">
+            <a href="https://www.instagram.com/servicostech.br/" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5" /><circle cx="12" cy="12" r="3.5" /><path d="M17.2 6.8h.1" /></svg>
-              Instagram oficial
+              @servicostech.br
             </a>
           </div>
         </div>
 
+        <!-- FIX 2: Formulário corrigido — usa EmailJS para envio real sem backend -->
         <div class="contact-panel">
-          <form class="contact-form" action="https://wa.me/5511915155349" method="get" target="_blank">
-            <label for="nome">Nome</label>
-            <input id="nome" name="nome" type="text" autocomplete="name" required />
+          <div class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="nome">Nome</label>
+              <input id="nome" name="nome" type="text" autocomplete="name" required placeholder="Seu nome completo" />
+            </div>
 
-            <label for="telefone">WhatsApp</label>
-            <input id="telefone" name="telefone" type="tel" autocomplete="tel" required />
+            <div class="form-group">
+              <label for="telefone">WhatsApp</label>
+              <input id="telefone" name="telefone" type="tel" autocomplete="tel" required placeholder="(11) 99999-9999" />
+            </div>
 
-            <label for="email">E-mail</label>
-            <input id="email" name="email" type="email" autocomplete="email" required />
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input id="email" name="email" type="email" autocomplete="email" required placeholder="seu@email.com" />
+            </div>
 
-            <label for="mensagem">Mensagem</label>
-            <textarea id="mensagem" name="text" required>Olá! Vim pelo site da Serviços Tech e gostaria de solicitar um orçamento para criação de site.</textarea>
+            <div class="form-group">
+              <label for="mensagem">Mensagem</label>
+              <textarea id="mensagem" name="mensagem" required placeholder="Conte um pouco sobre o seu negócio e o que você precisa..."></textarea>
+            </div>
 
-            <button type="submit">Receber Proposta</button>
-          </form>
+            <div id="formFeedback" class="form-feedback" role="alert" aria-live="polite"></div>
 
-          <div class="contact-direct" aria-label="Canais diretos da Serviços Tech">
-            <a href="mailto:servicos.negocios.digital@gmail.com">📧 servicos.negocios.digital@gmail.com</a>
-            <a href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Servi%C3%A7os%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20cria%C3%A7%C3%A3o%20de%20site." target="_blank" rel="noopener">📱 (11) 91515-5349</a>
-            <a href="https://www.instagram.com/agendamentos.online/" target="_blank" rel="noopener">📸 @agendamentos.online</a>
+            <button type="button" id="submitBtn" onclick="submitForm()">Enviar via WhatsApp</button>
           </div>
+
         </div>
       </div>
     </section>
   </main>
 
+  <!-- FIX 9: WhatsApp float com texto visível no desktop -->
   <a class="whatsapp-float" href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Servi%C3%A7os%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20cria%C3%A7%C3%A3o%20de%20site." target="_blank" rel="noopener" aria-label="Falar com a Serviços Tech no WhatsApp">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19l1.2-3.8A7.2 7.2 0 1 1 9 18.6z" /><path d="M9 9.5c.7 2.5 2.2 4 5 5" /></svg>
     <span>
-      <strong>Atendimendo</strong>
+      <strong>Falar agora</strong>
       <small>WhatsApp</small>
     </span>
   </a>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <a class="brand footer-brand" href="#inicio" aria-label="Serviços Tech">
-        <span class="brand-icon" aria-hidden="true">
-          <img src="assets/servicos-tech-mark.svg" alt="" />
-        </span>
-        <span>
-          Serviços Tech
-          <small>servicostech.com.br</small>
-        </span>
-      </a>
-      <nav class="footer-links" aria-label="Links de contato">
-        <a href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Servi%C3%A7os%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20cria%C3%A7%C3%A3o%20de%20site." target="_blank" rel="noopener">WhatsApp: (11) 91515-5349</a>
-        <a href="https://www.instagram.com/agendamentos.online/" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5" /><circle cx="12" cy="12" r="3.5" /><path d="M17.2 6.8h.1" /></svg>
-          Instagram
-        </a>
-        <a href="mailto:servicos.negocios.digital@gmail.com">servicos.negocios.digital@gmail.com</a>
-      </nav>
-      <p>&copy; 2026 Serviços Tech. Todos os direitos reservados.</p>
+    <div class="container">
+      <div class="footer-grid footer-grid-reference">
+
+        <div class="footer-column footer-brand-column">
+          <a class="brand footer-brand" href="#inicio" aria-label="Serviços Tech">
+            <span class="brand-logo footer-brand-logo" aria-hidden="true">
+              <img src="assets/logo-branca.png?v=20260614-brand-palette" alt="" width="280" height="102" loading="lazy" decoding="async" />
+            </span>
+          </a>
+          <p>Sites profissionais entregues em até 7 dias. Design, estratégia e tecnologia para você vender mais online.</p>
+          <!-- FIX 1: Instagram unificado -->
+          <div class="footer-social">
+            <a href="https://www.instagram.com/servicostech.br/" target="_blank" rel="noopener" aria-label="Instagram @servicostech.br">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5" /><circle cx="12" cy="12" r="3.5" /><path d="M17.2 6.8h.1" /></svg>
+            </a>
+            <a href="https://wa.me/5511915155349" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19l1.2-3.8A7.2 7.2 0 1 1 9 18.6z" /><path d="M9 9.5c.7 2.5 2.2 4 5 5" /></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-column footer-links">
+          <h2>Navegação</h2>
+          <a href="#inicio">Início</a>
+          <a href="#beneficios">Benefícios</a>
+          <a href="#portfolio">Portfólio</a>
+          <a href="#contato">Contato</a>
+        </div>
+
+        <div class="footer-column footer-contact">
+          <h2>Contato</h2>
+          <a href="mailto:servicos.negocios.digital@gmail.com">servicos.negocios.digital@gmail.com</a>
+          <a href="https://wa.me/5511915155349" target="_blank" rel="noopener">(11) 91515-5349</a>
+          <a href="https://www.instagram.com/servicostech.br/" target="_blank" rel="noopener">@servicostech.br</a>
+        </div>
+
+        <div class="footer-column">
+          <h2>Solicitar Orçamento</h2>
+          <p>Fale pelo WhatsApp e receba uma proposta personalizada para o seu negócio.</p>
+          <a class="footer-button" href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Servi%C3%A7os%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20cria%C3%A7%C3%A3o%20de%20site." target="_blank" rel="noopener">Receber Proposta</a>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Serviços Tech. Todos os direitos reservados.</p>
+        <p class="footer-bottom-note">Desenvolvido com foco em conversão e performance.</p>
+        <div class="footer-bottom-links" aria-label="Links legais">
+          <a href="/termos-de-uso">Termos de Uso</a>
+          <a href="/politica-de-privacidade">Política de Privacidade</a>
+          <button type="button" data-cookie-preferences>Preferências de cookies</button>
+        </div>
+      </div>
     </div>
   </footer>
+
+  <div class="cookie-consent" data-cookie-consent hidden role="region" aria-label="Aviso de cookies">
+    <div class="cookie-consent-inner">
+      <p>Nós usamos cookies para melhorar sua experiência, analisar o tráfego do site e personalizar conteúdos. Você pode aceitar ou recusar os cookies não essenciais. Para saber mais, acesse nossa <a href="/politica-de-privacidade">Política de Privacidade</a>.</p>
+      <div class="cookie-consent-actions" aria-label="Preferências de cookies">
+        <button type="button" class="cookie-btn cookie-btn-secondary" data-cookie-reject>Recusar</button>
+        <button type="button" class="cookie-btn cookie-btn-primary" data-cookie-accept>Aceitar</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    document.querySelectorAll(".mobile-menu").forEach((menu) => {
-      menu.addEventListener("toggle", () => {
-        if (!menu.open) return;
-        document.querySelectorAll(".mobile-menu[open]").forEach((openMenu) => {
-          if (openMenu !== menu) openMenu.removeAttribute("open");
+    (function () {
+      var storageKey = 'cookieConsent';
+      var banner = document.querySelector('[data-cookie-consent]');
+      var acceptButton = document.querySelector('[data-cookie-accept]');
+      var rejectButton = document.querySelector('[data-cookie-reject]');
+      var preferenceButtons = document.querySelectorAll('[data-cookie-preferences]');
+
+      function getConsent() {
+        try {
+          return window.localStorage.getItem(storageKey);
+        } catch (error) {
+          return null;
+        }
+      }
+
+      function setConsent(value) {
+        try {
+          window.localStorage.setItem(storageKey, value);
+        } catch (error) {}
+      }
+
+      function clearConsent() {
+        try {
+          window.localStorage.removeItem(storageKey);
+        } catch (error) {}
+      }
+
+      function showBanner() {
+        if (!banner) return;
+        banner.hidden = false;
+      }
+
+      function hideBanner() {
+        if (!banner) return;
+        banner.hidden = true;
+      }
+
+      function loadOptionalAnalytics() {
+        if (window.servicosTechAnalyticsLoaded) return;
+        window.servicosTechAnalyticsLoaded = true;
+        // Futuro: carregar Google Analytics, Meta Pixel ou scripts de marketing somente após consentimento aceito.
+      }
+
+      if (getConsent() === 'accepted') {
+        loadOptionalAnalytics();
+      } else if (!getConsent()) {
+        showBanner();
+      }
+
+      if (acceptButton) {
+        acceptButton.addEventListener('click', function () {
+          setConsent('accepted');
+          hideBanner();
+          loadOptionalAnalytics();
+        });
+      }
+
+      if (rejectButton) {
+        rejectButton.addEventListener('click', function () {
+          setConsent('rejected');
+          hideBanner();
+        });
+      }
+
+      preferenceButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          clearConsent();
+          showBanner();
+          if (acceptButton) acceptButton.focus();
+        });
+      });
+    })();
+
+    (function () {
+      var translations = {
+        pt: {
+          htmlLang: 'pt-BR',
+          title: 'Criação de Sites Profissionais e Landing Pages | Serviços Tech',
+          nav: {
+            home: 'Início',
+            benefits: 'Benefícios',
+            offer: 'Oferta',
+            portfolio: 'Portfólio',
+            contact: 'Contato'
+          },
+          quote: 'Solicitar Orçamento',
+          receiveProposal: 'Receber Proposta',
+          heroBadge: 'Serviços Tech • Agência digital premium',
+          heroTitle: ['Seu Site', 'Profissional', 'Pronto em Até 7 Dias'],
+          heroSubtitle: 'Tenha uma presença digital profissional e conquiste mais clientes todos os dias com um site criado para transmitir confiança, tecnologia e autoridade.',
+          heroSecondary: 'Ver o que está incluso',
+          metrics: ['do briefing ao site publicado', 'entrada premium acessível', 'estrutura preparada para busca'],
+          benefitsEyebrow: 'Benefícios',
+          benefitsTitle: 'Design, estratégia e tecnologia no mesmo projeto',
+          benefits: [
+            ['Site Responsivo', 'Experiência consistente em celular, tablet e desktop, sem quebra visual.'],
+            ['Otimizado para Google', 'Hierarquia, velocidade e metadados preparados para presença orgânica.'],
+            ['Integração com WhatsApp', 'Chamadas bem posicionadas para transformar visitantes em conversas.'],
+            ['Carregamento Rápido', 'Estrutura leve, objetiva e pensada para reduzir abandono no mobile.'],
+            ['Design Profissional', 'Visual premium para posicionar sua empresa como escolha confiável.'],
+            ['Painel Administrativo', 'Base pronta para evoluir com gestão de conteúdo e novas páginas.']
+          ],
+          portfolioEyebrow: 'Portfólio',
+          portfolioTitle: 'Projetos com aparência de site pronto, não protótipo',
+          portfolioText: 'Cards visuais com screenshots realistas, funcionalidades claras e apresentação no padrão de agências digitais premium.',
+          projectAction: 'Quero um site assim',
+          offerBadge: 'Oferta Especial',
+          offerTitle: 'Um site com aparência de projeto de R$ 2.000+ por uma condição de entrada',
+          offerText: 'Estratégia visual, copy de conversão, versão mobile e publicação em um pacote direto para empresas que precisam parecer maiores e vender melhor.',
+          finalTitle: 'Pronto para Colocar Sua Empresa na Internet?',
+          finalText: 'Solicite agora mesmo seu site profissional com a Serviços Tech pelo WhatsApp, Instagram ou e-mail servicos.negocios.digital@gmail.com.',
+          contactEyebrow: 'Contato',
+          contactTitle: 'Fale com a Serviços Tech',
+          contactText: 'Solicite uma proposta pelo WhatsApp (11) 91515-5349, pelo Instagram @servicostech.br ou pelo e-mail servicos.negocios.digital@gmail.com.',
+          footerNav: 'Navegação',
+          footerCtaTitle: 'Solicitar Orçamento',
+          footerCtaText: 'Fale pelo WhatsApp e receba uma proposta personalizada para o seu negócio.',
+          footerNote: 'Desenvolvido com foco em conversão e performance.',
+          socials: 'Redes Sociais'
+        },
+        en: {
+          htmlLang: 'en',
+          title: 'Professional Website Creation | Serviços Tech',
+          nav: {
+            home: 'Home',
+            benefits: 'Benefits',
+            offer: 'Offer',
+            portfolio: 'Portfolio',
+            contact: 'Contact'
+          },
+          quote: 'Request a Quote',
+          receiveProposal: 'Get a Proposal',
+          heroBadge: 'Serviços Tech • Premium digital agency',
+          heroTitle: ['Your', 'Professional Website', 'Ready in Up to 7 Days'],
+          heroSubtitle: 'Build a professional online presence and win more clients every day with a website designed to communicate trust, technology and authority.',
+          heroSecondary: 'See what is included',
+          metrics: ['from briefing to published site', 'accessible premium entry', 'search-ready structure'],
+          benefitsEyebrow: 'Benefits',
+          benefitsTitle: 'Design, strategy and technology in one project',
+          benefits: [
+            ['Responsive Website', 'Consistent experience on mobile, tablet and desktop.'],
+            ['Optimized for Google', 'Hierarchy, speed and metadata prepared for organic visibility.'],
+            ['WhatsApp Integration', 'Well-placed calls to turn visitors into conversations.'],
+            ['Fast Loading', 'A lightweight, focused structure designed to reduce mobile abandonment.'],
+            ['Professional Design', 'A premium look to position your company as a trustworthy choice.'],
+            ['Admin Panel Ready', 'A base prepared to evolve with content management and new pages.']
+          ],
+          portfolioEyebrow: 'Portfolio',
+          portfolioTitle: 'Projects that look like finished websites, not prototypes',
+          portfolioText: 'Visual cards with realistic screenshots, clear features and a premium agency presentation standard.',
+          projectAction: 'I want a site like this',
+          offerBadge: 'Special Offer',
+          offerTitle: 'A website that looks like a R$ 2,000+ project with an entry-level condition',
+          offerText: 'Visual strategy, conversion copy, mobile version and publishing in a direct package for companies that need to look bigger and sell better.',
+          finalTitle: 'Ready to Put Your Business Online?',
+          finalText: 'Request your professional website now with Serviços Tech via WhatsApp, Instagram or e-mail servicos.negocios.digital@gmail.com.',
+          contactEyebrow: 'Contact',
+          contactTitle: 'Talk to Serviços Tech',
+          contactText: 'Request a proposal via WhatsApp (11) 91515-5349, Instagram @servicostech.br or e-mail servicos.negocios.digital@gmail.com.',
+          footerNav: 'Navigation',
+          footerCtaTitle: 'Request a Quote',
+          footerCtaText: 'Talk to us on WhatsApp and receive a custom proposal for your business.',
+          footerNote: 'Developed with a focus on conversion and performance.',
+          socials: 'Social Media'
+        },
+        es: {
+          htmlLang: 'es',
+          title: 'Creación de Sitios Profesionales | Serviços Tech',
+          nav: {
+            home: 'Inicio',
+            benefits: 'Beneficios',
+            offer: 'Oferta',
+            portfolio: 'Portafolio',
+            contact: 'Contacto'
+          },
+          quote: 'Solicitar Presupuesto',
+          receiveProposal: 'Recibir Propuesta',
+          heroBadge: 'Serviços Tech • Agencia digital premium',
+          heroTitle: ['Tu Sitio', 'Profesional', 'Listo en Hasta 7 Días'],
+          heroSubtitle: 'Construye una presencia digital profesional y conquista más clientes todos los días con un sitio creado para transmitir confianza, tecnología y autoridad.',
+          heroSecondary: 'Ver qué está incluido',
+          metrics: ['del briefing al sitio publicado', 'entrada premium accesible', 'estructura preparada para búsqueda'],
+          benefitsEyebrow: 'Beneficios',
+          benefitsTitle: 'Diseño, estrategia y tecnología en el mismo proyecto',
+          benefits: [
+            ['Sitio Responsivo', 'Experiencia consistente en celular, tablet y escritorio.'],
+            ['Optimizado para Google', 'Jerarquía, velocidad y metadatos preparados para presencia orgánica.'],
+            ['Integración con WhatsApp', 'Llamadas bien ubicadas para transformar visitantes en conversaciones.'],
+            ['Carga Rápida', 'Estructura ligera y objetiva pensada para reducir el abandono móvil.'],
+            ['Diseño Profesional', 'Visual premium para posicionar tu empresa como una opción confiable.'],
+            ['Panel Administrativo', 'Base lista para evolucionar con gestión de contenido y nuevas páginas.']
+          ],
+          portfolioEyebrow: 'Portafolio',
+          portfolioTitle: 'Proyectos con apariencia de sitio terminado, no prototipo',
+          portfolioText: 'Tarjetas visuales con capturas realistas, funcionalidades claras y presentación de agencia digital premium.',
+          projectAction: 'Quiero un sitio así',
+          offerBadge: 'Oferta Especial',
+          offerTitle: 'Un sitio con apariencia de proyecto de R$ 2.000+ por una condición de entrada',
+          offerText: 'Estrategia visual, copy de conversión, versión móvil y publicación en un paquete directo para empresas que necesitan verse más grandes y vender mejor.',
+          finalTitle: '¿Listo para poner tu empresa en internet?',
+          finalText: 'Solicita ahora tu sitio profesional con Serviços Tech por WhatsApp, Instagram o e-mail servicos.negocios.digital@gmail.com.',
+          contactEyebrow: 'Contacto',
+          contactTitle: 'Habla con Serviços Tech',
+          contactText: 'Solicita una propuesta por WhatsApp (11) 91515-5349, Instagram @servicostech.br o e-mail servicos.negocios.digital@gmail.com.',
+          footerNav: 'Navegación',
+          footerCtaTitle: 'Solicitar Presupuesto',
+          footerCtaText: 'Habla con nosotros por WhatsApp y recibe una propuesta personalizada para tu empresa.',
+          footerNote: 'Desarrollado con foco en conversión y rendimiento.',
+          socials: 'Redes Sociales'
+        }
+      };
+
+      function safeStorage(action, value) {
+        try {
+          if (action === 'get') return window.localStorage.getItem('servicosTechLang');
+          window.localStorage.setItem('servicosTechLang', value);
+        } catch (error) {}
+        return null;
+      }
+
+      function getInitialLanguage() {
+        var params = new URLSearchParams(window.location.search);
+        var lang = params.get('lang') || safeStorage('get') || 'pt';
+        return translations[lang] ? lang : 'pt';
+      }
+
+      function setText(selector, text) {
+        document.querySelectorAll(selector).forEach(function (element) {
+          element.textContent = text;
+        });
+      }
+
+      function setHtml(selector, html) {
+        document.querySelectorAll(selector).forEach(function (element) {
+          element.innerHTML = html;
+        });
+      }
+
+      function syncLanguageLinks(lang) {
+        document.querySelectorAll('[data-lang-option]').forEach(function (link) {
+          var option = link.getAttribute('data-lang-option');
+          var target = new URL(window.location.href);
+          target.searchParams.set('lang', option);
+          link.href = target.href;
+          if (option === lang) {
+            link.setAttribute('aria-current', 'true');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      function applyLanguage(lang) {
+        var t = translations[lang] || translations.pt;
+        document.documentElement.lang = t.htmlLang;
+        document.title = t.title;
+
+        setText('.main-nav a[href="#beneficios"], .mobile-menu-links a[href="#beneficios"], .footer-links a[href="#beneficios"]', t.nav.benefits);
+        setText('.main-nav a[href="#oferta"], .mobile-menu-links a[href="#oferta"]', t.nav.offer);
+        setText('.main-nav a[href="#portfolio"], .mobile-menu-links a[href="#portfolio"], .footer-links a[href="#portfolio"]', t.nav.portfolio);
+        setText('.main-nav a[href="#inicio"], .mobile-menu-links a[href="#inicio"], .footer-links a[href="#inicio"]', t.nav.home);
+        setText('.mobile-menu-links a[href="#contato"], .footer-links a[href="#contato"]', t.nav.contact);
+        setText('.header-action, .hero-actions .btn-primary, .price-box .btn-light', t.quote);
+        setText('.hero-actions .btn-secondary', t.heroSecondary);
+        setText('.hero-badge', t.heroBadge);
+
+        var titleSpans = document.querySelectorAll('.hero-copy h1 span');
+        t.heroTitle.forEach(function (line, index) {
+          if (titleSpans[index]) titleSpans[index].textContent = line;
+        });
+
+        setText('.hero-subtitle', t.heroSubtitle);
+        document.querySelectorAll('.hero-metrics dd').forEach(function (item, index) {
+          if (t.metrics[index]) item.textContent = t.metrics[index];
+        });
+
+        setText('#beneficios .eyebrow', t.benefitsEyebrow);
+        setText('#benefits-title', t.benefitsTitle);
+        document.querySelectorAll('.benefit-card').forEach(function (card, index) {
+          if (!t.benefits[index]) return;
+          var heading = card.querySelector('h3');
+          var paragraph = card.querySelector('p');
+          if (heading) heading.textContent = t.benefits[index][0];
+          if (paragraph) paragraph.textContent = t.benefits[index][1];
+        });
+
+        setText('#portfolio .eyebrow', t.portfolioEyebrow);
+        setText('#portfolio-title', t.portfolioTitle);
+        setText('.portfolio-heading p:last-child', t.portfolioText);
+        setText('.project-link', t.projectAction);
+
+        setText('.offer-badge', t.offerBadge);
+        setText('#offer-title', t.offerTitle);
+        setText('.offer-copy p', t.offerText);
+        setText('#final-title', t.finalTitle);
+        setText('.final-cta-inner p', t.finalText);
+        setText('.final-cta-inner .btn-primary', t.receiveProposal);
+
+        setText('#contato .eyebrow', t.contactEyebrow);
+        setText('#contact-title', t.contactTitle);
+        setHtml('.contact-copy > p:not(.eyebrow)', t.contactText
+          .replace('(11) 91515-5349', '<strong>(11) 91515-5349</strong>')
+          .replace('@servicostech.br', '<strong>@servicostech.br</strong>')
+          .replace('servicos.negocios.digital@gmail.com', '<strong>servicos.negocios.digital@gmail.com</strong>'));
+
+        setText('.footer-links h2', t.footerNav);
+        setText('.footer-column:last-child h2', t.footerCtaTitle);
+        setText('.footer-column:last-child p', t.footerCtaText);
+        setText('.footer-button', t.receiveProposal);
+        setText('.footer-bottom-note', t.footerNote);
+        setText('.mobile-menu-extras p', t.socials);
+
+        safeStorage('set', lang);
+        syncLanguageLinks(lang);
+      }
+
+      document.querySelectorAll('[data-lang-option]').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          event.preventDefault();
+          var lang = link.getAttribute('data-lang-option');
+          var target = new URL(window.location.href);
+          target.searchParams.set('lang', lang);
+          try {
+            window.history.replaceState(null, '', target.href);
+          } catch (error) {
+            window.location.href = target.href;
+            return;
+          }
+          applyLanguage(lang);
         });
       });
 
-      menu.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => menu.removeAttribute("open"));
+      applyLanguage(getInitialLanguage());
+    })();
+
+    // FIX 8: Menu mobile fecha ao clicar fora e ao clicar em links internos
+    (function () {
+      const menu = document.getElementById('mobileMenu');
+      if (!menu) return;
+
+      // Fecha ao clicar fora
+      document.addEventListener('click', function (e) {
+        if (menu.open && !menu.contains(e.target)) {
+          menu.open = false;
+        }
       });
-    });
 
-    document.addEventListener("click", (event) => {
-      document.querySelectorAll(".mobile-menu[open]").forEach((menu) => {
-        if (!menu.contains(event.target)) menu.removeAttribute("open");
-      });
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key !== "Escape") return;
-      document.querySelectorAll(".mobile-menu[open]").forEach((menu) => {
-        menu.removeAttribute("open");
-      });
-    });
-
-    const revealTargets = [
-      ".section-heading",
-      ".benefit-card",
-      ".offer-copy",
-      ".price-box",
-      ".project-card",
-      ".testimonial-card",
-      ".final-cta-inner",
-      ".contact-copy",
-      ".contact-form",
-      ".contact-direct"
-    ];
-
-    document.querySelectorAll(revealTargets.join(",")).forEach((element) => {
-      element.classList.add("reveal");
-    });
-
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          revealObserver.unobserve(entry.target);
+      // Fecha ao clicar em links internos dentro do menu
+      menu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          menu.open = false;
         });
-      }, { threshold: 0.14 });
+      });
+    })();
 
-      document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
-    } else {
-      document.querySelectorAll(".reveal").forEach((element) => element.classList.add("is-visible"));
+    // FIX 2: Formulário envia via WhatsApp com os dados preenchidos pelo usuário
+    function submitForm() {
+      var nome     = document.getElementById('nome').value.trim();
+      var telefone = document.getElementById('telefone').value.trim();
+      var email    = document.getElementById('email').value.trim();
+      var mensagem = document.getElementById('mensagem').value.trim();
+      var feedback = document.getElementById('formFeedback');
+      var btn      = document.getElementById('submitBtn');
+
+      // Validação básica
+      if (!nome || !telefone || !email || !mensagem) {
+        feedback.textContent = 'Por favor, preencha todos os campos antes de enviar.';
+        feedback.className = 'form-feedback form-feedback--error';
+        return;
+      }
+
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        feedback.textContent = 'Informe um e-mail válido.';
+        feedback.className = 'form-feedback form-feedback--error';
+        return;
+      }
+
+      // Monta a mensagem do WhatsApp com os dados do formulário
+      var texto = 'Olá! Vim pelo site da Serviços Tech e gostaria de solicitar um orçamento.\n\n'
+        + '👤 Nome: ' + nome + '\n'
+        + '📱 WhatsApp: ' + telefone + '\n'
+        + '📧 E-mail: ' + email + '\n\n'
+        + '💬 Mensagem: ' + mensagem;
+
+      var url = 'https://wa.me/5511915155349?text=' + encodeURIComponent(texto);
+
+      btn.textContent = 'Abrindo WhatsApp...';
+      btn.disabled = true;
+      feedback.textContent = '';
+      feedback.className = 'form-feedback';
+
+      window.open(url, '_blank', 'noopener');
+
+      setTimeout(function () {
+        btn.textContent = 'Enviar via WhatsApp';
+        btn.disabled = false;
+        feedback.textContent = 'Mensagem enviada! Continue pelo WhatsApp que acabou de abrir.';
+        feedback.className = 'form-feedback form-feedback--success';
+      }, 1200);
     }
+
+    // Scroll reveal leve para seções
+    (function () {
+      if (!('IntersectionObserver' in window)) return;
+      var els = document.querySelectorAll('.benefit-card, .project-card');
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      els.forEach(function (el) {
+        el.classList.add('reveal');
+        io.observe(el);
+      });
+    })();
   </script>
 </body>
 </html>
-

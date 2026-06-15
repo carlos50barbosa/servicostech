@@ -387,7 +387,7 @@ const projects = [
     heroMockupButton: "Agendar reuniao",
     image:
       "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=85",
-    accentColor: "#2563eb",
+    accentColor: "#1E88E5",
     primaryCta: "Quero um site para minha consultoria",
     secondaryCta: "Ver metodologia",
     whatsappMessage:

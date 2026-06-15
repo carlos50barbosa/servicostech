@@ -1,0 +1,12 @@
+﻿<!doctype html>
+<meta charset="utf-8">
+<style>html,body{margin:0;height:100%;overflow:hidden} iframe{width:390px;height:900px;border:0}</style>
+<iframe src="http://localhost:3000/"></iframe>
+<script>
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const doc = document.querySelector('iframe').contentDocument;
+    doc.querySelector('.mobile-menu').setAttribute('open', '');
+  }, 900);
+});
+</script>

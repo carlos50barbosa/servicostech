@@ -6,7 +6,7 @@ Site institucional da Serviços Tech (`servicostech.com.br`) servido com Node.js
 
 - E-mail: servicos.negocios.digital@gmail.com
 - WhatsApp: (11) 91515-5349
-- Instagram: https://www.instagram.com/agendamentos.online/
+- Instagram: https://www.instagram.com/servicostech.br/
 
 ## Como executar
 

@@ -174,6 +174,106 @@ function buildWhatsAppUrl(message) {
   return `https://wa.me/5511915155349?text=${encodeURIComponent(message)}`;
 }
 
+const legalInfo = {
+  businessName: "Serviços Tech",
+  website: "servicostech.com.br",
+  contactEmail: "servicos.negocios.digital@gmail.com",
+  contactWhatsApp: "(11) 91515-5349",
+  dataController: "José Carlos Barbosa, profissional autônomo responsável pela Serviços Tech.",
+  taxId: "[INSERIR QUANDO TIVER]",
+  location: "Brasil",
+  lastUpdated: "14 de junho de 2026"
+};
+
+function renderCookieConsent() {
+  return `
+    <div class="cookie-consent" data-cookie-consent hidden role="region" aria-label="Aviso de cookies">
+      <div class="cookie-consent-inner">
+        <p>Nós usamos cookies para melhorar sua experiência, analisar o tráfego do site e personalizar conteúdos. Você pode aceitar ou recusar os cookies não essenciais. Para saber mais, acesse nossa <a href="/politica-de-privacidade">Política de Privacidade</a>.</p>
+        <div class="cookie-consent-actions" aria-label="Preferências de cookies">
+          <button type="button" class="cookie-btn cookie-btn-secondary" data-cookie-reject>Recusar</button>
+          <button type="button" class="cookie-btn cookie-btn-primary" data-cookie-accept>Aceitar</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderCookieConsentScript() {
+  return `
+    (function () {
+      var storageKey = "cookieConsent";
+      var banner = document.querySelector("[data-cookie-consent]");
+      var acceptButton = document.querySelector("[data-cookie-accept]");
+      var rejectButton = document.querySelector("[data-cookie-reject]");
+      var preferenceButtons = document.querySelectorAll("[data-cookie-preferences]");
+
+      function getConsent() {
+        try {
+          return window.localStorage.getItem(storageKey);
+        } catch (error) {
+          return null;
+        }
+      }
+
+      function setConsent(value) {
+        try {
+          window.localStorage.setItem(storageKey, value);
+        } catch (error) {}
+      }
+
+      function clearConsent() {
+        try {
+          window.localStorage.removeItem(storageKey);
+        } catch (error) {}
+      }
+
+      function showBanner() {
+        if (!banner) return;
+        banner.hidden = false;
+      }
+
+      function hideBanner() {
+        if (!banner) return;
+        banner.hidden = true;
+      }
+
+      function loadOptionalAnalytics() {
+        if (window.servicosTechAnalyticsLoaded) return;
+        window.servicosTechAnalyticsLoaded = true;
+        // Futuro: carregar Google Analytics, Meta Pixel ou scripts de marketing somente após consentimento aceito.
+      }
+
+      if (getConsent() === "accepted") {
+        loadOptionalAnalytics();
+      } else if (!getConsent()) {
+        showBanner();
+      }
+
+      if (acceptButton) {
+        acceptButton.addEventListener("click", function () {
+          setConsent("accepted");
+          hideBanner();
+          loadOptionalAnalytics();
+        });
+      }
+
+      if (rejectButton) {
+        rejectButton.addEventListener("click", function () {
+          setConsent("rejected");
+          hideBanner();
+        });
+      }
+
+      preferenceButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          clearConsent();
+          showBanner();
+          if (acceptButton) acceptButton.focus();
+        });
+      });
+    })();`;
+}
+
 function renderList(items) {
   return items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
 }
@@ -181,6 +281,7 @@ function renderList(items) {
 function renderSiteHeader(options = {}) {
   const config = typeof options === "string" ? { variant: options } : options;
   const defaultLinks = [
+    { href: "/#inicio", label: "Início" },
     { href: "/#beneficios", label: "Benefícios" },
     { href: "/#portfolio", label: "Portfólio" },
     { href: "/#oferta", label: "Oferta" },
@@ -210,12 +311,8 @@ function renderSiteHeader(options = {}) {
     <header class="${headerClass}">
       <div class="container header-inner">
         <a class="brand" href="/" aria-label="Serviços Tech">
-          <span class="brand-icon" aria-hidden="true">
-            <img src="/assets/servicos-tech-mark.svg" alt="" />
-          </span>
-          <span>
-            Serviços Tech
-            <small>servicostech.com.br</small>
+          <span class="brand-logo" aria-hidden="true">
+            <img src="/assets/logo-azul.png?v=20260614-brand-palette" alt="" width="205" height="74" />
           </span>
         </a>
         <nav class="main-nav" aria-label="Navegação principal">
@@ -228,7 +325,27 @@ function renderSiteHeader(options = {}) {
             <span></span>
           </summary>
           <nav aria-label="Menu mobile">
-            ${navLinks.map((link) => `<a href="${escapeHtml(link.href)}">${escapeHtml(link.label)}</a>`).join("")}
+            <div class="mobile-menu-links">
+              ${navLinks.map((link) => `<a href="${escapeHtml(link.href)}">${escapeHtml(link.label)}</a>`).join("")}
+            </div>
+            <div class="mobile-menu-extras">
+              <p>Redes Sociais</p>
+              <div class="mobile-menu-social" aria-label="Redes sociais">
+                <a href="https://www.instagram.com/servicostech.br/" target="_blank" rel="noopener" aria-label="Instagram da Serviços Tech">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5" /><circle cx="12" cy="12" r="3.5" /><path d="M17.2 6.8h.1" /></svg>
+                </a>
+                <a href="${buildWhatsAppUrl(quoteMessage)}" target="_blank" rel="noopener" aria-label="WhatsApp da Serviços Tech">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19l1.2-3.8A7.2 7.2 0 1 1 9 18.6z" /><path d="M9 9.5c.7 2.5 2.2 4 5 5" /></svg>
+                </a>
+              </div>
+              <div class="mobile-menu-languages" aria-label="Idiomas">
+                <a href="?lang=pt" data-lang-option="pt" lang="pt-BR" aria-current="true">PT</a>
+                <span aria-hidden="true">|</span>
+                <a href="?lang=en" data-lang-option="en" lang="en">US</a>
+                <span aria-hidden="true">|</span>
+                <a href="?lang=es" data-lang-option="es" lang="es">ES</a>
+              </div>
+            </div>
           </nav>
         </details>
         <a class="header-action quote-action" href="${buildWhatsAppUrl(quoteMessage)}" target="_blank" rel="noopener">
@@ -237,6 +354,13 @@ function renderSiteHeader(options = {}) {
           </span>
           ${escapeHtml(ctaText)}
         </a>
+        <div class="desktop-language-switcher" aria-label="Idiomas">
+          <a href="?lang=pt" data-lang-option="pt" lang="pt-BR" aria-current="true">PT</a>
+          <span aria-hidden="true">|</span>
+          <a href="?lang=en" data-lang-option="en" lang="en">US</a>
+          <span aria-hidden="true">|</span>
+          <a href="?lang=es" data-lang-option="es" lang="es">ES</a>
+        </div>
       </div>
     </header>`;
 }
@@ -244,22 +368,53 @@ function renderSiteHeader(options = {}) {
 function renderSiteFooter() {
   return `
     <footer class="site-footer">
-      <div class="container footer-inner">
-        <a class="brand footer-brand" href="/" aria-label="Serviços Tech">
-          <span class="brand-icon" aria-hidden="true">
-            <img src="/assets/servicos-tech-mark.svg" alt="" />
-          </span>
-          <span>
-            Serviços Tech
-            <small>servicostech.com.br</small>
-          </span>
-        </a>
-        <div class="footer-links">
-          <a href="${buildWhatsAppUrl("Olá! Vim pelo site da Serviços Tech e gostaria de solicitar um orçamento para criação de site.")}" target="_blank" rel="noopener">WhatsApp: (11) 91515-5349</a>
-          <a href="https://www.instagram.com/agendamentos.online/" target="_blank" rel="noopener">Instagram</a>
-          <a href="mailto:servicos.negocios.digital@gmail.com">servicos.negocios.digital@gmail.com</a>
+      <div class="container">
+        <div class="footer-grid footer-grid-reference">
+          <section class="footer-column footer-brand-column" aria-label="Serviços Tech">
+            <a class="brand footer-brand" href="/" aria-label="Serviços Tech">
+              <span class="brand-logo footer-brand-logo" aria-hidden="true">
+                <img src="/assets/logo-branca.png?v=20260614-brand-palette" alt="" width="280" height="102" loading="lazy" decoding="async" />
+              </span>
+            </a>
+            <p>Sites profissionais para empresas que querem transmitir mais confiança e gerar mais contatos.</p>
+            <div class="footer-social" aria-label="Redes sociais">
+              <a href="https://www.instagram.com/servicostech.br/" target="_blank" rel="noopener" aria-label="Instagram da Serviços Tech">
+                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor"><rect x="4" y="4" width="16" height="16" rx="5" /><circle cx="12" cy="12" r="3.5" /><path d="M17.2 6.8h.1" /></svg>
+              </a>
+              <a href="${buildWhatsAppUrl("Olá! Vim pelo site da Serviços Tech e gostaria de solicitar um orçamento para criação de site.")}" target="_blank" rel="noopener" aria-label="WhatsApp da Serviços Tech">
+                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor"><path d="M5 19l1.2-3.8A7.2 7.2 0 1 1 9 18.6z" /><path d="M9 9.5c.7 2.5 2.2 4 5 5" /></svg>
+              </a>
+            </div>
+          </section>
+
+          <nav class="footer-column footer-links" aria-label="Links do rodapé">
+            <h2>Menu</h2>
+            <a href="/#inicio">Início</a>
+            <a href="/#beneficios">Benefícios</a>
+            <a href="/#oferta">Oferta</a>
+            <a href="/#portfolio">Portfólio</a>
+            <a href="/#contato">Contato</a>
+          </nav>
+
+          <section class="footer-column footer-legal" aria-label="Informações legais">
+            <h2>Legal</h2>
+            <a href="/termos-de-uso">Termos de Uso</a>
+            <a href="/politica-de-privacidade">Política de Privacidade</a>
+            <button type="button" data-cookie-preferences>Preferências de cookies</button>
+          </section>
+
+          <section class="footer-column footer-contact" aria-label="Contato">
+            <h2>Contato</h2>
+            <a href="${buildWhatsAppUrl("Olá! Vim pelo site da Serviços Tech e gostaria de solicitar um orçamento para criação de site.")}" target="_blank" rel="noopener">WhatsApp: (11) 91515-5349</a>
+            <a href="https://www.instagram.com/servicostech.br/" target="_blank" rel="noopener">Instagram</a>
+            <a href="mailto:servicos.negocios.digital@gmail.com">servicos.negocios.digital@gmail.com</a>
+          </section>
         </div>
-        <p>© 2026 Serviços Tech. Todos os direitos reservados.</p>
+
+        <div class="footer-bottom">
+          <p>© 2026 Serviços Tech. Todos os direitos reservados.</p>
+          <p class="footer-bottom-note">Desenvolvido com foco em conversão e performance.</p>
+        </div>
       </div>
     </footer>`;
 }
@@ -274,18 +429,27 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Serviços Tech" />
   <link rel="canonical" href="${canonicalUrl}" />
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Serviços Tech" />
   <meta property="og:title" content="${escapeHtml(title)}" />
   <meta property="og:description" content="${escapeHtml(description)}" />
   <meta property="og:url" content="${canonicalUrl}" />
   <meta property="og:image" content="${escapeHtml(image || "https://servicostech.com.br/og-image.jpg")}" />
-  <meta name="theme-color" content="#2563EB" />
-  <link rel="icon" href="/assets/servicos-tech-mark.svg" type="image/svg+xml" />
+  <meta property="og:image:alt" content="${escapeHtml(title)}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="${escapeHtml(title)}" />
+  <meta name="twitter:description" content="${escapeHtml(description)}" />
+  <meta name="twitter:image" content="${escapeHtml(image || "https://servicostech.com.br/og-image.jpg")}" />
+  <meta name="theme-color" content="#0F2A3D" />
+  <link rel="icon" href="/favicon.ico?v=20260614-favicon-bigger" type="image/x-icon" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://images.unsplash.com" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css?v=20260614-corporate-refine" />
+  <link rel="stylesheet" href="/style.css?v=20260614-seo-performance" />
 </head>
 <body>
   ${renderSiteHeader(headerOptions || headerVariant)}
@@ -298,7 +462,66 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
     </span>
   </a>
   ${renderSiteFooter()}
+  ${renderCookieConsent()}
   <script>
+    ${renderCookieConsentScript()}
+
+    (function () {
+      var supportedLanguages = {
+        pt: "pt-BR",
+        en: "en",
+        es: "es"
+      };
+
+      function safeStorage(action, value) {
+        try {
+          if (action === "get") return window.localStorage.getItem("servicosTechLang");
+          window.localStorage.setItem("servicosTechLang", value);
+        } catch (error) {}
+        return null;
+      }
+
+      function getCurrentLanguage() {
+        var params = new URLSearchParams(window.location.search);
+        var lang = params.get("lang") || safeStorage("get") || "pt";
+        return supportedLanguages[lang] ? lang : "pt";
+      }
+
+      function syncLanguageLinks(lang) {
+        document.documentElement.lang = supportedLanguages[lang];
+        document.querySelectorAll("[data-lang-option]").forEach((link) => {
+          var option = link.getAttribute("data-lang-option");
+          var target = new URL(window.location.href);
+          target.searchParams.set("lang", option);
+          link.href = target.href;
+          if (option === lang) {
+            link.setAttribute("aria-current", "true");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      }
+
+      document.querySelectorAll("[data-lang-option]").forEach((link) => {
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          var lang = link.getAttribute("data-lang-option");
+          var target = new URL(window.location.href);
+          target.searchParams.set("lang", lang);
+          safeStorage("set", lang);
+          try {
+            window.history.replaceState(null, "", target.href);
+          } catch (error) {
+            window.location.href = target.href;
+            return;
+          }
+          syncLanguageLinks(lang);
+        });
+      });
+
+      syncLanguageLinks(getCurrentLanguage());
+    })();
+
     document.querySelectorAll(".mobile-menu").forEach((menu) => {
       menu.addEventListener("toggle", () => {
         if (!menu.open) return;
@@ -336,7 +559,10 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
       ".portfolio-detail-cta-box",
       ".gallery-card",
       ".conversion-box",
-      ".not-found-box"
+      ".not-found-box",
+      ".legal-card",
+      ".footer-column",
+      ".footer-bottom"
     ];
 
     document.querySelectorAll(revealTargets.join(",")).forEach((element) => {
@@ -365,7 +591,7 @@ function renderProjectCard(project) {
   return `
     <article class="project-card">
       <a class="project-image" href="/portfolio/${project.slug}" aria-label="Ver detalhes do projeto ${escapeHtml(project.cardTitle || project.name)}">
-        <img src="${escapeHtml(project.image)}" alt="Mockup do projeto ${escapeHtml(project.cardTitle || project.name)}" loading="lazy" />
+        <img src="${escapeHtml(project.image)}" alt="Mockup do projeto ${escapeHtml(project.cardTitle || project.name)}" width="900" height="600" loading="lazy" decoding="async" />
       </a>
       <div class="project-copy">
         <span>${escapeHtml(project.category)}</span>
@@ -488,7 +714,7 @@ function renderPortfolioIndexPage() {
               <a class="btn btn-primary" href="/#portfolio">Voltar para a página inicial</a>
             </div>
             <div class="project-hero-media">
-              <img src="${escapeHtml(projects[0].image)}" alt="Exemplo de projeto profissional da Serviços Tech" />
+              <img src="${escapeHtml(projects[0].image)}" alt="Exemplo de projeto profissional da Serviços Tech" width="900" height="600" fetchpriority="high" decoding="async" />
             </div>
           </div>
         </section>
@@ -696,7 +922,7 @@ function renderProjectPage(project) {
       ]
     },
     content: `
-      <main class="portfolio-detail-page project-detail-page ${project.slug === "site-para-advogado" ? "portfolio-detail-lawyer" : ""}" style="--portfolio-accent: ${escapeHtml(project.accentColor || "#2563eb")}">
+      <main class="portfolio-detail-page project-detail-page ${project.slug === "site-para-advogado" ? "portfolio-detail-lawyer" : ""}" style="--portfolio-accent: ${escapeHtml(project.accentColor || "#1E88E5")}">
         <section class="portfolio-detail-hero project-detail-hero" id="inicio">
           <div class="container portfolio-detail-hero-grid project-hero-grid">
             <div class="portfolio-detail-hero-content project-hero-copy">
@@ -717,7 +943,7 @@ function renderProjectPage(project) {
                 <span></span><span></span><span></span>
               </div>
               <div class="portfolio-detail-mockup-visual">
-                <img src="${escapeHtml(project.image)}" alt="Imagem principal do projeto ${escapeHtml(cardTitle)}" />
+                <img src="${escapeHtml(project.image)}" alt="Imagem principal do projeto ${escapeHtml(cardTitle)}" width="1100" height="734" fetchpriority="high" decoding="async" />
                 <div>
                   <p>${escapeHtml(project.category)}</p>
                   <strong>${escapeHtml(project.heroMockupTitle || project.title || project.name)}</strong>
@@ -829,7 +1055,7 @@ function renderProjectPage(project) {
             <div class="gallery-grid">
               ${project.gallery.map((image, index) => `
                 <figure class="gallery-card">
-                  <img src="${escapeHtml(image)}" alt="Imagem ${index + 1} do projeto ${escapeHtml(cardTitle)}" loading="lazy" />
+                  <img src="${escapeHtml(image)}" alt="Tela demonstrativa ${index + 1} do projeto ${escapeHtml(cardTitle)}" width="900" height="600" loading="lazy" decoding="async" />
                 </figure>
               `).join("")}
             </div>
@@ -887,10 +1113,205 @@ function renderProjectNotFound(slug) {
   });
 }
 
+function renderPrivacyPolicyPage() {
+  return renderLayout({
+    title: "Política de Privacidade | Serviços Tech",
+    description: "Política de Privacidade da Serviços Tech, com informações sobre coleta, uso, compartilhamento, segurança, cookies e direitos dos titulares de dados.",
+    canonicalPath: "/politica-de-privacidade",
+    content: `
+      <main class="legal-page">
+        <section class="legal-hero">
+          <div class="container legal-hero-inner">
+            <p class="eyebrow">Privacidade e proteção de dados</p>
+            <h1>Política de Privacidade</h1>
+            <p>Esta política explica como a Serviços Tech trata dados pessoais em seus canais digitais, formulários, atendimentos e comunicações comerciais.</p>
+          </div>
+        </section>
+
+        <section class="legal-content">
+          <div class="container legal-card">
+            <section class="legal-section">
+              <h2>1. Quem somos</h2>
+              <p>A Serviços Tech é uma iniciativa profissional voltada à criação de sites, landing pages, sistemas, automações e soluções digitais para empresas, profissionais autônomos e prestadores de serviço.</p>
+              <p><strong>Site:</strong> ${escapeHtml(legalInfo.website)}</p>
+              <p><strong>Responsável pelo tratamento dos dados:</strong><br>${escapeHtml(legalInfo.dataController)}</p>
+              <p><strong>Localidade:</strong> ${escapeHtml(legalInfo.location)}</p>
+              <p><strong>Contato para assuntos relacionados à privacidade:</strong><br>${escapeHtml(legalInfo.contactEmail)} | ${escapeHtml(legalInfo.contactWhatsApp)}</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>2. Quais dados podemos coletar</h2>
+              <p>Podemos coletar dados fornecidos diretamente pelo usuário ou gerados durante a navegação no site, incluindo:</p>
+              <ul>
+                <li>Nome;</li>
+                <li>Telefone e WhatsApp;</li>
+                <li>E-mail;</li>
+                <li>Nome da empresa ou negócio;</li>
+                <li>Mensagem enviada em formulário, WhatsApp, e-mail ou outro canal de atendimento;</li>
+                <li>Informações de navegação, como páginas acessadas, origem do acesso, dispositivo, navegador, endereço IP e cookies.</li>
+              </ul>
+            </section>
+
+            <section class="legal-section">
+              <h2>3. Finalidades do uso dos dados</h2>
+              <p>Usamos os dados pessoais para finalidades legítimas e relacionadas ao atendimento solicitado, tais como:</p>
+              <ul>
+                <li>Responder contatos, dúvidas e solicitações enviadas pelo site;</li>
+                <li>Enviar orçamentos, propostas comerciais e informações sobre serviços;</li>
+                <li>Prestar serviços contratados e acompanhar demandas do cliente;</li>
+                <li>Melhorar a experiência, desempenho, segurança e conteúdo do site;</li>
+                <li>Realizar comunicações comerciais quando houver autorização ou relação prévia compatível;</li>
+                <li>Prevenir fraudes, incidentes de segurança e uso indevido dos canais digitais.</li>
+              </ul>
+            </section>
+
+            <section class="legal-section">
+              <h2>4. Base legal para tratamento</h2>
+              <p>Tratamos dados pessoais com base na LGPD, de forma simples e proporcional. Dependendo da situação, o tratamento pode ocorrer para executar medidas solicitadas pelo próprio usuário, cumprir obrigações legais, atender interesses legítimos da Serviços Tech ou com consentimento, especialmente para cookies não essenciais e comunicações opcionais.</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>5. Compartilhamento de dados</h2>
+              <p>Podemos compartilhar dados com ferramentas e fornecedores necessários para funcionamento do negócio, como serviços de hospedagem, e-mail, WhatsApp, formulários, analytics, automações e ferramentas de atendimento, sempre de forma compatível com as finalidades desta política.</p>
+              <p>A Serviços Tech não vende dados pessoais.</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>6. Direitos do titular</h2>
+              <p>O titular dos dados pode solicitar, nos termos da LGPD:</p>
+              <ul>
+                <li>Acesso aos dados pessoais tratados;</li>
+                <li>Correção de dados incompletos, inexatos ou desatualizados;</li>
+                <li>Exclusão de dados pessoais quando aplicável;</li>
+                <li>Revogação de consentimento;</li>
+                <li>Informações sobre uso, compartilhamento e critérios de tratamento.</li>
+              </ul>
+            </section>
+
+            <section class="legal-section">
+              <h2>7. Como solicitar atendimento sobre dados pessoais</h2>
+              <p>Para exercer seus direitos ou tirar dúvidas sobre esta política, entre em contato pelos canais oficiais:</p>
+              <p><strong>E-mail:</strong> ${escapeHtml(legalInfo.contactEmail)}<br><strong>WhatsApp:</strong> ${escapeHtml(legalInfo.contactWhatsApp)}</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>8. Segurança dos dados</h2>
+              <p>Adotamos medidas técnicas e organizacionais razoáveis para proteger dados pessoais contra acessos não autorizados, perda, alteração, divulgação indevida ou uso incompatível com as finalidades informadas.</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>9. Tempo de armazenamento</h2>
+              <p>Os dados são mantidos pelo tempo necessário para atendimento, envio de propostas, execução de serviços, cumprimento de obrigações legais, defesa de direitos ou enquanto houver finalidade legítima relacionada ao relacionamento com o usuário ou cliente.</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>10. Uso de cookies</h2>
+              <p>Usamos cookies essenciais para funcionamento do site e podemos usar cookies não essenciais para análise de tráfego, melhoria da experiência e personalização de conteúdo. O usuário pode aceitar ou recusar cookies não essenciais no aviso exibido no site.</p>
+              <p>Scripts de analytics, marketing, Meta Pixel ou Google Analytics só devem ser carregados quando houver consentimento aceito.</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>11. Alterações nesta política</h2>
+              <p>Esta Política de Privacidade pode ser atualizada periodicamente para refletir mudanças legais, técnicas ou operacionais. A versão mais recente estará sempre disponível nesta página.</p>
+              <p class="legal-updated"><strong>Última atualização:</strong> ${escapeHtml(legalInfo.lastUpdated)}.</p>
+            </section>
+          </div>
+        </section>
+      </main>`
+  });
+}
+
+function renderTermsPage() {
+  return renderLayout({
+    title: "Termos de Uso | Serviços Tech",
+    description: "Termos de Uso do site Serviços Tech, com regras sobre navegação, orçamentos, prestação de serviços digitais, propriedade intelectual e responsabilidades.",
+    canonicalPath: "/termos-de-uso",
+    content: `
+      <main class="legal-page">
+        <section class="legal-hero">
+          <div class="container legal-hero-inner">
+            <p class="eyebrow">Condições de uso</p>
+            <h1>Termos de Uso</h1>
+            <p>Estes termos orientam o uso do site da Serviços Tech e a relação inicial com usuários interessados em soluções digitais.</p>
+          </div>
+        </section>
+
+        <section class="legal-content">
+          <div class="container legal-card">
+            <section class="legal-section">
+              <h2>1. Aceitação dos termos</h2>
+              <p>Ao acessar ou utilizar o site ${escapeHtml(legalInfo.website)}, o usuário declara estar ciente e de acordo com estes Termos de Uso. Caso não concorde com alguma condição, recomenda-se não utilizar o site.</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>2. Serviços oferecidos</h2>
+              <p>A Serviços Tech oferece criação de sites profissionais, landing pages, sistemas, automações, páginas comerciais, integrações e outras soluções digitais para empresas, profissionais autônomos e prestadores de serviço.</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>3. Uso correto do site</h2>
+              <p>O usuário se compromete a utilizar o site de forma lícita, ética e compatível com sua finalidade informativa e comercial. É proibido tentar violar a segurança, explorar falhas, enviar conteúdo malicioso, usar dados de terceiros sem autorização ou praticar qualquer ato que prejudique o funcionamento do site.</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>4. Solicitação de orçamento</h2>
+              <p>O envio de formulário, mensagem por WhatsApp, e-mail ou outro canal não gera contratação automática. A contratação depende de análise da demanda, alinhamento de escopo, confirmação de valores, prazos e condições comerciais.</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>5. Prazos, valores e condições comerciais</h2>
+              <p>Prazos, valores, formas de pagamento, entregáveis, revisões, manutenção e demais condições são definidos individualmente por proposta comercial, contrato, pedido aprovado ou comunicação formal entre as partes.</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>6. Responsabilidades do cliente</h2>
+              <p>Quando houver contratação, o cliente é responsável por fornecer informações corretas, textos, imagens, logotipos, dados de acesso, aprovações e demais materiais necessários ao desenvolvimento do projeto. Atrasos no envio ou aprovação de materiais podem impactar os prazos combinados.</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>7. Limitações de responsabilidade</h2>
+              <p>A Serviços Tech atua para entregar soluções digitais funcionais, profissionais e compatíveis com o escopo aprovado. Ainda assim, não garante resultados comerciais específicos, volume de vendas, posicionamento definitivo em buscadores ou desempenho dependente de fatores externos, como mercado, anúncios, oferta, conteúdo, infraestrutura de terceiros e ações do próprio cliente.</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>8. Propriedade intelectual</h2>
+              <p>Layouts, códigos, textos, imagens, marcas, materiais e conteúdos apresentados no site são protegidos por direitos de propriedade intelectual. O uso, cópia, reprodução ou adaptação sem autorização é proibido, salvo quando expressamente permitido em proposta ou contrato.</p>
+              <p>Materiais fornecidos pelo cliente permanecem sob responsabilidade do cliente, que declara possuir autorização para uso.</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>9. Portfólio</h2>
+              <p>A Serviços Tech poderá exibir projetos entregues, telas, descrições, resultados visuais, segmento de atuação e nome comercial do cliente em seu portfólio, site, redes sociais e materiais de apresentação, salvo solicitação contrária do cliente por escrito.</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>10. Links externos</h2>
+              <p>O site pode conter links para WhatsApp, Instagram, ferramentas de terceiros ou páginas externas. A Serviços Tech não se responsabiliza por conteúdo, políticas, disponibilidade ou práticas de privacidade desses ambientes externos.</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>11. Alterações nos termos</h2>
+              <p>Estes Termos de Uso podem ser atualizados a qualquer momento para refletir mudanças no site, nos serviços, nas práticas comerciais ou na legislação aplicável. A versão vigente estará disponível nesta página.</p>
+            </section>
+
+            <section class="legal-section">
+              <h2>12. Legislação e foro</h2>
+              <p>Estes termos são regidos pela legislação brasileira. Eventuais conflitos deverão ser resolvidos preferencialmente por diálogo entre as partes e, quando necessário, perante o foro competente conforme a legislação aplicável.</p>
+              <p><strong>Responsável/controlador:</strong> ${escapeHtml(legalInfo.dataController)}<br><strong>CNPJ/CPF:</strong> ${escapeHtml(legalInfo.taxId)}<br><strong>Contato:</strong> ${escapeHtml(legalInfo.contactEmail)} e ${escapeHtml(legalInfo.contactWhatsApp)}</p>
+              <p class="legal-updated"><strong>Última atualização:</strong> ${escapeHtml(legalInfo.lastUpdated)}.</p>
+            </section>
+          </div>
+        </section>
+      </main>`
+  });
+}
+
 function renderSitemap() {
   const urls = [
     "https://servicostech.com.br/",
     "https://servicostech.com.br/portfolio",
+    "https://servicostech.com.br/politica-de-privacidade",
+    "https://servicostech.com.br/termos-de-uso",
     ...projects.map((project) => `https://servicostech.com.br/portfolio/${project.slug}`)
   ];
 
@@ -968,6 +1389,18 @@ const server = http.createServer(async (request, response) => {
   const url = new URL(request.url, `http://localhost:${PORT}`);
   pathname = decodeURIComponent(url.pathname).replace(/\/+$/, "") || "/";
 
+  if (pathname === "/politica-de-privacidade") {
+    route = "page.privacy";
+    sendHtml(response, renderPrivacyPolicyPage());
+    return;
+  }
+
+  if (pathname === "/termos-de-uso") {
+    route = "page.terms";
+    sendHtml(response, renderTermsPage());
+    return;
+  }
+
   if (pathname === "/portfolio") {
     route = "page.portfolio";
     sendHtml(response, renderPortfolioIndexPage());
@@ -1015,7 +1448,7 @@ const server = http.createServer(async (request, response) => {
 
   if (pathname === "/favicon.ico") {
     route = "asset.favicon";
-    await sendFile(response, path.join(PUBLIC_DIR, "assets", "servicos-tech-mark.svg"));
+    await sendFile(response, path.join(PUBLIC_DIR, "favicon.ico"));
     return;
   }
 
