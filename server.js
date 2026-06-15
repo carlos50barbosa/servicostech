@@ -460,7 +460,7 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.unsplash.com" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css?v=20260615-language-flags" />
+  <link rel="stylesheet" href="/style.css?v=20260615-footer-cta-gap" />
 </head>
 <body>
   ${renderSiteHeader(headerOptions || headerVariant)}

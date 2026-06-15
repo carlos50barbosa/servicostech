@@ -108,7 +108,7 @@ figure, blockquote, ul { margin: 0; }
   gap: 12px;
   color: var(--graphite);
   font-size: 17px;
-  font-weight: 900;
+  font-weight: 500;
   white-space: nowrap;
 }
 
@@ -117,7 +117,7 @@ figure, blockquote, ul { margin: 0; }
   margin-top: -3px;
   color: var(--muted);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .site-header .brand { color: var(--graphite); }
@@ -177,7 +177,7 @@ figure, blockquote, ul { margin: 0; }
 .main-nav a {
   color: var(--graphite);
   font-size: 15px;
-  font-weight: 800;
+  font-weight: 500;
   transition: color 180ms ease;
 }
 
@@ -191,6 +191,10 @@ figure, blockquote, ul { margin: 0; }
 }
 
 .site-header .header-action { display: none; }
+
+.site-header .header-action {
+  font-weight: 500;
+}
 
 .desktop-language-switcher {
   display: none;
@@ -218,7 +222,7 @@ figure, blockquote, ul { margin: 0; }
   box-shadow: 0 6px 16px rgba(var(--color-dark-rgb), 0.10);
   cursor: pointer;
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 500;
   list-style: none;
   transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
@@ -346,7 +350,7 @@ figure, blockquote, ul { margin: 0; }
   color: var(--graphite);
   border-radius: 8px;
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 500;
   transition: background-color 180ms ease, color 180ms ease;
 }
 
@@ -1920,6 +1924,10 @@ h3 {
   min-width: 0;
 }
 
+.footer-cta-column {
+  min-width: 0;
+}
+
 .footer-brand-column {
   gap: 16px;
   justify-items: start;
@@ -2351,7 +2359,11 @@ h3 {
 
   .footer-grid-reference {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 40px;
+    gap: 44px 72px;
+  }
+
+  .footer-cta-column {
+    padding-left: clamp(36px, 6vw, 72px);
   }
 
   .footer-contact a[href^="mailto:"] {
@@ -2371,7 +2383,7 @@ h3 {
 @media (min-width: 1040px) {
   .footer-grid-reference {
     grid-template-columns: repeat(2, minmax(280px, 1fr));
-    gap: 44px 64px;
+    gap: 48px 96px;
   }
 }
 
@@ -2381,8 +2393,12 @@ h3 {
   }
 
   .footer-grid-reference {
-    grid-template-columns: minmax(340px, 1.05fr) minmax(120px, 0.35fr) minmax(150px, 0.4fr) minmax(380px, 1fr);
-    gap: 32px;
+    grid-template-columns: minmax(260px, 0.95fr) minmax(110px, 0.4fr) minmax(240px, 0.75fr) minmax(300px, 1fr);
+    gap: 32px clamp(72px, 5vw, 96px);
+  }
+
+  .footer-cta-column {
+    padding-left: clamp(24px, 2.5vw, 40px);
   }
 
   .footer-brand-column p {

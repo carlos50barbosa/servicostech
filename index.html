@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.unsplash.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=20260615-language-flags" />
+  <link rel="stylesheet" href="style.css?v=20260615-footer-cta-gap" />
 
   <script type="application/ld+json">
     {
@@ -450,12 +450,12 @@
 
         <div class="footer-column footer-contact">
           <h2>Contato</h2>
+          <a href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Servi%C3%A7os%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20cria%C3%A7%C3%A3o%20de%20site." target="_blank" rel="noopener">WhatsApp: (11) 91515-5349</a>
+          <a href="https://www.instagram.com/servicostech.br/" target="_blank" rel="noopener">Instagram</a>
           <a href="mailto:contato@servicostech.com.br">contato@servicostech.com.br</a>
-          <a href="https://wa.me/5511915155349" target="_blank" rel="noopener">(11) 91515-5349</a>
-          <a href="https://www.instagram.com/servicostech.br/" target="_blank" rel="noopener">@servicostech.br</a>
         </div>
 
-        <div class="footer-column">
+        <div class="footer-column footer-cta-column">
           <h2>Solicitar Orçamento</h2>
           <p>Fale pelo WhatsApp e receba uma proposta personalizada para o seu negócio.</p>
           <a class="footer-button" href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Servi%C3%A7os%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20cria%C3%A7%C3%A3o%20de%20site." target="_blank" rel="noopener">Receber Proposta</a>
@@ -806,8 +806,8 @@
           .replace('contato@servicostech.com.br', '<strong>contato@servicostech.com.br</strong>'));
 
         setText('.footer-links h2', t.footerNav);
-        setText('.footer-column:last-child h2', t.footerCtaTitle);
-        setText('.footer-column:last-child p', t.footerCtaText);
+        setText('.footer-cta-column h2', t.footerCtaTitle);
+        setText('.footer-cta-column p', t.footerCtaText);
         setText('.footer-button', t.receiveProposal);
         setText('.footer-bottom-note', t.footerNote);
         setText('.mobile-menu-extras p', t.socials);
