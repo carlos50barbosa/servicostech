@@ -1,7 +1,10 @@
 const http = require("node:http");
 const fs = require("node:fs/promises");
+const fsSync = require("node:fs");
 const path = require("node:path");
 const { projects, getProjectBySlug } = require("./projects");
+
+loadEnvFile(path.join(__dirname, ".env"));
 
 const PORT = Number(process.env.PORT) || 3000;
 const PUBLIC_DIR = __dirname;
@@ -18,6 +21,38 @@ const mimeTypes = {
   ".svg": "image/svg+xml",
   ".webp": "image/webp"
 };
+
+function loadEnvFile(filePath) {
+  if (!fsSync.existsSync(filePath)) {
+    return;
+  }
+
+  const lines = fsSync.readFileSync(filePath, "utf-8").split(/\r?\n/);
+
+  lines.forEach((line) => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) return;
+
+    const separatorIndex = trimmed.indexOf("=");
+    if (separatorIndex === -1) return;
+
+    const key = trimmed.slice(0, separatorIndex).trim();
+    let value = trimmed.slice(separatorIndex + 1).trim();
+
+    if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(key) || process.env[key] !== undefined) {
+      return;
+    }
+
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
+    }
+
+    process.env[key] = value;
+  });
+}
 
 function formatValue(value) {
   if (typeof value === "number" || typeof value === "boolean") {
@@ -172,6 +207,22 @@ function escapeHtml(value) {
 
 function buildWhatsAppUrl(message) {
   return `https://wa.me/5511915155349?text=${encodeURIComponent(message)}`;
+}
+
+function getAnalyticsMeasurementId() {
+  return (process.env.VITE_GA_MEASUREMENT_ID || "").trim();
+}
+
+function renderAnalyticsConfig() {
+  const measurementId = getAnalyticsMeasurementId();
+
+  return [
+    "window.SERVICOS_TECH_CONFIG = Object.assign({}, window.SERVICOS_TECH_CONFIG, {",
+    `  gaMeasurementId: ${JSON.stringify(measurementId)}`,
+    "});",
+    `window.SERVICOS_TECH_GA_MEASUREMENT_ID = ${JSON.stringify(measurementId)};`,
+    `window.VITE_GA_MEASUREMENT_ID = ${JSON.stringify(measurementId)};`
+  ].join("\n");
 }
 
 const legalInfo = {
@@ -474,6 +525,8 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
   </a>
   ${renderSiteFooter()}
   ${renderCookieConsent()}
+  <script src="/analytics-config.js"></script>
+  <script type="module" src="/src/main.js"></script>
   <script>
     ${renderCookieConsentScript()}
 
@@ -1423,6 +1476,12 @@ const server = http.createServer(async (request, response) => {
 
   const url = new URL(request.url, `http://localhost:${PORT}`);
   pathname = decodeURIComponent(url.pathname).replace(/\/+$/, "") || "/";
+
+  if (pathname === "/analytics-config.js") {
+    route = "asset.analytics_config";
+    sendText(response, renderAnalyticsConfig(), "text/javascript; charset=utf-8");
+    return;
+  }
 
   if (pathname === "/politica-de-privacidade") {
     route = "page.privacy";

@@ -485,6 +485,8 @@
     </div>
   </div>
 
+  <script src="/analytics-config.js"></script>
+  <script type="module" src="/src/main.js"></script>
   <script>
     (function () {
       var storageKey = 'cookieConsent';
@@ -901,6 +903,11 @@
       feedback.className = 'form-feedback';
 
       window.open(url, '_blank', 'noopener');
+      if (window.servicosTechAnalytics && typeof window.servicosTechAnalytics.trackEvent === 'function') {
+        window.servicosTechAnalytics.trackEvent('submit_contact_form', {
+          location: 'contact'
+        });
+      }
 
       setTimeout(function () {
         btn.textContent = 'Enviar via WhatsApp';
