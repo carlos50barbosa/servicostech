@@ -4,7 +4,7 @@ Site institucional da Serviços Tech (`servicostech.com.br`) servido com Node.js
 
 ## Canais oficiais
 
-- E-mail: servicos.negocios.digital@gmail.com
+- E-mail: contato@servicostech.com.br
 - WhatsApp: (11) 91515-5349
 - Instagram: https://www.instagram.com/servicostech.br/
 

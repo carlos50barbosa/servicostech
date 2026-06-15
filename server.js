@@ -177,12 +177,11 @@ function buildWhatsAppUrl(message) {
 const legalInfo = {
   businessName: "Serviços Tech",
   website: "servicostech.com.br",
-  contactEmail: "servicos.negocios.digital@gmail.com",
+  contactEmail: "contato@servicostech.com.br",
   contactWhatsApp: "(11) 91515-5349",
   dataController: "José Carlos Barbosa, profissional autônomo responsável pela Serviços Tech.",
-  taxId: "[INSERIR QUANDO TIVER]",
-  location: "Brasil",
-  lastUpdated: "14 de junho de 2026"
+  location: "Osasco/SP, Brasil — Atendimento online para todo o Brasil.",
+  lastUpdated: "15 de junho de 2026"
 };
 
 function renderCookieConsent() {
@@ -338,12 +337,18 @@ function renderSiteHeader(options = {}) {
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19l1.2-3.8A7.2 7.2 0 1 1 9 18.6z" /><path d="M9 9.5c.7 2.5 2.2 4 5 5" /></svg>
                 </a>
               </div>
-              <div class="mobile-menu-languages" aria-label="Idiomas">
-                <a href="?lang=pt" data-lang-option="pt" lang="pt-BR" aria-current="true">PT</a>
-                <span aria-hidden="true">|</span>
-                <a href="?lang=en" data-lang-option="en" lang="en">US</a>
-                <span aria-hidden="true">|</span>
-                <a href="?lang=es" data-lang-option="es" lang="es">ES</a>
+              <div class="mobile-menu-languages language-switcher" aria-label="Idiomas">
+                <details class="language-menu mobile-language-menu">
+                  <summary class="language-current" aria-label="Alterar idioma">
+                    <span class="language-flag language-flag-br" data-current-language-flag aria-hidden="true"></span>
+                    <span data-current-language-code>PT</span>
+                  </summary>
+                  <div class="language-options">
+                    <a href="?lang=pt" data-lang-option="pt" lang="pt-BR" aria-current="true"><span class="language-flag language-flag-br" aria-hidden="true"></span><span>PT</span></a>
+                    <a href="?lang=en" data-lang-option="en" lang="en"><span class="language-flag language-flag-us" aria-hidden="true"></span><span>US</span></a>
+                    <a href="?lang=es" data-lang-option="es" lang="es"><span class="language-flag language-flag-es" aria-hidden="true"></span><span>ES</span></a>
+                  </div>
+                </details>
               </div>
             </div>
           </nav>
@@ -354,12 +359,18 @@ function renderSiteHeader(options = {}) {
           </span>
           ${escapeHtml(ctaText)}
         </a>
-        <div class="desktop-language-switcher" aria-label="Idiomas">
-          <a href="?lang=pt" data-lang-option="pt" lang="pt-BR" aria-current="true">PT</a>
-          <span aria-hidden="true">|</span>
-          <a href="?lang=en" data-lang-option="en" lang="en">US</a>
-          <span aria-hidden="true">|</span>
-          <a href="?lang=es" data-lang-option="es" lang="es">ES</a>
+        <div class="desktop-language-switcher language-switcher" aria-label="Idiomas">
+          <details class="language-menu">
+            <summary class="language-current" aria-label="Alterar idioma">
+              <span class="language-flag language-flag-br" data-current-language-flag aria-hidden="true"></span>
+              <span data-current-language-code>PT</span>
+            </summary>
+            <div class="language-options">
+              <a href="?lang=pt" data-lang-option="pt" lang="pt-BR" aria-current="true"><span class="language-flag language-flag-br" aria-hidden="true"></span><span>PT</span></a>
+              <a href="?lang=en" data-lang-option="en" lang="en"><span class="language-flag language-flag-us" aria-hidden="true"></span><span>US</span></a>
+              <a href="?lang=es" data-lang-option="es" lang="es"><span class="language-flag language-flag-es" aria-hidden="true"></span><span>ES</span></a>
+            </div>
+          </details>
         </div>
       </div>
     </header>`;
@@ -407,7 +418,7 @@ function renderSiteFooter() {
             <h2>Contato</h2>
             <a href="${buildWhatsAppUrl("Olá! Vim pelo site da Serviços Tech e gostaria de solicitar um orçamento para criação de site.")}" target="_blank" rel="noopener">WhatsApp: (11) 91515-5349</a>
             <a href="https://www.instagram.com/servicostech.br/" target="_blank" rel="noopener">Instagram</a>
-            <a href="mailto:servicos.negocios.digital@gmail.com">servicos.negocios.digital@gmail.com</a>
+            <a href="mailto:contato@servicostech.com.br">contato@servicostech.com.br</a>
           </section>
         </div>
 
@@ -449,7 +460,7 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.unsplash.com" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css?v=20260614-seo-performance" />
+  <link rel="stylesheet" href="/style.css?v=20260615-language-flags" />
 </head>
 <body>
   ${renderSiteHeader(headerOptions || headerVariant)}
@@ -457,7 +468,7 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
   <a class="whatsapp-float" href="${buildWhatsAppUrl("Olá! Vim pelo site da Serviços Tech e gostaria de solicitar um orçamento para criação de site.")}" target="_blank" rel="noopener" aria-label="Falar com a Serviços Tech no WhatsApp">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.4 18.7 6.2 15A7.8 7.8 0 1 1 9 17.8l-3.6.9Z"></path><path d="M9.3 8.6c.2-.5.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.6c.1.3 0 .5-.2.7l-.4.5c.5.9 1.3 1.7 2.3 2.1l.6-.7c.2-.2.4-.3.7-.2l1.6.8c.3.1.4.3.4.6v.5c0 .3-.1.5-.4.7-.5.3-1 .5-1.7.5-1.6 0-3.3-.9-4.6-2.2C9.2 12 8.4 10.4 8.4 9.3c0-.2.4-.6.9-.7Z"></path></svg>
     <span>
-      <strong>Atendimento</strong>
+      <strong>Falar agora</strong>
       <small>WhatsApp</small>
     </span>
   </a>
@@ -487,7 +498,14 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
         return supportedLanguages[lang] ? lang : "pt";
       }
 
+      var languageMeta = {
+        pt: { code: "PT", flagClass: "language-flag-br" },
+        en: { code: "US", flagClass: "language-flag-us" },
+        es: { code: "ES", flagClass: "language-flag-es" }
+      };
+
       function syncLanguageLinks(lang) {
+        var currentLanguage = languageMeta[lang] || languageMeta.pt;
         document.documentElement.lang = supportedLanguages[lang];
         document.querySelectorAll("[data-lang-option]").forEach((link) => {
           var option = link.getAttribute("data-lang-option");
@@ -499,6 +517,13 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
           } else {
             link.removeAttribute("aria-current");
           }
+        });
+        document.querySelectorAll("[data-current-language-flag]").forEach((element) => {
+          element.classList.remove("language-flag-br", "language-flag-us", "language-flag-es");
+          element.classList.add(currentLanguage.flagClass);
+        });
+        document.querySelectorAll("[data-current-language-code]").forEach((element) => {
+          element.textContent = currentLanguage.code;
         });
       }
 
@@ -516,6 +541,14 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
             return;
           }
           syncLanguageLinks(lang);
+          var languageMenu = link.closest(".language-menu");
+          if (languageMenu) languageMenu.removeAttribute("open");
+        });
+      });
+
+      document.addEventListener("click", (event) => {
+        document.querySelectorAll(".language-menu[open]").forEach((menu) => {
+          if (!menu.contains(event.target)) menu.removeAttribute("open");
         });
       });
 
@@ -1135,8 +1168,8 @@ function renderPrivacyPolicyPage() {
               <p>A Serviços Tech é uma iniciativa profissional voltada à criação de sites, landing pages, sistemas, automações e soluções digitais para empresas, profissionais autônomos e prestadores de serviço.</p>
               <p><strong>Site:</strong> ${escapeHtml(legalInfo.website)}</p>
               <p><strong>Responsável pelo tratamento dos dados:</strong><br>${escapeHtml(legalInfo.dataController)}</p>
-              <p><strong>Localidade:</strong> ${escapeHtml(legalInfo.location)}</p>
-              <p><strong>Contato para assuntos relacionados à privacidade:</strong><br>${escapeHtml(legalInfo.contactEmail)} | ${escapeHtml(legalInfo.contactWhatsApp)}</p>
+              <p><strong>Contato:</strong><br><a href="mailto:${escapeHtml(legalInfo.contactEmail)}">${escapeHtml(legalInfo.contactEmail)}</a> e ${escapeHtml(legalInfo.contactWhatsApp)}</p>
+              <p><strong>Localidade:</strong><br>${escapeHtml(legalInfo.location)}</p>
             </section>
 
             <section class="legal-section">
@@ -1191,7 +1224,7 @@ function renderPrivacyPolicyPage() {
             <section class="legal-section">
               <h2>7. Como solicitar atendimento sobre dados pessoais</h2>
               <p>Para exercer seus direitos ou tirar dúvidas sobre esta política, entre em contato pelos canais oficiais:</p>
-              <p><strong>E-mail:</strong> ${escapeHtml(legalInfo.contactEmail)}<br><strong>WhatsApp:</strong> ${escapeHtml(legalInfo.contactWhatsApp)}</p>
+              <p><strong>Contato:</strong><br><a href="mailto:${escapeHtml(legalInfo.contactEmail)}">${escapeHtml(legalInfo.contactEmail)}</a> e ${escapeHtml(legalInfo.contactWhatsApp)}</p>
             </section>
 
             <section class="legal-section">
@@ -1297,7 +1330,9 @@ function renderTermsPage() {
             <section class="legal-section">
               <h2>12. Legislação e foro</h2>
               <p>Estes termos são regidos pela legislação brasileira. Eventuais conflitos deverão ser resolvidos preferencialmente por diálogo entre as partes e, quando necessário, perante o foro competente conforme a legislação aplicável.</p>
-              <p><strong>Responsável/controlador:</strong> ${escapeHtml(legalInfo.dataController)}<br><strong>CNPJ/CPF:</strong> ${escapeHtml(legalInfo.taxId)}<br><strong>Contato:</strong> ${escapeHtml(legalInfo.contactEmail)} e ${escapeHtml(legalInfo.contactWhatsApp)}</p>
+              <p><strong>Responsável pelo tratamento dos dados:</strong><br>${escapeHtml(legalInfo.dataController)}</p>
+              <p><strong>Contato:</strong><br><a href="mailto:${escapeHtml(legalInfo.contactEmail)}">${escapeHtml(legalInfo.contactEmail)}</a> e ${escapeHtml(legalInfo.contactWhatsApp)}</p>
+              <p><strong>Localidade:</strong><br>${escapeHtml(legalInfo.location)}</p>
               <p class="legal-updated"><strong>Última atualização:</strong> ${escapeHtml(legalInfo.lastUpdated)}.</p>
             </section>
           </div>
