@@ -213,143 +213,78 @@ figure, blockquote, ul { margin: 0; }
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 44px;
-  padding: 0 14px;
-  color: var(--color-dark);
-  background: #F5F7FA;
-  border: 1px solid rgba(var(--color-dark-rgb), 0.10);
-  border-radius: 999px;
-  box-shadow: 0 6px 16px rgba(var(--color-dark-rgb), 0.10);
+  min-height: 42px;
+  padding: 0 13px;
+  color: var(--color-primary);
+  background: var(--color-white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   list-style: none;
-  transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  transition: background-color 180ms ease, border-color 180ms ease;
 }
 
 .language-current:hover,
 .language-menu[open] .language-current {
-  background: var(--color-white);
-  box-shadow: 0 10px 22px rgba(var(--color-dark-rgb), 0.14);
-  transform: translateY(-1px);
+  background: var(--color-light-bg);
+  border-color: rgba(var(--color-primary-rgb), 0.22);
 }
 
-.language-flag {
-  position: relative;
-  display: inline-block;
-  flex: 0 0 22px;
-  width: 22px;
-  height: 22px;
-  overflow: hidden;
-  border: 1px solid rgba(var(--color-dark-rgb), 0.12);
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 1px rgba(var(--color-white-rgb), 0.45);
+.language-globe {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  color: var(--muted);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.language-flag::before,
-.language-flag::after {
-  content: "";
-  position: absolute;
-  pointer-events: none;
+.language-caret {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
+  margin-left: 1px;
+  color: var(--muted);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 180ms ease;
 }
 
-.language-flag-br {
-  background: #159447;
-}
-
-.language-flag-br::before {
-  top: 5px;
-  left: 4px;
-  width: 14px;
-  height: 12px;
-  background: #facc15;
-  border-radius: 1px;
-  transform: rotate(45deg);
-}
-
-.language-flag-br::after {
-  top: 7px;
-  left: 7px;
-  width: 8px;
-  height: 8px;
-  background: #1d4ed8;
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 1px rgba(var(--color-white-rgb), 0.30);
-}
-
-.language-flag-us {
-  background: repeating-linear-gradient(
-    to bottom,
-    #b91c1c 0 2px,
-    var(--color-white) 2px 4px
-  );
-}
-
-.language-flag-us::before {
-  top: 0;
-  left: 0;
-  width: 11px;
-  height: 11px;
-  background: #1d4ed8;
-}
-
-.language-flag-us::after {
-  top: 2px;
-  left: 2px;
-  width: 2px;
-  height: 2px;
-  background: var(--color-white);
-  border-radius: 50%;
-  box-shadow: 4px 0 var(--color-white), 8px 0 var(--color-white), 2px 4px var(--color-white), 6px 4px var(--color-white);
-}
-
-.language-flag-es {
-  background: linear-gradient(
-    to bottom,
-    #c1121f 0 26%,
-    #facc15 26% 74%,
-    #c1121f 74%
-  );
-}
-
-.language-flag-es::before {
-  top: 8px;
-  left: 6px;
-  width: 4px;
-  height: 6px;
-  background: #b91c1c;
-  border-radius: 1px;
-  box-shadow: inset 0 0 0 1px rgba(var(--color-white-rgb), 0.38);
-}
-
-.language-flag-es::after {
-  display: none;
+.language-menu[open] .language-caret {
+  transform: rotate(180deg);
 }
 
 .language-options {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 6px);
   right: 0;
   z-index: 1300;
   display: grid;
-  gap: 4px;
-  min-width: 94px;
+  gap: 2px;
+  min-width: 168px;
   padding: 6px;
   background: var(--color-white);
   border: 1px solid var(--line);
   border-radius: 10px;
-  box-shadow: 0 16px 34px rgba(var(--color-dark-rgb), 0.16);
+  box-shadow: var(--shadow-md);
 }
 
 .language-options a {
   display: flex;
   align-items: center;
-  gap: 8px;
-  min-height: 34px;
-  padding: 6px 8px;
+  min-height: 38px;
+  padding: 0 12px;
   color: var(--graphite);
-  border-radius: 8px;
-  font-size: 13px;
+  border-radius: 6px;
+  font-size: 14px;
   font-weight: 500;
   transition: background-color 180ms ease, color 180ms ease;
 }
@@ -358,10 +293,6 @@ figure, blockquote, ul { margin: 0; }
 .language-options a[aria-current="true"] {
   color: var(--primary);
   background: var(--accent-soft);
-}
-
-.language-options .language-flag {
-  border-color: rgba(var(--color-dark-rgb), 0.12);
 }
 
 /* Ãcone social */

@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.unsplash.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=20260616-redesign-minimal" />
+  <link rel="stylesheet" href="style.css?v=20260616-lang-switcher" />
 
   <script type="application/ld+json">
     {
@@ -79,13 +79,14 @@
         <div class="desktop-language-switcher language-switcher" aria-label="Idiomas">
           <details class="language-menu">
             <summary class="language-current" aria-label="Alterar idioma">
-              <span class="language-flag language-flag-br" data-current-language-flag aria-hidden="true"></span>
-              <span data-current-language-code>PT</span>
+              <svg class="language-globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18" /></svg>
+              <span data-current-language-name>Português</span>
+              <svg class="language-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
             </summary>
             <div class="language-options">
-              <a href="?lang=pt" data-lang-option="pt" lang="pt-BR" aria-current="true"><span class="language-flag language-flag-br" aria-hidden="true"></span><span>PT</span></a>
-              <a href="?lang=en" data-lang-option="en" lang="en"><span class="language-flag language-flag-us" aria-hidden="true"></span><span>US</span></a>
-              <a href="?lang=es" data-lang-option="es" lang="es"><span class="language-flag language-flag-es" aria-hidden="true"></span><span>ES</span></a>
+              <a href="?lang=pt" data-lang-option="pt" lang="pt-BR" aria-current="true"><span>Português</span></a>
+              <a href="?lang=en" data-lang-option="en" lang="en"><span>English</span></a>
+              <a href="?lang=es" data-lang-option="es" lang="es"><span>Español</span></a>
             </div>
           </details>
         </div>
@@ -118,13 +119,14 @@
               <div class="mobile-menu-languages language-switcher" aria-label="Idiomas">
                 <details class="language-menu mobile-language-menu">
                   <summary class="language-current" aria-label="Alterar idioma">
-                    <span class="language-flag language-flag-br" data-current-language-flag aria-hidden="true"></span>
-                    <span data-current-language-code>PT</span>
+                    <svg class="language-globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18" /></svg>
+                    <span data-current-language-name>Português</span>
+                    <svg class="language-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
                   </summary>
                   <div class="language-options">
-                    <a href="?lang=pt" data-lang-option="pt" lang="pt-BR" aria-current="true"><span class="language-flag language-flag-br" aria-hidden="true"></span><span>PT</span></a>
-                    <a href="?lang=en" data-lang-option="en" lang="en"><span class="language-flag language-flag-us" aria-hidden="true"></span><span>US</span></a>
-                    <a href="?lang=es" data-lang-option="es" lang="es"><span class="language-flag language-flag-es" aria-hidden="true"></span><span>ES</span></a>
+                    <a href="?lang=pt" data-lang-option="pt" lang="pt-BR" aria-current="true"><span>Português</span></a>
+                    <a href="?lang=en" data-lang-option="en" lang="en"><span>English</span></a>
+                    <a href="?lang=es" data-lang-option="es" lang="es"><span>Español</span></a>
                   </div>
                 </details>
               </div>
@@ -700,9 +702,9 @@
       }
 
       var languageMeta = {
-        pt: { code: 'PT', flagClass: 'language-flag-br' },
-        en: { code: 'US', flagClass: 'language-flag-us' },
-        es: { code: 'ES', flagClass: 'language-flag-es' }
+        pt: { code: 'PT', name: 'Português', flagClass: 'language-flag-br' },
+        en: { code: 'US', name: 'English', flagClass: 'language-flag-us' },
+        es: { code: 'ES', name: 'Español', flagClass: 'language-flag-es' }
       };
 
       function setText(selector, text) {
@@ -736,6 +738,9 @@
         });
         document.querySelectorAll('[data-current-language-code]').forEach(function (element) {
           element.textContent = currentLanguage.code;
+        });
+        document.querySelectorAll('[data-current-language-name]').forEach(function (element) {
+          element.textContent = currentLanguage.name;
         });
       }
 
