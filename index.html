@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.unsplash.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=20260615-footer-cta-gap" />
+  <link rel="stylesheet" href="style.css?v=20260616-redesign-minimal" />
 
   <script type="application/ld+json">
     {
@@ -139,7 +139,7 @@
     <section class="hero" id="inicio">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="hero-badge">Serviços Tech • Agência digital premium</p>
+          <p class="hero-badge">Criação de sites e landing pages</p>
           <h1>
             <span>Seu Site</span>
             <span>Profissional</span>
@@ -169,25 +169,14 @@
           </dl>
         </div>
 
-        <div class="hero-showcase" aria-label="Mockup realista de projetos Serviços Tech">
-          <div class="showcase-main">
-            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1100&q=80" alt="Dashboard profissional em notebook representando site entregue pela Serviços Tech" width="1100" height="734" fetchpriority="high" decoding="async" />
-            <div class="showcase-glass">
-              <span>servicostech.com.br</span>
-              <strong>Site publicado e pronto para converter</strong>
+        <div class="hero-showcase" aria-label="Exemplo de site entregue pela Serviços Tech">
+          <figure class="showcase-frame">
+            <div class="showcase-bar" aria-hidden="true">
+              <span></span><span></span><span></span>
+              <em>servicostech.com.br</em>
             </div>
-          </div>
-          <div class="showcase-card">
-            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=360&q=78" alt="Reunião de estratégia digital para planejamento de site profissional" width="360" height="240" decoding="async" />
-            <!-- FIX 6: Métrica removida do hero visual — sem fonte, sem contexto -->
-            <div>
-              <span>Clientes ativos</span>
-              <strong>+40</strong>
-            </div>
-          </div>
-          <div class="showcase-phone">
-            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=420&q=78" alt="Site responsivo visualizado no celular" width="420" height="630" decoding="async" />
-          </div>
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1100&q=80" alt="Site profissional entregue pela Serviços Tech exibido em um notebook" width="1100" height="734" fetchpriority="high" decoding="async" />
+          </figure>
         </div>
       </div>
     </section>
@@ -465,7 +454,6 @@
 
       <div class="footer-bottom">
         <p>&copy; 2026 Serviços Tech. Todos os direitos reservados.</p>
-        <p class="footer-bottom-note">Desenvolvido com foco em conversão e performance.</p>
         <div class="footer-bottom-links" aria-label="Links legais">
           <a href="/termos-de-uso">Termos de Uso</a>
           <a href="/politica-de-privacidade">Política de Privacidade</a>
@@ -575,7 +563,7 @@
           },
           quote: 'Solicitar Orçamento',
           receiveProposal: 'Receber Proposta',
-          heroBadge: 'Serviços Tech • Agência digital premium',
+          heroBadge: 'Criação de sites e landing pages',
           heroTitle: ['Seu Site', 'Profissional', 'Pronto em Até 7 Dias'],
           heroSubtitle: 'Tenha uma presença digital profissional e conquiste mais clientes todos os dias com um site criado para transmitir confiança, tecnologia e autoridade.',
           heroSecondary: 'Ver o que está incluso',
@@ -605,7 +593,6 @@
           footerNav: 'Navegação',
           footerCtaTitle: 'Solicitar Orçamento',
           footerCtaText: 'Fale pelo WhatsApp e receba uma proposta personalizada para o seu negócio.',
-          footerNote: 'Desenvolvido com foco em conversão e performance.',
           socials: 'Redes Sociais'
         },
         en: {
@@ -620,7 +607,7 @@
           },
           quote: 'Request a Quote',
           receiveProposal: 'Get a Proposal',
-          heroBadge: 'Serviços Tech • Premium digital agency',
+          heroBadge: 'Website & landing page design',
           heroTitle: ['Your', 'Professional Website', 'Ready in Up to 7 Days'],
           heroSubtitle: 'Build a professional online presence and win more clients every day with a website designed to communicate trust, technology and authority.',
           heroSecondary: 'See what is included',
@@ -650,7 +637,6 @@
           footerNav: 'Navigation',
           footerCtaTitle: 'Request a Quote',
           footerCtaText: 'Talk to us on WhatsApp and receive a custom proposal for your business.',
-          footerNote: 'Developed with a focus on conversion and performance.',
           socials: 'Social Media'
         },
         es: {
@@ -665,7 +651,7 @@
           },
           quote: 'Solicitar Presupuesto',
           receiveProposal: 'Recibir Propuesta',
-          heroBadge: 'Serviços Tech • Agencia digital premium',
+          heroBadge: 'Creación de sitios y landing pages',
           heroTitle: ['Tu Sitio', 'Profesional', 'Listo en Hasta 7 Días'],
           heroSubtitle: 'Construye una presencia digital profesional y conquista más clientes todos los días con un sitio creado para transmitir confianza, tecnología y autoridad.',
           heroSecondary: 'Ver qué está incluido',
@@ -695,7 +681,6 @@
           footerNav: 'Navegación',
           footerCtaTitle: 'Solicitar Presupuesto',
           footerCtaText: 'Habla con nosotros por WhatsApp y recibe una propuesta personalizada para tu empresa.',
-          footerNote: 'Desarrollado con foco en conversión y rendimiento.',
           socials: 'Redes Sociales'
         }
       };
@@ -811,7 +796,6 @@
         setText('.footer-cta-column h2', t.footerCtaTitle);
         setText('.footer-cta-column p', t.footerCtaText);
         setText('.footer-button', t.receiveProposal);
-        setText('.footer-bottom-note', t.footerNote);
         setText('.mobile-menu-extras p', t.socials);
 
         safeStorage('set', lang);
@@ -890,10 +874,10 @@
 
       // Monta a mensagem do WhatsApp com os dados do formulário
       var texto = 'Olá! Vim pelo site da Serviços Tech e gostaria de solicitar um orçamento.\n\n'
-        + '👤 Nome: ' + nome + '\n'
-        + '📱 WhatsApp: ' + telefone + '\n'
-        + '📧 E-mail: ' + email + '\n\n'
-        + '💬 Mensagem: ' + mensagem;
+        + 'Nome: ' + nome + '\n'
+        + 'WhatsApp: ' + telefone + '\n'
+        + 'E-mail: ' + email + '\n\n'
+        + 'Mensagem: ' + mensagem;
 
       var url = 'https://wa.me/5511915155349?text=' + encodeURIComponent(texto);
 

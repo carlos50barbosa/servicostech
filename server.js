@@ -475,7 +475,6 @@ function renderSiteFooter() {
 
         <div class="footer-bottom">
           <p>© 2026 Serviços Tech. Todos os direitos reservados.</p>
-          <p class="footer-bottom-note">Desenvolvido com foco em conversão e performance.</p>
         </div>
       </div>
     </footer>`;
@@ -511,7 +510,7 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.unsplash.com" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css?v=20260615-footer-cta-gap" />
+  <link rel="stylesheet" href="/style.css?v=20260616-redesign-minimal" />
 </head>
 <body>
   ${renderSiteHeader(headerOptions || headerVariant)}

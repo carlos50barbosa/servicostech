@@ -29,10 +29,11 @@ As cores devem ser consumidas a partir das variaveis globais em `style.css`:
 ## Regras de aplicacao
 
 - Header usa `--color-white` com links em `--color-dark` para leitura limpa. Footer e fundos institucionais podem usar `--color-primary`.
-- Botoes principais usam `--color-secondary` com texto branco.
-- Botoes secundarios usam fundo branco ou transparente com borda em `--color-secondary`.
-- Cards, formularios e blocos internos usam `--color-white` sobre `--color-light-bg`.
-- Textos principais usam `--color-dark`.
-- Titulos de destaque usam `--color-primary`.
-- Links, icones e pequenos destaques usam `--color-secondary`.
+- Botoes e acoes principais usam `--color-primary` (azul-marinho) com texto branco, para um visual mais sobrio. O hover escurece o marinho (`--primary-dark`), sem efeito de "flutuar".
+- Botoes secundarios usam fundo branco com borda neutra (`--line`).
+- O azul vivo `--color-secondary` e reservado a pequenos destaques: eyebrows de secao, links, estados de foco e detalhes pontuais. Evitar uso decorativo amplo.
+- Cards, formularios e blocos internos usam `--color-white` sobre `--color-light-bg`, com bordas finas e sombras neutras e discretas.
+- Textos principais usam `--color-dark`; titulos de destaque usam `--color-primary`.
+- Tipografia: pesos ate 700 (titulos/numeros) e 600 (rotulos/botoes); evitar 800/900. Eyebrows em maiusculas usam `letter-spacing: 0.08em`.
+- Evitar ruido decorativo: nada de grades quadriculadas, gradientes radiais, glassmorphism ou formas rotacionadas.
 - Evitar novas cores soltas no CSS. Quando uma variacao for necessaria, preferir `rgba()` com os canais RGB ja centralizados em `:root`.
