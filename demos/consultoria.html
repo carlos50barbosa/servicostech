@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Nexo Consultoria Empresarial — planejamento estratégico, gestão financeira e inteligência de dados para empresas que querem crescer com método e previsibilidade.">
+<title>Nexo Consultoria Empresarial | Estratégia, Finanças e Resultados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1D4ED8;
+    --blue-deep:#0B3D91;
+    --slate:#475569;
+    --slate-dark:#1E293B;
+    --bg-light:#F1F5F9;
+    --green:#10B981;
+    --white:#fff;
+    --border:#E2E8F0;
+    --shadow:0 10px 30px rgba(15,23,42,.08);
+    --shadow-lg:0 24px 60px rgba(11,61,145,.16);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    color:var(--slate-dark);
+    background:var(--white);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{text-decoration:none;color:inherit}
+  img{display:block;max-width:100%}
+  .container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+  /* ---------- Header ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:saturate(180%) blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:21px;letter-spacing:-.02em;color:var(--slate-dark)}
+  .logo .mark{
+    width:38px;height:38px;border-radius:10px;
+    background:linear-gradient(135deg,var(--blue) 0%,var(--blue-deep) 100%);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:19px;font-weight:800;
+    box-shadow:0 6px 16px rgba(29,78,216,.35);
+  }
+  .logo .sub{font-weight:500;font-size:12px;color:var(--slate);letter-spacing:.04em;text-transform:uppercase;display:block;margin-top:-4px}
+  nav ul{display:flex;gap:34px;list-style:none}
+  nav ul a{font-size:15px;font-weight:500;color:var(--slate);transition:color .2s}
+  nav ul a:hover{color:var(--blue)}
+  .nav-cta{display:flex;align-items:center;gap:18px}
+  .nav-phone{font-size:14px;font-weight:600;color:var(--slate-dark)}
+  .nav-phone span{display:block;font-size:11px;font-weight:500;color:var(--slate);text-transform:uppercase;letter-spacing:.04em}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    font-weight:600;font-size:15px;border-radius:9px;padding:13px 24px;
+    cursor:pointer;border:none;transition:transform .15s,box-shadow .2s,background .2s;
+  }
+  .btn-primary{background:var(--blue);color:#fff;box-shadow:0 8px 20px rgba(29,78,216,.28)}
+  .btn-primary:hover{background:var(--blue-deep);transform:translateY(-2px)}
+  .btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.4)}
+  .btn-ghost:hover{background:rgba(255,255,255,.22)}
+  .btn-outline{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
+  .btn-outline:hover{background:var(--bg-light)}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;padding:150px 0 96px;overflow:hidden;color:#fff}
+  .hero-bg{position:absolute;inset:0;z-index:-2;background:#0B3D91}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.32}
+  .hero-overlay{
+    position:absolute;inset:0;z-index:-1;
+    background:linear-gradient(115deg,rgba(11,61,145,.96) 0%,rgba(29,78,216,.86) 48%,rgba(11,61,145,.62) 100%);
+  }
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .hero .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);
+    padding:7px 15px;border-radius:30px;font-size:13px;font-weight:600;letter-spacing:.03em;margin-bottom:24px;
+  }
+  .hero .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(16,185,129,.25)}
+  .hero h1{font-size:50px;line-height:1.08;font-weight:800;letter-spacing:-.025em;margin-bottom:22px}
+  .hero h1 em{font-style:normal;color:#A5C8FF}
+  .hero p.lead{font-size:19px;color:rgba(255,255,255,.88);max-width:520px;margin-bottom:34px}
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .hero-trust{display:flex;gap:30px;margin-top:42px;padding-top:30px;border-top:1px solid rgba(255,255,255,.18)}
+  .hero-trust .t-num{font-size:28px;font-weight:800;letter-spacing:-.02em}
+  .hero-trust .t-num em{font-style:normal;color:var(--green)}
+  .hero-trust .t-label{font-size:13px;color:rgba(255,255,255,.78)}
+  .hero-card{
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);
+    border-radius:18px;padding:8px;box-shadow:var(--shadow-lg);backdrop-filter:blur(4px);
+  }
+  .hero-card .pic{border-radius:13px;overflow:hidden;background:#0B3D91;height:340px}
+  .hero-card .pic img{width:100%;height:100%;object-fit:cover}
+  .hero-badge{
+    display:flex;align-items:center;gap:14px;background:#fff;color:var(--slate-dark);
+    margin:-44px 18px 8px;position:relative;border-radius:12px;padding:15px 18px;box-shadow:var(--shadow);
+  }
+  .hero-badge .ic{width:42px;height:42px;border-radius:10px;background:rgba(16,185,129,.12);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800}
+  .hero-badge .bt{font-size:14px;font-weight:700}
+  .hero-badge .bs{font-size:12px;color:var(--slate)}
+
+  /* ---------- Logos strip ---------- */
+  .clients{background:var(--white);border-bottom:1px solid var(--border);padding:30px 0}
+  .clients .row{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .clients .label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--slate);font-weight:600;white-space:nowrap}
+  .clients .names{display:flex;gap:42px;flex-wrap:wrap;flex:1;justify-content:flex-end}
+  .clients .names span{font-size:18px;font-weight:700;color:#94A3B8;letter-spacing:-.01em}
+
+  /* ---------- Section base ---------- */
+  section{padding:92px 0}
+  .sec-head{max-width:640px;margin-bottom:54px}
+  .sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
+  .kicker{display:inline-block;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--blue);margin-bottom:14px}
+  h2{font-size:38px;line-height:1.15;font-weight:800;letter-spacing:-.025em;color:var(--slate-dark);margin-bottom:16px}
+  .sec-head p{font-size:18px;color:var(--slate)}
+
+  /* ---------- Services ---------- */
+  .services{background:var(--bg-light)}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .svc-card{
+    background:#fff;border:1px solid var(--border);border-radius:16px;padding:32px;
+    transition:transform .2s,box-shadow .2s,border-color .2s;
+  }
+  .svc-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:#C7D7FB}
+  .svc-card .ic{
+    width:54px;height:54px;border-radius:13px;
+    background:linear-gradient(135deg,var(--blue) 0%,var(--blue-deep) 100%);
+    display:flex;align-items:center;justify-content:center;margin-bottom:22px;
+    color:#fff;font-size:26px;
+  }
+  .svc-card h3{font-size:20px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
+  .svc-card p{font-size:15px;color:var(--slate);margin-bottom:18px}
+  .svc-card a.more{font-size:14px;font-weight:600;color:var(--blue);display:inline-flex;align-items:center;gap:6px}
+  .svc-card a.more:after{content:"\2192";transition:transform .2s}
+  .svc-card:hover a.more:after{transform:translateX(4px)}
+
+  /* ---------- Stats ---------- */
+  .stats{background:var(--blue-deep);color:#fff;position:relative;overflow:hidden}
+  .stats:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% -10%,rgba(29,78,216,.55),transparent 55%)}
+  .stats .inner{position:relative}
+  .stats .sec-head h2{color:#fff}
+  .stats .sec-head p{color:rgba(255,255,255,.82)}
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:8px}
+  .stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:30px 28px}
+  .stat .num{font-size:46px;font-weight:800;letter-spacing:-.03em;line-height:1;color:#fff;display:flex;align-items:baseline;gap:4px}
+  .stat .num .u{font-size:24px;color:var(--green)}
+  .stat .lbl{margin-top:12px;font-size:15px;color:rgba(255,255,255,.85);font-weight:500}
+  .stats .disclaimer{margin-top:30px;font-size:13px;color:rgba(255,255,255,.6)}
+
+  /* ---------- Methodology ---------- */
+  .method-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .step{position:relative;background:#fff;border:1px solid var(--border);border-radius:16px;padding:30px 26px;box-shadow:var(--shadow)}
+  .step .n{font-size:14px;font-weight:800;color:var(--blue);letter-spacing:.05em;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .step .n .line{flex:1;height:2px;background:linear-gradient(90deg,var(--blue),transparent)}
+  .step h3{font-size:19px;font-weight:700;margin-bottom:9px}
+  .step p{font-size:15px;color:var(--slate)}
+
+  /* ---------- About / testimonial ---------- */
+  .about{background:var(--bg-light)}
+  .about-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;align-items:center}
+  .about-pic{border-radius:18px;overflow:hidden;background:#0B3D91;height:440px;box-shadow:var(--shadow-lg);position:relative}
+  .about-pic img{width:100%;height:100%;object-fit:cover}
+  .about-pic .float{
+    position:absolute;left:24px;bottom:24px;right:24px;background:#fff;border-radius:13px;padding:18px 20px;
+    box-shadow:var(--shadow);display:flex;gap:16px;align-items:center;
+  }
+  .about-pic .float .av{width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px}
+  .about-pic .float .ft{font-size:14px;font-weight:700;line-height:1.3}
+  .about-pic .float .fs{font-size:12px;color:var(--slate)}
+  .about ul.checks{list-style:none;margin:24px 0 30px;display:grid;gap:14px}
+  .about ul.checks li{display:flex;gap:12px;font-size:16px;color:var(--slate-dark)}
+  .about ul.checks li .ck{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:rgba(16,185,129,.14);color:var(--green);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+  blockquote{
+    background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);
+    border-radius:12px;padding:24px 26px;margin-top:30px;box-shadow:var(--shadow);
+  }
+  blockquote p{font-size:16px;color:var(--slate-dark);font-style:italic;margin-bottom:16px}
+  blockquote .by{display:flex;align-items:center;gap:12px}
+  blockquote .by .av{width:42px;height:42px;border-radius:50%;background:var(--slate);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+  blockquote .by .bn{font-size:14px;font-weight:700}
+  blockquote .by .br{font-size:13px;color:var(--slate)}
+
+  /* ---------- CTA / Contact ---------- */
+  .contact{background:linear-gradient(120deg,var(--blue-deep),var(--blue));color:#fff}
+  .contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+  .contact h2{color:#fff;font-size:40px}
+  .contact p.lead{font-size:18px;color:rgba(255,255,255,.88);margin-bottom:28px;max-width:480px}
+  .contact .info{display:grid;gap:16px}
+  .contact .info .item{display:flex;gap:14px;align-items:flex-start;font-size:16px}
+  .contact .info .item .ic{width:40px;height:40px;flex-shrink:0;border-radius:10px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:18px}
+  .contact .info .item .it{font-size:13px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.04em}
+  .contact .info .item .iv{font-weight:600}
+  .form-card{background:#fff;color:var(--slate-dark);border-radius:18px;padding:34px;box-shadow:var(--shadow-lg)}
+  .form-card h3{font-size:22px;font-weight:800;margin-bottom:6px}
+  .form-card .fsub{font-size:14px;color:var(--slate);margin-bottom:22px}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:7px;color:var(--slate-dark)}
+  .field input,.field select,.field textarea{
+    width:100%;border:1px solid var(--border);border-radius:9px;padding:12px 14px;font-size:15px;font-family:inherit;
+    background:#F8FAFC;color:var(--slate-dark);transition:border-color .2s,background .2s;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);background:#fff}
+  .form-card .btn-primary{width:100%;margin-top:6px;padding:15px}
+  .form-card .priv{font-size:12px;color:var(--slate);text-align:center;margin-top:14px}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--slate-dark);color:rgba(255,255,255,.72);padding:64px 0 28px}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;margin-bottom:46px}
+  footer .logo{color:#fff}
+  footer .logo .sub{color:rgba(255,255,255,.55)}
+  .foot-about{font-size:14px;color:rgba(255,255,255,.6);margin-top:18px;max-width:300px}
+  footer h4{color:#fff;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:18px}
+  footer ul{list-style:none;display:grid;gap:11px}
+  footer ul a{font-size:14px;color:rgba(255,255,255,.6);transition:color .2s}
+  footer ul a:hover{color:#fff}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;font-size:13px;color:rgba(255,255,255,.5)}
+  .foot-bottom .socials{display:flex;gap:12px}
+  .foot-bottom .socials a{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700;transition:background .2s}
+  .foot-bottom .socials a:hover{background:var(--blue)}
+
+  /* ---------- WhatsApp float ---------- */
+  .wa{
+    position:fixed;right:26px;bottom:26px;z-index:200;
+    display:flex;align-items:center;gap:12px;background:#25D366;color:#fff;
+    padding:14px 20px 14px 16px;border-radius:50px;font-weight:700;font-size:15px;
+    box-shadow:0 14px 34px rgba(37,211,102,.45);transition:transform .15s,box-shadow .2s;
+  }
+  .wa:hover{transform:translateY(-3px);box-shadow:0 18px 42px rgba(37,211,102,.55)}
+  .wa .waic{width:30px;height:30px;border-radius:50%;background:#fff;color:#25D366;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800}
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:980px){
+    nav ul,.nav-phone{display:none}
+    .hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
+    .svc-grid,.stat-grid,.method-grid{grid-template-columns:repeat(2,1fr)}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .hero h1{font-size:38px}
+    h2{font-size:30px}
+  }
+  @media(max-width:560px){
+    .svc-grid,.stat-grid,.method-grid,.foot-grid{grid-template-columns:1fr}
+    .clients .names{justify-content:flex-start}
+    .hero-trust{flex-wrap:wrap;gap:20px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header>
+  <div class="container nav">
+    <a href="#" class="logo" aria-label="Nexo Consultoria Empresarial — página inicial">
+      <span class="mark">N</span>
+      <span>Nexo<span class="sub">Consultoria Empresarial</span></span>
+    </a>
+    <nav aria-label="Navegação principal">
+      <ul>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#resultados">Resultados</a></li>
+        <li><a href="#metodologia">Metodologia</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <div class="nav-phone">
+        <span>Atendimento</span>
+        (11) 4003-2210
+      </div>
+      <a href="#contato" class="btn btn-primary">Agendar reunião</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80" alt="Equipe de consultores reunida em sala de reunião corporativa" loading="eager">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow"><span class="dot"></span> Consultoria com método e dados desde 2009</span>
+        <h1>Decisões mais inteligentes, <em>crescimento previsível</em> para a sua empresa.</h1>
+        <p class="lead">Unimos estratégia, finanças e inteligência de dados para destravar margem, organizar a operação e acelerar o resultado do seu negócio — com um plano claro e acompanhamento próximo.</p>
+        <div class="hero-actions">
+          <a href="#contato" class="btn btn-primary">Fale com um especialista</a>
+          <a href="#metodologia" class="btn btn-ghost">Como trabalhamos</a>
+        </div>
+        <div class="hero-trust">
+          <div>
+            <div class="t-num">+320</div>
+            <div class="t-label">empresas atendidas</div>
+          </div>
+          <div>
+            <div class="t-num">15<em> anos</em></div>
+            <div class="t-label">de mercado</div>
+          </div>
+          <div>
+            <div class="t-num">4,9<em>/5</em></div>
+            <div class="t-label">satisfação dos clientes</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="pic">
+          <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1600&q=80" alt="Consultores analisando relatórios e gráficos de desempenho em reunião">
+        </div>
+        <div class="hero-badge">
+          <div class="ic">+38%</div>
+          <div>
+            <div class="bt">Margem operacional</div>
+            <div class="bs">ganho médio em 12 meses de projeto*</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Clients strip ===== -->
+<div class="clients">
+  <div class="container row">
+    <span class="label">Empresas que confiam na Nexo</span>
+    <div class="names">
+      <span>Vértice Alimentos</span>
+      <span>GrupoMaref</span>
+      <span>TecnoSul</span>
+      <span>Lavoro Agro</span>
+      <span>Atrium Saúde</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Services ===== -->
+<section id="servicos" class="services">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker">Áreas de atuação</span>
+      <h2>Soluções completas para cada estágio do seu negócio</h2>
+      <p>Da estratégia à execução, atuamos lado a lado com a sua liderança para transformar diagnóstico em resultado mensurável.</p>
+    </div>
+    <div class="svc-grid">
+      <article class="svc-card">
+        <div class="ic" aria-hidden="true">◎</div>
+        <h3>Planejamento Estratégico</h3>
+        <p>Definição de objetivos, posicionamento e metas com indicadores claros e um roteiro de execução por trimestre.</p>
+        <a href="#contato" class="more">Saiba mais</a>
+      </article>
+      <article class="svc-card">
+        <div class="ic" aria-hidden="true">₿</div>
+        <h3>Gestão Financeira</h3>
+        <p>Fluxo de caixa, formação de preço, controle de custos e estrutura de capital para proteger margem e liquidez.</p>
+        <a href="#contato" class="more">Saiba mais</a>
+      </article>
+      <article class="svc-card">
+        <div class="ic" aria-hidden="true">⚙</div>
+        <h3>Processos &amp; Eficiência</h3>
+        <p>Mapeamento e redesenho de processos para reduzir desperdício, padronizar a operação e ganhar produtividade.</p>
+        <a href="#contato" class="more">Saiba mais</a>
+      </article>
+      <article class="svc-card">
+        <div class="ic" aria-hidden="true">↗</div>
+        <h3>Expansão Comercial</h3>
+        <p>Estruturação de funil, metas e remuneração de vendas para escalar a receita com previsibilidade e controle.</p>
+        <a href="#contato" class="more">Saiba mais</a>
+      </article>
+      <article class="svc-card">
+        <div class="ic" aria-hidden="true">▤</div>
+        <h3>BI &amp; Dados</h3>
+        <p>Painéis de indicadores e cultura data-driven para que a liderança decida com informação em tempo real.</p>
+        <a href="#contato" class="more">Saiba mais</a>
+      </article>
+      <article class="svc-card" style="background:linear-gradient(135deg,var(--blue),var(--blue-deep));color:#fff;border:none">
+        <div class="ic" style="background:rgba(255,255,255,.18)" aria-hidden="true">✦</div>
+        <h3 style="color:#fff">Não sabe por onde começar?</h3>
+        <p style="color:rgba(255,255,255,.85)">Agende um diagnóstico inicial gratuito de 45 minutos e receba um direcionamento objetivo para a sua empresa.</p>
+        <a href="#contato" class="more" style="color:#fff">Agendar diagnóstico</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Stats ===== -->
+<section id="resultados" class="stats">
+  <div class="container inner">
+    <div class="sec-head">
+      <span class="kicker" style="color:#A5C8FF">Resultados em números</span>
+      <h2>O impacto que geramos junto aos nossos clientes</h2>
+      <p>Indicadores que acompanhamos em projetos de transformação ao longo dos últimos anos.</p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="num">+38<span class="u">%</span></div>
+        <div class="lbl">de aumento médio na margem operacional</div>
+      </div>
+      <div class="stat">
+        <div class="num">−27<span class="u">%</span></div>
+        <div class="lbl">de redução em custos operacionais recorrentes</div>
+      </div>
+      <div class="stat">
+        <div class="num">+52<span class="u">%</span></div>
+        <div class="lbl">de crescimento em receita no ciclo de 12 meses</div>
+      </div>
+      <div class="stat">
+        <div class="num">94<span class="u">%</span></div>
+        <div class="lbl">dos clientes renovam ou ampliam o contrato</div>
+      </div>
+    </div>
+    <p class="disclaimer">* Valores ilustrativos, baseados em médias de projetos da Nexo Consultoria. Resultados variam conforme o porte, o setor e a maturidade de gestão de cada empresa.</p>
+  </div>
+</section>
+
+<!-- ===== Methodology ===== -->
+<section id="metodologia">
+  <div class="container">
+    <div class="sec-head center">
+      <span class="kicker">Nossa metodologia</span>
+      <h2>Um caminho claro, do diagnóstico ao resultado</h2>
+      <p>Trabalhamos em ciclos curtos e mensuráveis, com responsáveis definidos e acompanhamento contínuo de cada entrega.</p>
+    </div>
+    <div class="method-grid">
+      <div class="step">
+        <div class="n">01<span class="line"></span></div>
+        <h3>Diagnóstico</h3>
+        <p>Imersão na operação, análise de dados financeiros e comerciais e identificação dos principais gargalos.</p>
+      </div>
+      <div class="step">
+        <div class="n">02<span class="line"></span></div>
+        <h3>Plano</h3>
+        <p>Construção de um plano de ação priorizado, com metas, prazos, responsáveis e indicadores de sucesso.</p>
+      </div>
+      <div class="step">
+        <div class="n">03<span class="line"></span></div>
+        <h3>Execução</h3>
+        <p>Implementação lado a lado com o seu time, com rituais de gestão e ajustes rápidos de rota.</p>
+      </div>
+      <div class="step">
+        <div class="n">04<span class="line"></span></div>
+        <h3>Acompanhamento</h3>
+        <p>Monitoramento dos resultados em painéis e reuniões periódicas para sustentar os ganhos no longo prazo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== About / testimonial ===== -->
+<section id="sobre" class="about">
+  <div class="container about-grid">
+    <div class="about-pic">
+      <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80" alt="Equipe de consultores da Nexo em reunião de trabalho colaborativo">
+      <div class="float">
+        <div class="av">RM</div>
+        <div>
+          <div class="ft">RicardoMello</div>
+          <div class="fs">Sócio-fundador e Diretor de Estratégia</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="kicker">Quem somos</span>
+      <h2>Consultoria que senta do seu lado, não acima de você</h2>
+      <p style="font-size:18px;color:var(--slate)">Somos um time multidisciplinar de consultores com experiência em finanças, operações e vendas. Há 15 anos ajudamos empresas de médio porte a profissionalizar a gestão e crescer com sustentabilidade — sempre com transparência e foco em resultado.</p>
+      <ul class="checks">
+        <li><span class="ck">✓</span> Sócios sênior atuando diretamente em cada projeto</li>
+        <li><span class="ck">✓</span> Metas combinadas e medidas em conjunto com a sua liderança</li>
+        <li><span class="ck">✓</span> Entregas práticas, sem relatórios que ficam na gaveta</li>
+      </ul>
+      <blockquote>
+        <p>"Em pouco mais de um ano a Nexo nos ajudou a reorganizar o financeiro e enxergar a operação com clareza. Saímos de decisões no feeling para decisões baseadas em números — e a margem respondeu rápido."</p>
+        <div class="by">
+          <div class="av">CA</div>
+          <div>
+            <div class="bn">Camila Andrade</div>
+            <div class="br">CEO, Vértice Alimentos</div>
+          </div>
+        </div>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Contact / CTA ===== -->
+<section id="contato" class="contact">
+  <div class="container contact-grid">
+    <div>
+      <span class="kicker" style="color:#A5C8FF">Vamos conversar</span>
+      <h2>Agende uma reunião com um especialista</h2>
+      <p class="lead">Conte o desafio da sua empresa e receba um diagnóstico inicial sem compromisso. Respondemos em até 1 dia útil.</p>
+      <div class="info">
+        <div class="item">
+          <div class="ic" aria-hidden="true">✆</div>
+          <div>
+            <div class="it">Telefone / WhatsApp</div>
+            <div class="iv">(11) 4003-2210</div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="ic" aria-hidden="true">✉</div>
+          <div>
+            <div class="it">E-mail</div>
+            <div class="iv">contato@nexoconsultoria.com.br</div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="ic" aria-hidden="true">⌖</div>
+          <div>
+            <div class="it">Escritório</div>
+            <div class="iv">Av. Paulista, 1842 — 14º andar · Bela Vista, São Paulo / SP</div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="ic" aria-hidden="true">◔</div>
+          <div>
+            <div class="it">Atendimento</div>
+            <div class="iv">Seg. a Sex., das 9h às 18h</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form class="form-card" aria-label="Formulário de contato">
+      <h3>Solicite seu diagnóstico</h3>
+      <p class="fsub">Preencha os dados abaixo e nossa equipe entra em contato.</p>
+      <div class="field">
+        <label for="nome">Nome completo</label>
+        <input id="nome" name="nome" type="text" placeholder="Seu nome" autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="empresa">Empresa</label>
+        <input id="empresa" name="empresa" type="text" placeholder="Nome da empresa" autocomplete="organization">
+      </div>
+      <div class="field">
+        <label for="email">E-mail corporativo</label>
+        <input id="email" name="email" type="email" placeholder="voce@empresa.com.br" autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="area">Área de interesse</label>
+        <select id="area" name="area">
+          <option>Planejamento Estratégico</option>
+          <option>Gestão Financeira</option>
+          <option>Processos &amp; Eficiência</option>
+          <option>Expansão Comercial</option>
+          <option>BI &amp; Dados</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Quero falar com um especialista</button>
+      <p class="priv">Seus dados estão seguros e em conformidade com a LGPD.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a href="#" class="logo">
+          <span class="mark">N</span>
+          <span>Nexo<span class="sub">Consultoria Empresarial</span></span>
+        </a>
+        <p class="foot-about">Estratégia, finanças e dados para empresas que querem crescer com método e previsibilidade. Há 15 anos ao lado de quem decide.</p>
+      </div>
+      <div>
+        <h4>Serviços</h4>
+        <ul>
+          <li><a href="#servicos">Planejamento Estratégico</a></li>
+          <li><a href="#servicos">Gestão Financeira</a></li>
+          <li><a href="#servicos">Processos &amp; Eficiência</a></li>
+          <li><a href="#servicos">Expansão Comercial</a></li>
+          <li><a href="#servicos">BI &amp; Dados</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="#sobre">Sobre a Nexo</a></li>
+          <li><a href="#metodologia">Metodologia</a></li>
+          <li><a href="#resultados">Resultados</a></li>
+          <li><a href="#contato">Trabalhe conosco</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="tel:+551140032210">(11) 4003-2210</a></li>
+          <li><a href="mailto:contato@nexoconsultoria.com.br">contato@nexoconsultoria.com.br</a></li>
+          <li><a href="#contato">Av. Paulista, 1842 — SP</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Nexo Consultoria Empresarial Ltda. · CNPJ 12.345.678/0001-90 · Todos os direitos reservados.</span>
+      <div class="socials">
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="YouTube">yt</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== WhatsApp float ===== -->
+<a class="wa" href="https://wa.me/551140032210?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20reuni%C3%A3o%20com%20a%20Nexo." aria-label="Fale com a Nexo pelo WhatsApp" target="_blank" rel="noopener">
+  <span class="waic" aria-hidden="true">✆</span>
+  Fale no WhatsApp
+</a>
+
+</body>
+</html>

@@ -512,7 +512,7 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.unsplash.com" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css?v=20260616-lang-switcher" />
+  <link rel="stylesheet" href="/style.css?v=20260616-portfolio-demos" />
 </head>
 <body>
   ${renderSiteHeader(headerOptions || headerVariant)}

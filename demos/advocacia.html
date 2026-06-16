@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mendes &amp; Associados Advocacia | Tradição e Excelência Jurídica</title>
+<meta name="description" content="Escritório de advocacia em São Paulo com mais de 30 anos de atuação. Direito Civil, Trabalhista, Empresarial, de Família e Tributário.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#14233A;
+    --navy-deep:#0e1a2c;
+    --gold:#B08D57;
+    --gold-light:#c9a875;
+    --off:#F7F5F0;
+    --ink:#1f2937;
+    --muted:#5b6573;
+    --line:rgba(176,141,87,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--off);
+    line-height:1.65;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.12;color:var(--navy)}
+  a{text-decoration:none;color:inherit}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+  .eyebrow{
+    font-family:'Inter',sans-serif;
+    font-size:.72rem;font-weight:600;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--gold);
+    display:inline-flex;align-items:center;gap:14px;margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:34px;height:1px;background:var(--gold)}
+
+  /* ===== Header ===== */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(20,35,58,.96);
+    border-bottom:1px solid rgba(176,141,87,.25);
+    backdrop-filter:blur(6px);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:84px}
+  .logo{display:flex;flex-direction:column;line-height:1}
+  .logo .mark{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:700;color:#fff;letter-spacing:.5px}
+  .logo .mark b{color:var(--gold);font-weight:700}
+  .logo .sub{font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:4px}
+  .menu{display:flex;gap:38px;list-style:none}
+  .menu a{font-size:.82rem;color:rgba(255,255,255,.82);letter-spacing:.04em;transition:color .2s;position:relative;padding:4px 0}
+  .menu a:hover{color:var(--gold-light)}
+  .menu a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--gold);transition:width .25s}
+  .menu a:hover::after{width:100%}
+  .btn{
+    display:inline-block;font-size:.82rem;font-weight:500;letter-spacing:.05em;
+    padding:14px 28px;transition:all .22s;cursor:pointer;border:1px solid transparent;
+  }
+  .btn-primary{background:var(--gold);color:var(--navy-deep);font-weight:600}
+  .btn-primary:hover{background:var(--gold-light)}
+  .btn-outline{background:transparent;border:1px solid var(--gold);color:var(--gold-light)}
+  .btn-outline:hover{background:var(--gold);color:var(--navy-deep)}
+  .btn-ghost-light{border:1px solid rgba(255,255,255,.4);color:#fff}
+  .btn-ghost-light:hover{border-color:var(--gold);background:var(--gold);color:var(--navy-deep)}
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;min-height:680px;display:flex;align-items:center;
+    background-color:var(--navy-deep);
+    padding-top:84px;overflow:hidden;
+  }
+  .hero-bg{position:absolute;inset:0;z-index:0}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.55}
+  .hero-bg::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(105deg,rgba(14,26,44,.95) 0%,rgba(20,35,58,.85) 45%,rgba(20,35,58,.45) 100%);
+  }
+  .hero-inner{position:relative;z-index:2;max-width:640px;padding:90px 0}
+  .hero h1{font-size:3.7rem;color:#fff;letter-spacing:-.5px}
+  .hero h1 em{font-style:italic;color:var(--gold-light)}
+  .hero p{color:rgba(255,255,255,.78);font-size:1.08rem;margin:26px 0 36px;max-width:520px;font-weight:300}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+  .hero-meta{display:flex;gap:48px;margin-top:54px;padding-top:34px;border-top:1px solid rgba(255,255,255,.14)}
+  .hero-meta .num{font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:var(--gold-light);font-weight:600}
+  .hero-meta .lbl{font-size:.74rem;color:rgba(255,255,255,.6);letter-spacing:.05em}
+
+  /* ===== Sections ===== */
+  section{padding:104px 0}
+  .sec-head{max-width:640px;margin-bottom:56px}
+  .sec-head h2{font-size:2.7rem}
+  .sec-head p{color:var(--muted);margin-top:16px;font-size:1.02rem}
+  .sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
+  .sec-head.center .eyebrow{justify-content:center}
+
+  /* Áreas */
+  .areas{background:#fff}
+  .area-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .area{background:#fff;padding:42px 34px;transition:background .25s}
+  .area:hover{background:var(--off)}
+  .area .ico{width:46px;height:46px;margin-bottom:22px;color:var(--gold);
+    display:flex;align-items:center;justify-content:center;border:1px solid var(--line)}
+  .area .ico svg{width:24px;height:24px;stroke:var(--gold);fill:none;stroke-width:1.4}
+  .area h3{font-size:1.5rem;margin-bottom:10px}
+  .area p{color:var(--muted);font-size:.93rem}
+  .area .more{display:inline-block;margin-top:18px;font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-weight:600}
+
+  /* Sobre */
+  .about{background:var(--off)}
+  .about-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:72px;align-items:center}
+  .about-img{position:relative;aspect-ratio:4/5;background-color:var(--navy);overflow:hidden}
+  .about-img img{width:100%;height:100%;object-fit:cover}
+  .about-img .badge{
+    position:absolute;left:-1px;bottom:32px;background:var(--navy);color:#fff;
+    padding:24px 30px;border-left:3px solid var(--gold);
+  }
+  .about-img .badge .big{font-family:'Cormorant Garamond',serif;font-size:2.6rem;color:var(--gold-light);line-height:1}
+  .about-img .badge .small{font-size:.74rem;letter-spacing:.08em;color:rgba(255,255,255,.75);margin-top:4px}
+  .about h2{font-size:2.7rem;margin-bottom:22px}
+  .about p{color:var(--muted);margin-bottom:18px}
+  .about .sig{font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:var(--navy);margin-top:28px}
+  .about .sig small{display:block;font-family:'Inter',sans-serif;font-size:.78rem;letter-spacing:.05em;color:var(--muted);margin-top:4px}
+
+  /* Diferenciais */
+  .why{background:var(--navy);color:#fff}
+  .why .sec-head h2{color:#fff}
+  .why .sec-head p{color:rgba(255,255,255,.7)}
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px}
+  .why-item{padding-top:26px;border-top:1px solid rgba(176,141,87,.4)}
+  .why-item .n{font-family:'Cormorant Garamond',serif;color:var(--gold-light);font-size:1.1rem;letter-spacing:.1em;margin-bottom:14px}
+  .why-item h3{color:#fff;font-size:1.4rem;margin-bottom:10px}
+  .why-item p{color:rgba(255,255,255,.66);font-size:.92rem}
+
+  /* Depoimentos */
+  .testi{background:#fff}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .quote{background:var(--off);padding:40px 36px;border-top:2px solid var(--gold);display:flex;flex-direction:column}
+  .quote .mark{font-family:'Cormorant Garamond',serif;font-size:3.4rem;color:var(--gold);line-height:.5;height:30px}
+  .quote p{color:var(--ink);font-size:1rem;font-style:italic;margin:18px 0 26px;flex:1}
+  .quote .who{display:flex;align-items:center;gap:14px;margin-top:auto}
+  .quote .av{width:46px;height:46px;border-radius:50%;background-color:var(--navy);object-fit:cover;flex:none}
+  .quote .who b{display:block;font-family:'Inter',sans-serif;font-weight:600;font-size:.9rem;color:var(--navy)}
+  .quote .who span{font-size:.78rem;color:var(--muted)}
+
+  /* Contato */
+  .contact{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;position:relative;z-index:2}
+  .contact h2{color:#fff;font-size:2.7rem;margin-bottom:18px}
+  .contact .lead{color:rgba(255,255,255,.72);margin-bottom:38px;max-width:440px;font-weight:300}
+  .info-row{display:flex;gap:18px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+  .info-row:first-of-type{border-top:1px solid rgba(255,255,255,.12)}
+  .info-row .ico{flex:none;width:40px;height:40px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+  .info-row .ico svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.5}
+  .info-row .lbl{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light)}
+  .info-row .val{color:#fff;font-size:1rem}
+  .contact-card{background:var(--navy);border:1px solid rgba(176,141,87,.3);padding:46px}
+  .contact-card h3{color:#fff;font-size:1.9rem;margin-bottom:8px}
+  .contact-card p{color:rgba(255,255,255,.6);font-size:.92rem;margin-bottom:28px}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8px}
+  .field input,.field textarea{
+    width:100%;background:var(--navy-deep);border:1px solid rgba(255,255,255,.15);
+    color:#fff;padding:13px 15px;font-family:inherit;font-size:.92rem;
+  }
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--gold)}
+  .contact-card .btn{width:100%;text-align:center;margin-top:8px}
+
+  /* Footer */
+  footer{background:#0a1322;color:rgba(255,255,255,.6);padding:64px 0 28px}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .foot-logo .mark{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#fff;font-weight:700}
+  .foot-logo .mark b{color:var(--gold)}
+  .foot-grid p{font-size:.88rem;margin-top:16px;max-width:300px}
+  .foot-col h4{font-family:'Inter',sans-serif;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light);margin-bottom:20px;font-weight:600}
+  .foot-col ul{list-style:none}
+  .foot-col li{margin-bottom:12px;font-size:.88rem}
+  .foot-col a:hover{color:var(--gold-light)}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;font-size:.78rem;color:rgba(255,255,255,.4)}
+
+  /* WhatsApp */
+  .wa{
+    position:fixed;right:26px;bottom:26px;z-index:60;
+    width:60px;height:60px;border-radius:50%;background:#25D366;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);transition:transform .2s;
+  }
+  .wa:hover{transform:scale(1.07)}
+  .wa svg{width:32px;height:32px;fill:#fff}
+
+  @media(max-width:980px){
+    .menu{display:none}
+    .hero h1{font-size:2.7rem}
+    .area-grid,.why-grid,.testi-grid{grid-template-columns:1fr}
+    .about-grid,.contact-grid,.foot-grid{grid-template-columns:1fr;gap:40px}
+    .wrap{padding:0 22px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#inicio" class="logo" aria-label="Mendes e Associados Advocacia - início">
+      <span class="mark">Mendes <b>&amp;</b> Associados</span>
+      <span class="sub">Advocacia</span>
+    </a>
+    <nav aria-label="Navegação principal">
+      <ul class="menu">
+        <li><a href="#areas">Áreas de Atuação</a></li>
+        <li><a href="#sobre">O Escritório</a></li>
+        <li><a href="#diferenciais">Diferenciais</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <a href="#contato" class="btn btn-primary">Agendar Consulta</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=1600&q=80" alt="Biblioteca jurídica do escritório com estantes de livros de direito">
+  </div>
+  <div class="wrap">
+    <div class="hero-inner">
+      <span class="eyebrow">Desde 1992 &middot; São Paulo</span>
+      <h1>Defesa jurídica com <em>seriedade</em>, técnica e resultado.</h1>
+      <p>Há mais de três décadas representamos pessoas e empresas com discrição, rigor técnico e atendimento próximo. Sua causa conduzida por advogados que conhecem cada detalhe do seu processo.</p>
+      <div class="hero-cta">
+        <a href="#contato" class="btn btn-primary">Agendar Consulta</a>
+        <a href="#areas" class="btn btn-ghost-light">Conheça as Áreas</a>
+      </div>
+      <div class="hero-meta">
+        <div><div class="num">32</div><div class="lbl">anos de atuação</div></div>
+        <div><div class="num">4.200+</div><div class="lbl">processos conduzidos</div></div>
+        <div><div class="num">95%</div><div class="lbl">de clientes recorrentes</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÁREAS -->
+<section class="areas" id="areas">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Áreas de Atuação</span>
+      <h2>Atuação especializada em cada esfera do Direito</h2>
+      <p>Equipes dedicadas e estratégia construída caso a caso. Acompanhamos o cliente do parecer inicial à decisão final.</p>
+    </div>
+    <div class="area-grid">
+      <div class="area">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"/></svg></div>
+        <h3>Direito Civil</h3>
+        <p>Contratos, responsabilidade civil, indenizações, sucessões e disputas patrimoniais conduzidas com solidez.</p>
+        <span class="more">Saiba mais &rarr;</span>
+      </div>
+      <div class="area">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v4M5 21h14M7 21l1-9h8l1 9M9 7h6"/></svg></div>
+        <h3>Direito Trabalhista</h3>
+        <p>Defesa de empregados e empregadores, acordos, rescisões, verbas e contencioso perante a Justiça do Trabalho.</p>
+        <span class="more">Saiba mais &rarr;</span>
+      </div>
+      <div class="area">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10M6 3v18"/></svg></div>
+        <h3>Direito Empresarial</h3>
+        <p>Constituição de sociedades, contratos, recuperação judicial, compliance e assessoria societária contínua.</p>
+        <span class="more">Saiba mais &rarr;</span>
+      </div>
+      <div class="area">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21c-4-3-7-6-7-10a3.5 3.5 0 017-1 3.5 3.5 0 017 1c0 4-3 7-7 10z"/></svg></div>
+        <h3>Direito de Família</h3>
+        <p>Divórcios, guarda, pensão alimentícia, inventários e planejamento sucessório com sensibilidade e discrição.</p>
+        <span class="more">Saiba mais &rarr;</span>
+      </div>
+      <div class="area">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 16l4-8 4 5 4-9M6 16v4M14 13v7"/></svg></div>
+        <h3>Direito Tributário</h3>
+        <p>Planejamento fiscal, defesa em execuções, recuperação de créditos e contencioso administrativo e judicial.</p>
+        <span class="more">Saiba mais &rarr;</span>
+      </div>
+      <div class="area">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg></div>
+        <h3>Consultoria Preventiva</h3>
+        <p>Pareceres, análise de riscos e acompanhamento jurídico permanente para evitar litígios antes que surjam.</p>
+        <span class="more">Saiba mais &rarr;</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section class="about" id="sobre">
+  <div class="wrap about-grid">
+    <div class="about-img">
+      <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=80" alt="Reunião de advogados do escritório Mendes e Associados em sala de reunião">
+      <div class="badge">
+        <div class="big">1992</div>
+        <div class="small">ano de fundação</div>
+      </div>
+    </div>
+    <div>
+      <span class="eyebrow">O Escritório</span>
+      <h2>Uma tradição construída sobre a confiança dos nossos clientes</h2>
+      <p>Fundado em 1992 pelo advogado Dr. Ricardo Mendes, o escritório nasceu com um propósito claro: oferecer uma advocacia técnica, ética e profundamente comprometida com cada cliente. Ao longo de três décadas, consolidamos uma reputação de seriedade nos tribunais e fora deles.</p>
+      <p>Reunimos hoje uma equipe multidisciplinar de advogados especialistas, pareceristas e consultores que trabalham de forma integrada. Acreditamos que cada caso é único e merece atenção pessoal, estratégia sob medida e total transparência em cada etapa.</p>
+      <div class="sig">Dr. Ricardo Mendes
+        <small>Sócio-fundador &middot; OAB/SP 84.211</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section class="why" id="diferenciais">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" style="color:var(--gold-light)">Por que nos escolher</span>
+      <h2>Diferenciais que sustentam a nossa reputação</h2>
+      <p>O que nos torna a escolha de quem precisa de uma representação jurídica verdadeiramente sólida.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="n">01</div>
+        <h3>Atendimento personalizado</h3>
+        <p>Você fala diretamente com o advogado responsável pela sua causa, sem intermediários e com retorno ágil.</p>
+      </div>
+      <div class="why-item">
+        <div class="n">02</div>
+        <h3>Experiência comprovada</h3>
+        <p>Mais de 4.200 processos conduzidos em diferentes instâncias, com histórico sólido de resultados.</p>
+      </div>
+      <div class="why-item">
+        <div class="n">03</div>
+        <h3>Transparência total</h3>
+        <p>Honorários claros desde o início e acompanhamento do andamento processual em tempo real.</p>
+      </div>
+      <div class="why-item">
+        <div class="n">04</div>
+        <h3>Discrição e ética</h3>
+        <p>Tratamos cada caso com o sigilo, o respeito e a confidencialidade que a sua situação exige.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="testi" id="depoimentos">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">Depoimentos</span>
+      <h2>O que dizem nossos clientes</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="quote">
+        <div class="mark">&ldquo;</div>
+        <p>Conduziram uma disputa empresarial complexa com uma serenidade impressionante. Senti que minha empresa estava em mãos seguras do começo ao fim.</p>
+        <div class="who">
+          <img class="av" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Foto de Fernando Albuquerque">
+          <div><b>Fernando Albuquerque</b><span>Diretor &middot; Albuquerque Construtora</span></div>
+        </div>
+      </div>
+      <div class="quote">
+        <div class="mark">&ldquo;</div>
+        <p>Em um momento difícil de divórcio, fui tratada com respeito e clareza absoluta. Explicaram cada passo e nunca me deixaram sem resposta.</p>
+        <div class="who">
+          <img class="av" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80" alt="Foto de Patrícia Nogueira">
+          <div><b>Patrícia Nogueira</b><span>Cliente &middot; Direito de Família</span></div>
+        </div>
+      </div>
+      <div class="quote">
+        <div class="mark">&ldquo;</div>
+        <p>Recuperamos créditos tributários que considerávamos perdidos. Profissionalismo de altíssimo nível e total domínio técnico da matéria.</p>
+        <div class="who">
+          <img class="av" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80" alt="Foto de Eduardo Tavares">
+          <div><b>Eduardo Tavares</b><span>CFO &middot; Grupo Tavares Distribuição</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="contact" id="contato">
+  <div class="wrap contact-grid">
+    <div>
+      <span class="eyebrow" style="color:var(--gold-light)">Contato</span>
+      <h2>Agende uma consulta inicial</h2>
+      <p class="lead">Analisamos o seu caso com a atenção que ele merece. Entre em contato e dê o primeiro passo com segurança.</p>
+      <div class="info-row">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21c-4-3-7-6-7-10a7 7 0 0114 0c0 4-3 7-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg></div>
+        <div><div class="lbl">Endereço</div><div class="val">Av. Brigadeiro Faria Lima, 2277 &mdash; Cj. 1108<br>Jardim Paulistano, São Paulo &mdash; SP, 01452-000</div></div>
+      </div>
+      <div class="info-row">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5l4-1 2 5-2 1a12 12 0 005 5l1-2 5 2-1 4a2 2 0 01-2 1A16 16 0 013 7a2 2 0 011-2z"/></svg></div>
+        <div><div class="lbl">Telefone &middot; WhatsApp</div><div class="val">(11) 3578-4920 &middot; (11) 99812-4477</div></div>
+      </div>
+      <div class="info-row">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <div><div class="lbl">Horário de Atendimento</div><div class="val">Segunda a sexta, das 9h às 19h<br>Sábado mediante agendamento</div></div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <h3>Fale com o escritório</h3>
+      <p>Retornamos seu contato em até um dia útil.</p>
+      <form onsubmit="return false">
+        <div class="field"><label for="n">Nome completo</label><input id="n" type="text" placeholder="Seu nome"></div>
+        <div class="field"><label for="e">E-mail</label><input id="e" type="email" placeholder="seu@email.com"></div>
+        <div class="field"><label for="a">Assunto</label><input id="a" type="text" placeholder="Ex.: Direito Trabalhista"></div>
+        <div class="field"><label for="m">Mensagem</label><textarea id="m" rows="3" placeholder="Descreva brevemente o seu caso"></textarea></div>
+        <a href="#contato" class="btn btn-primary">Enviar Mensagem</a>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-logo">
+        <div class="mark">Mendes <b>&amp;</b> Associados</div>
+        <p>Escritório de advocacia full-service com mais de três décadas de tradição em São Paulo. Seriedade, técnica e compromisso com cada cliente.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Atuação</h4>
+        <ul>
+          <li><a href="#areas">Direito Civil</a></li>
+          <li><a href="#areas">Trabalhista</a></li>
+          <li><a href="#areas">Empresarial</a></li>
+          <li><a href="#areas">Família</a></li>
+          <li><a href="#areas">Tributário</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Escritório</h4>
+        <ul>
+          <li><a href="#sobre">O Escritório</a></li>
+          <li><a href="#diferenciais">Diferenciais</a></li>
+          <li><a href="#depoimentos">Depoimentos</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Contato</h4>
+        <ul>
+          <li>Av. Faria Lima, 2277 &mdash; SP</li>
+          <li>(11) 3578-4920</li>
+          <li>contato@mendesadvocacia.com.br</li>
+          <li>Seg a Sex &middot; 9h &ndash; 19h</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 Mendes &amp; Associados Advocacia. Todos os direitos reservados. OAB/SP 84.211.</span>
+      <span>Política de Privacidade &middot; Termos de Uso</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/5511998124477?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener" aria-label="Falar pelo WhatsApp">
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.5 8.5 3.5 15.5c0 2.4.7 4.6 1.9 6.6L3 29l7.1-2.3c1.9 1 4 1.6 6.2 1.6 7 0 12.5-5.5 12.5-12.5S23 3 16 3zm0 22.7c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.2 1.4 1.4-4.1-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.6 0-5.7 4.6-10.3 10.3-10.3s10.3 4.6 10.3 10.3-4.6 10.4-10.2 10.4zm5.7-7.8c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0c-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1s0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.5s0-.4 0-.6-.7-1.7-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1.1 1-1.1 2.5 1.1 2.9 1.3 3.1c.2.2 2.2 3.4 5.4 4.7.7.3 1.3.5 1.7.7.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4z"/></svg>
+</a>
+
+</body>
+</html>

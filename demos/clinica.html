@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clínica Vida Plena — Saúde com acolhimento em Campinas/SP</title>
+<meta name="description" content="Clínica médica em Campinas com atendimento humanizado em diversas especialidades. Agende sua consulta com facilidade.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#0E9AA1;
+    --teal-dark:#0a7a80;
+    --blue:#2BB3C0;
+    --mint:#E6F6F5;
+    --ink:#14323a;
+    --muted:#5a727a;
+    --line:#e2eeed;
+    --white:#ffffff;
+    --shadow:0 10px 30px rgba(14,154,161,.10);
+    --shadow-sm:0 6px 18px rgba(20,50,58,.06);
+    --radius:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Nunito Sans',system-ui,-apple-system,sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.logo{font-family:'Poppins',sans-serif;line-height:1.2;font-weight:700}
+  a{text-decoration:none;color:inherit}
+  img{display:block;max-width:100%}
+  .container{max-width:1180px;margin:0 auto;padding:0 24px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'Poppins',sans-serif;font-weight:600;font-size:15px;
+    padding:13px 24px;border-radius:999px;cursor:pointer;border:none;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn-primary{background:var(--teal);color:#fff;box-shadow:0 8px 20px rgba(14,154,161,.28)}
+  .btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--teal);border:1.5px solid #bfe4e3}
+  .btn-ghost:hover{background:var(--mint)}
+  .eyebrow{
+    font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--teal);
+  }
+  .section{padding:88px 0}
+  .section-head{max-width:680px;margin:0 auto 48px;text-align:center}
+  .section-head h2{font-size:34px;margin:10px 0 14px}
+  .section-head p{color:var(--muted);font-size:17px}
+
+  /* Header */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(255,255,255,.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .logo{display:flex;align-items:center;gap:10px;font-size:21px;color:var(--ink)}
+  .logo-mark{
+    width:38px;height:38px;border-radius:11px;
+    background:linear-gradient(135deg,var(--teal),var(--blue));
+    display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;
+    box-shadow:0 6px 14px rgba(14,154,161,.3);
+  }
+  .logo span{color:var(--teal)}
+  .nav-links{display:flex;gap:32px;list-style:none}
+  .nav-links a{font-weight:600;font-size:15px;color:var(--ink);transition:color .15s}
+  .nav-links a:hover{color:var(--teal)}
+  .nav-cta{display:flex;align-items:center;gap:18px}
+  .nav-phone{font-family:'Poppins',sans-serif;font-weight:600;font-size:15px;color:var(--ink)}
+  .nav-phone small{display:block;font-family:'Nunito Sans';font-weight:400;font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+
+  /* Hero */
+  .hero{padding:128px 0 84px;background:linear-gradient(180deg,var(--mint) 0%,#fff 100%)}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:60px;align-items:center}
+  .hero-tag{
+    display:inline-flex;align-items:center;gap:8px;background:#fff;
+    border:1px solid var(--line);padding:7px 15px;border-radius:999px;
+    font-size:13.5px;font-weight:600;color:var(--teal);margin-bottom:22px;box-shadow:var(--shadow-sm);
+  }
+  .hero h1{font-size:50px;letter-spacing:-.01em}
+  .hero h1 em{font-style:normal;color:var(--teal)}
+  .hero p.lead{font-size:19px;color:var(--muted);margin:22px 0 32px;max-width:520px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .hero-stats{display:flex;gap:36px;margin-top:44px;padding-top:32px;border-top:1px solid var(--line)}
+  .hero-stats .num{font-family:'Poppins';font-weight:700;font-size:28px;color:var(--ink)}
+  .hero-stats .lbl{font-size:14px;color:var(--muted)}
+  .hero-media{position:relative}
+  .hero-media .photo{
+    border-radius:24px;overflow:hidden;background:#cfe9e7;box-shadow:var(--shadow);
+    aspect-ratio:4/4.4;
+  }
+  .hero-media .photo img{width:100%;height:100%;object-fit:cover}
+  .hero-badge{
+    position:absolute;left:-22px;bottom:34px;background:#fff;border-radius:16px;
+    padding:16px 20px;box-shadow:var(--shadow);display:flex;align-items:center;gap:13px;
+  }
+  .hero-badge .ico{width:42px;height:42px;border-radius:12px;background:var(--mint);display:flex;align-items:center;justify-content:center;font-size:22px}
+  .hero-badge b{font-family:'Poppins';font-size:15px}
+  .hero-badge small{display:block;color:var(--muted);font-size:13px}
+
+  /* Trust strip */
+  .trust{background:#fff;border-bottom:1px solid var(--line)}
+  .trust-row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;padding:28px 0}
+  .trust-item{display:flex;align-items:center;gap:12px;color:var(--muted);font-weight:600;font-size:15px}
+  .trust-item .ti{font-size:22px}
+
+  /* Specialties */
+  .grid-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:30px 28px;box-shadow:var(--shadow-sm);transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .card .ico{
+    width:56px;height:56px;border-radius:14px;background:var(--mint);
+    display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:18px;
+  }
+  .card h3{font-size:20px;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:15px}
+
+  /* Steps */
+  .steps{background:var(--mint)}
+  .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;counter-reset:step}
+  .step{background:#fff;border-radius:var(--radius);padding:34px 30px;box-shadow:var(--shadow-sm);position:relative}
+  .step .n{
+    width:46px;height:46px;border-radius:50%;background:var(--teal);color:#fff;
+    font-family:'Poppins';font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;
+  }
+  .step h3{font-size:19px;margin-bottom:8px}
+  .step p{color:var(--muted);font-size:15px}
+
+  /* Team */
+  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .doctor{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm)}
+  .doctor .ph{aspect-ratio:1/1;background:#cfe9e7;overflow:hidden}
+  .doctor .ph img{width:100%;height:100%;object-fit:cover}
+  .doctor .info{padding:22px 24px}
+  .doctor h3{font-size:19px}
+  .doctor .spec{color:var(--teal);font-weight:700;font-size:14px;font-family:'Poppins';margin:2px 0 8px}
+  .doctor .crm{color:var(--muted);font-size:13.5px}
+
+  /* Structure / features */
+  .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .features-media{border-radius:24px;overflow:hidden;background:#cfe9e7;box-shadow:var(--shadow);aspect-ratio:4/3.2}
+  .features-media img{width:100%;height:100%;object-fit:cover}
+  .feature-list{list-style:none;display:grid;gap:22px}
+  .feature-list li{display:flex;gap:16px}
+  .feature-list .fi{
+    flex:0 0 auto;width:46px;height:46px;border-radius:12px;background:var(--mint);
+    display:flex;align-items:center;justify-content:center;font-size:22px;
+  }
+  .feature-list h3{font-size:17px;margin-bottom:3px}
+  .feature-list p{color:var(--muted);font-size:14.5px}
+
+  /* Convenios */
+  .conv{background:var(--mint)}
+  .conv-logos{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:8px}
+  .conv-logos span{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:14px 26px;font-family:'Poppins';font-weight:600;font-size:16px;color:var(--ink);box-shadow:var(--shadow-sm);
+  }
+
+  /* Contact */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:stretch}
+  .contact-info{display:grid;gap:22px;align-content:start}
+  .contact-item{display:flex;gap:16px}
+  .contact-item .ci{width:48px;height:48px;border-radius:13px;background:var(--mint);display:flex;align-items:center;justify-content:center;font-size:22px;flex:0 0 auto}
+  .contact-item h3{font-size:16px}
+  .contact-item p{color:var(--muted);font-size:15px}
+  .map-card{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:#cfe9e7;position:relative;min-height:340px}
+  .map-card img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+  .map-pin{
+    position:relative;z-index:2;margin:auto;width:fit-content;top:50%;transform:translateY(-50%);
+    background:#fff;border-radius:14px;padding:16px 22px;box-shadow:var(--shadow);text-align:center;
+  }
+  .map-pin b{font-family:'Poppins';display:block}
+  .map-pin small{color:var(--muted)}
+
+  /* CTA band */
+  .cta-band{background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;border-radius:26px;padding:56px;text-align:center;box-shadow:var(--shadow)}
+  .cta-band h2{font-size:32px;margin-bottom:12px}
+  .cta-band p{opacity:.92;font-size:18px;margin-bottom:28px}
+  .cta-band .btn{background:#fff;color:var(--teal)}
+  .cta-band .btn:hover{background:#f0fafa}
+
+  /* Footer */
+  footer{background:var(--ink);color:#cdd9dc;padding:64px 0 28px}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:40px}
+  footer .logo{color:#fff}
+  footer .logo span{color:var(--blue)}
+  footer p{font-size:14.5px;color:#9fb2b6;margin-top:14px;max-width:280px}
+  .foot-grid h4{font-family:'Poppins';color:#fff;font-size:15px;margin-bottom:16px}
+  .foot-grid ul{list-style:none;display:grid;gap:10px}
+  .foot-grid li{font-size:14.5px}
+  .foot-grid a:hover{color:#fff}
+  .foot-bottom{border-top:1px solid #284b53;margin-top:48px;padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13.5px;color:#88a0a5}
+
+  /* WhatsApp float */
+  .wa{
+    position:fixed;right:26px;bottom:26px;z-index:60;
+    display:flex;align-items:center;gap:12px;background:#25D366;color:#fff;
+    padding:14px 22px 14px 18px;border-radius:999px;font-family:'Poppins';font-weight:600;
+    box-shadow:0 10px 26px rgba(37,211,102,.4);transition:transform .15s ease;
+  }
+  .wa:hover{transform:translateY(-2px)}
+  .wa .wa-ico{font-size:24px;line-height:1}
+
+  @media(max-width:980px){
+    .hero-grid,.features-grid,.contact-grid{grid-template-columns:1fr}
+    .grid-cards,.steps-grid,.team-grid{grid-template-columns:1fr 1fr}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .nav-links,.nav-phone{display:none}
+    .hero h1{font-size:38px}
+  }
+  @media(max-width:600px){
+    .grid-cards,.steps-grid,.team-grid,.foot-grid{grid-template-columns:1fr}
+    .section{padding:60px 0}
+    .cta-band{padding:38px 24px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#inicio" class="logo" aria-label="Clínica Vida Plena - página inicial">
+      <span class="logo-mark" aria-hidden="true">+</span>
+      Clínica <span>Vida Plena</span>
+    </a>
+    <nav aria-label="Navegação principal">
+      <ul class="nav-links">
+        <li><a href="#especialidades">Especialidades</a></li>
+        <li><a href="#agendamento">Agendamento</a></li>
+        <li><a href="#equipe">Equipe</a></li>
+        <li><a href="#convenios">Convênios</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <div class="nav-phone">(19) 3242-7800<small>Seg a Sex, 7h às 19h</small></div>
+      <a href="#contato" class="btn btn-primary">Agendar consulta</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div>
+        <span class="hero-tag" aria-hidden="true">★ Mais de 18 anos cuidando de Campinas</span>
+        <h1>Cuidado médico com <em>acolhimento</em> e tranquilidade para você</h1>
+        <p class="lead">Na Clínica Vida Plena, você encontra atendimento humanizado, especialistas dedicados e uma estrutura pensada para o seu conforto. Marque sua consulta em poucos cliques.</p>
+        <div class="hero-actions">
+          <a href="#contato" class="btn btn-primary">Agendar consulta</a>
+          <a href="#especialidades" class="btn btn-ghost">Ver especialidades</a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="num">18+</div><div class="lbl">anos de atuação</div></div>
+          <div><div class="num">25 mil</div><div class="lbl">pacientes atendidos</div></div>
+          <div><div class="num">6</div><div class="lbl">especialidades</div></div>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="photo">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1600&q=80"
+               alt="Médica sorrindo durante atendimento em consultório com luz natural" loading="eager">
+        </div>
+        <div class="hero-badge">
+          <span class="ico" aria-hidden="true">🩺</span>
+          <div><b>Agendamento ágil</b><small>Consultas em até 48h</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust">
+    <div class="container trust-row">
+      <div class="trust-item"><span class="ti" aria-hidden="true">🕗</span> Atendimento de segunda a sábado</div>
+      <div class="trust-item"><span class="ti" aria-hidden="true">🅿️</span> Estacionamento próprio no local</div>
+      <div class="trust-item"><span class="ti" aria-hidden="true">♿</span> Acessibilidade completa</div>
+      <div class="trust-item"><span class="ti" aria-hidden="true">🤝</span> Atendimento humanizado</div>
+    </div>
+  </div>
+
+  <!-- ESPECIALIDADES -->
+  <section class="section" id="especialidades">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Nossas especialidades</span>
+        <h2>Atendimento completo em um só lugar</h2>
+        <p>Reunimos profissionais experientes nas principais áreas da medicina para cuidar de você e da sua família com atenção e segurança.</p>
+      </div>
+      <div class="grid-cards">
+        <article class="card">
+          <div class="ico" aria-hidden="true">🩺</div>
+          <h3>Clínica Geral</h3>
+          <p>Avaliação completa da sua saúde, acompanhamento e orientação para uma vida mais equilibrada.</p>
+        </article>
+        <article class="card">
+          <div class="ico" aria-hidden="true">❤️</div>
+          <h3>Cardiologia</h3>
+          <p>Diagnóstico e prevenção de doenças cardíacas com eletrocardiograma e exames no local.</p>
+        </article>
+        <article class="card">
+          <div class="ico" aria-hidden="true">🧸</div>
+          <h3>Pediatria</h3>
+          <p>Acompanhamento carinhoso do crescimento e desenvolvimento dos pequenos, do recém-nascido ao adolescente.</p>
+        </article>
+        <article class="card">
+          <div class="ico" aria-hidden="true">✨</div>
+          <h3>Dermatologia</h3>
+          <p>Cuidados com a pele, cabelos e unhas, do tratamento clínico aos procedimentos estéticos.</p>
+        </article>
+        <article class="card">
+          <div class="ico" aria-hidden="true">🌷</div>
+          <h3>Ginecologia</h3>
+          <p>Saúde da mulher em todas as fases da vida, com escuta atenta e exames de rotina.</p>
+        </article>
+        <article class="card">
+          <div class="ico" aria-hidden="true">🦴</div>
+          <h3>Ortopedia</h3>
+          <p>Tratamento de lesões, dores articulares e cuidados com ossos, músculos e articulações.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENDAMENTO -->
+  <section class="section steps" id="agendamento">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Como funciona</span>
+        <h2>Agende sua consulta em 3 passos</h2>
+        <p>Simplificamos todo o processo para que você se preocupe apenas com o que importa: a sua saúde.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="n">1</div>
+          <h3>Escolha a especialidade</h3>
+          <p>Selecione a área desejada e o profissional de sua preferência pelo telefone ou WhatsApp.</p>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <h3>Defina data e horário</h3>
+          <p>Nossa equipe encontra o melhor horário para você, com confirmação rápida pelo WhatsApp.</p>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <h3>Venha nos visitar</h3>
+          <p>Compareça no dia marcado. Receba um atendimento atencioso do início ao fim da consulta.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPE -->
+  <section class="section" id="equipe">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Nossa equipe</span>
+        <h2>Profissionais em quem você pode confiar</h2>
+        <p>Médicos qualificados e dedicados, que unem experiência clínica a um atendimento próximo e humano.</p>
+      </div>
+      <div class="team-grid">
+        <article class="doctor">
+          <div class="ph">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1600&q=80"
+                 alt="Retrato da Dra. Helena Martins, cardiologista" loading="lazy">
+          </div>
+          <div class="info">
+            <h3>Dra. Helena Martins</h3>
+            <div class="spec">Cardiologia</div>
+            <div class="crm">CRM-SP 118.342 · 14 anos de experiência</div>
+          </div>
+        </article>
+        <article class="doctor">
+          <div class="ph">
+            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=1600&q=80"
+                 alt="Retrato do Dr. Rafael Andrade, clínico geral" loading="lazy">
+          </div>
+          <div class="info">
+            <h3>Dr. Rafael Andrade</h3>
+            <div class="spec">Clínica Geral</div>
+            <div class="crm">CRM-SP 134.907 · 11 anos de experiência</div>
+          </div>
+        </article>
+        <article class="doctor">
+          <div class="ph">
+            <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=1600&q=80"
+                 alt="Retrato da Dra. Camila Ferreira, pediatra" loading="lazy">
+          </div>
+          <div class="info">
+            <h3>Dra. Camila Ferreira</h3>
+            <div class="spec">Pediatria</div>
+            <div class="crm">CRM-SP 142.510 · 9 anos de experiência</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTRUTURA / DIFERENCIAIS -->
+  <section class="section" style="background:#fbfdfd">
+    <div class="container features-grid">
+      <div class="features-media">
+        <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=1600&q=80"
+             alt="Recepção ampla e iluminada da clínica com cadeiras de espera" loading="lazy">
+      </div>
+      <div>
+        <span class="eyebrow">Estrutura e diferenciais</span>
+        <h2 style="font-size:32px;margin:10px 0 26px">Um ambiente pensado para o seu bem-estar</h2>
+        <ul class="feature-list">
+          <li>
+            <span class="fi" aria-hidden="true">🧪</span>
+            <div><h3>Exames no local</h3><p>Coleta laboratorial, eletrocardiograma e ultrassonografia sem precisar sair da clínica.</p></div>
+          </li>
+          <li>
+            <span class="fi" aria-hidden="true">🛋️</span>
+            <div><h3>Salas de espera confortáveis</h3><p>Ambientes limpos, climatizados e tranquilos, com espaço acolhedor para crianças.</p></div>
+          </li>
+          <li>
+            <span class="fi" aria-hidden="true">📱</span>
+            <div><h3>Resultados digitais</h3><p>Acompanhe laudos e resultados de exames com praticidade pelo nosso portal do paciente.</p></div>
+          </li>
+          <li>
+            <span class="fi" aria-hidden="true">🅿️</span>
+            <div><h3>Fácil acesso</h3><p>Estacionamento próprio, acessibilidade completa e localização central em Campinas.</p></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONVENIOS -->
+  <section class="section conv" id="convenios">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Convênios atendidos</span>
+        <h2>Trabalhamos com os principais planos de saúde</h2>
+        <p>Aceitamos diversos convênios e também atendemos particular. Consulte a cobertura do seu plano com a nossa recepção.</p>
+      </div>
+      <div class="conv-logos">
+        <span>Unimed</span>
+        <span>Bradesco Saúde</span>
+        <span>SulAmérica</span>
+        <span>Amil</span>
+        <span>NotreDame Intermédica</span>
+        <span>Porto Seguro</span>
+        <span>Particular</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="section" id="contato">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Fale conosco</span>
+        <h2>Estamos prontos para atender você</h2>
+        <p>Entre em contato para agendar sua consulta ou tirar dúvidas. Nossa equipe responde com agilidade.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item">
+            <span class="ci" aria-hidden="true">📍</span>
+            <div><h3>Endereço</h3><p>Av. Andrade Neves, 1420 — Centro<br>Campinas/SP · CEP 13013-161</p></div>
+          </div>
+          <div class="contact-item">
+            <span class="ci" aria-hidden="true">📞</span>
+            <div><h3>Telefone e WhatsApp</h3><p>(19) 3242-7800 · (19) 99645-2200</p></div>
+          </div>
+          <div class="contact-item">
+            <span class="ci" aria-hidden="true">✉️</span>
+            <div><h3>E-mail</h3><p>contato@clinicavidaplena.com.br</p></div>
+          </div>
+          <div class="contact-item">
+            <span class="ci" aria-hidden="true">🕗</span>
+            <div><h3>Horário de funcionamento</h3><p>Segunda a sexta: 7h às 19h<br>Sábado: 8h às 13h</p></div>
+          </div>
+          <a href="https://wa.me/5519996452200?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta." class="btn btn-primary" style="margin-top:6px">Agendar pelo WhatsApp</a>
+        </div>
+        <div class="map-card" aria-label="Mapa da localização da clínica">
+          <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1600&q=80"
+               alt="Vista aérea de ruas e quarteirões da região central da cidade" loading="lazy">
+          <div class="map-pin">
+            <b>Clínica Vida Plena</b>
+            <small>Av. Andrade Neves, 1420 — Centro, Campinas/SP</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-band" style="margin-top:64px">
+        <h2>Sua saúde merece o melhor cuidado</h2>
+        <p>Agende agora sua consulta e seja atendido por quem realmente se importa com você.</p>
+        <a href="https://wa.me/5519996452200?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta." class="btn">Agendar minha consulta</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="logo"><span class="logo-mark" aria-hidden="true">+</span> Clínica <span>Vida Plena</span></div>
+        <p>Cuidando da saúde das famílias de Campinas com atendimento humanizado e profissionais dedicados desde 2008.</p>
+      </div>
+      <div>
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#especialidades">Especialidades</a></li>
+          <li><a href="#agendamento">Agendamento</a></li>
+          <li><a href="#equipe">Nossa equipe</a></li>
+          <li><a href="#convenios">Convênios</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Especialidades</h4>
+        <ul>
+          <li><a href="#especialidades">Clínica Geral</a></li>
+          <li><a href="#especialidades">Cardiologia</a></li>
+          <li><a href="#especialidades">Pediatria</a></li>
+          <li><a href="#especialidades">Dermatologia</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li>Av. Andrade Neves, 1420 — Centro</li>
+          <li>Campinas/SP · 13013-161</li>
+          <li>(19) 3242-7800</li>
+          <li>contato@clinicavidaplena.com.br</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Clínica Vida Plena. Todos os direitos reservados.</span>
+      <span>Responsável Técnico: Dra. Helena Martins · CRM-SP 118.342</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/5519996452200?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta." aria-label="Falar no WhatsApp">
+  <span class="wa-ico" aria-hidden="true">💬</span> Fale conosco
+</a>
+
+</body>
+</html>
