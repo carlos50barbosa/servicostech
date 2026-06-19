@@ -19,7 +19,12 @@ const mimeTypes = {
   ".json": "application/json; charset=utf-8",
   ".png": "image/png",
   ".svg": "image/svg+xml",
-  ".webp": "image/webp"
+  ".webp": "image/webp",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".webmanifest": "application/manifest+json; charset=utf-8",
+  ".xml": "application/xml; charset=utf-8",
+  ".txt": "text/plain; charset=utf-8"
 };
 
 function loadEnvFile(filePath) {
@@ -1532,6 +1537,20 @@ const server = http.createServer(async (request, response) => {
   if (pathname === "/sitemap.xml") {
     route = "bot.sitemap";
     sendText(response, renderSitemap(), "application/xml; charset=utf-8");
+    return;
+  }
+
+  if (pathname === "/bigfly-paragliding") {
+    // Garante a barra final para que os assets relativos (styles.css, assets/...) resolvam sob /bigfly-paragliding/.
+    if (!url.pathname.endsWith("/")) {
+      route = "page.bigfly_redirect";
+      response.writeHead(301, { Location: "/bigfly-paragliding/" });
+      response.end();
+      return;
+    }
+
+    route = "page.bigfly";
+    await sendFile(response, path.join(PUBLIC_DIR, "bigfly-paragliding", "index.html"));
     return;
   }
 
