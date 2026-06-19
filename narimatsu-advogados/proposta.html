@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>Proposta — Site Narimatsu Advogados</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#10243e; --ink2:#1b3556; --gold:#c2a05a; --gold-d:#a8863f;
+    --cream:#f7f4ee; --text:#2a3340; --muted:#5c6675; --line:#e6e1d6;
+    --serif:"Cormorant Garamond",Georgia,serif; --sans:"Inter",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#dfe3e8;}
+  body{font-family:var(--sans);color:var(--text);line-height:1.55;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+  .page{
+    width:210mm;min-height:297mm;margin:18px auto;background:#fff;position:relative;
+    display:flex;flex-direction:column;box-shadow:0 10px 40px rgba(0,0,0,.18);overflow:hidden;
+  }
+
+  /* Cabeçalho */
+  .head{
+    background:
+      radial-gradient(700px 300px at 85% -40%, rgba(194,160,90,.22), transparent 60%),
+      linear-gradient(155deg,var(--ink) 0%, var(--ink2) 70%, #0c1b30 100%);
+    color:#fff;padding:32px 44px 28px;display:flex;align-items:center;gap:18px;
+  }
+  .head img{width:60px;height:60px;border-radius:50%;background:#fff;flex:none;}
+  .head .eyebrow{color:var(--gold);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;}
+  .head h1{font-family:var(--serif);font-size:28px;font-weight:700;line-height:1.05;margin-top:4px;}
+  .head .sub{color:#cfd6e0;font-size:12px;margin-top:3px;font-weight:300;}
+
+  .body{padding:26px 44px 0;flex:1;}
+
+  .kicker{color:var(--gold-d);font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin:0 0 8px;}
+  .block{margin-bottom:20px;}
+  .block p.lead{font-size:13px;color:var(--text);max-width:64ch;}
+  .block p.lead strong{color:var(--ink);}
+
+  ul.list{list-style:none;display:grid;gap:8px;}
+  ul.list li{position:relative;padding-left:24px;font-size:12.5px;color:var(--muted);}
+  ul.list li::before{content:"";position:absolute;left:6px;top:7px;width:7px;height:7px;border-radius:50%;
+       background:var(--gold);}
+  ul.list li strong{color:var(--ink);font-weight:600;}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+
+  .value{margin-top:6px;background:linear-gradient(155deg,var(--ink),#0c1b30);color:#fff;
+         border-radius:13px;padding:22px 26px;position:relative;}
+  .value .q{font-family:var(--serif);font-size:44px;color:var(--gold);line-height:0;position:absolute;top:24px;left:18px;opacity:.5;}
+  .value p{font-family:var(--serif);font-size:18px;line-height:1.4;padding-left:32px;}
+  .value p span{color:var(--gold);}
+
+  .foot{padding:16px 44px 24px;display:flex;justify-content:space-between;align-items:flex-end;
+        border-top:1px solid var(--line);margin-top:22px;}
+  .foot .brand{font-family:var(--serif);font-weight:700;color:var(--ink);font-size:15px;}
+  .foot .brand em{display:block;font-style:normal;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-d);font-family:var(--sans);}
+  .foot .meta{font-size:10.5px;color:var(--muted);text-align:right;line-height:1.6;}
+
+  @page{size:A4;margin:0;}
+  @media print{
+    html,body{background:#fff;}
+    .page{margin:0;box-shadow:none;width:auto;min-height:auto;}
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="head">
+      <img src="logo.svg" alt="" />
+      <div>
+        <div class="eyebrow">Proposta de Reformulação · Presença Digital</div>
+        <h1>Site Narimatsu Advogados</h1>
+        <div class="sub">Reformulação profissional do site do escritório, mantendo a identidade institucional.</div>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="block">
+        <p class="kicker">O que entregamos</p>
+        <p class="lead">
+          Reformulamos por completo o site do escritório, mantendo toda a sua identidade institucional, mas
+          elevando o padrão visual e a experiência de quem visita. O resultado é um site
+          <strong>moderno, confiável e alinhado à imagem de um escritório de advocacia sério</strong>.
+        </p>
+      </div>
+
+      <div class="block">
+        <p class="kicker">Principais melhorias</p>
+        <ul class="list">
+          <li><strong>Visual profissional e sóbrio</strong> — paleta azul-petróleo e dourado e tipografia clássica, transmitindo credibilidade e sofisticação.</li>
+          <li><strong>Informação organizada</strong> — seções claras de Início, Sobre, Áreas de Atuação, Diferenciais, Notícias, Contato e Localização.</li>
+          <li><strong>Experiência impecável no celular</strong> — site 100% responsivo, com menu otimizado para toque, onde está hoje a maioria dos acessos.</li>
+          <li><strong>Contato facilitado</strong> — botão de WhatsApp flutuante sempre visível, formulário de contato e mapa de localização integrados.</li>
+          <li><strong>Notícias autogerenciáveis</strong> — a área de artigos pode ser atualizada pelo próprio escritório, fortalecendo a autoridade da marca.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <p class="kicker">Diferenciais que agregam valor</p>
+        <ul class="list">
+          <li><strong>Encontrabilidade (SEO):</strong> estrutura otimizada para o Google, com dados estruturados de serviço jurídico.</li>
+          <li><strong>Identidade visual:</strong> logomarca recriada em formato vetorial, nítida em qualquer aplicação — site, redes sociais e impressos.</li>
+          <li><strong>Conformidade e confiança:</strong> layout em linha com o Código de Ética da OAB e foco em acessibilidade.</li>
+          <li><strong>Leveza e baixo custo:</strong> site rápido e de fácil hospedagem, sem mensalidades de plataforma.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <p class="kicker">Proposta de valor</p>
+        <div class="value">
+          <span class="q">“</span>
+          <p>Mais do que um site bonito, entregamos uma <span>ferramenta de captação e credibilidade</span>:
+          uma vitrine digital que transmite a seriedade do escritório, facilita o primeiro contato do cliente
+          e posiciona o Narimatsu Advogados como referência.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div class="brand">Narimatsu <em>Advogados</em></div>
+      <div class="meta">
+        Conscientização jurídica para você e para a sua empresa.<br />
+        Av. Paulista, 1636 — São Paulo/SP · Atuação online em todo o Brasil
+      </div>
+    </div>
+  </div>
+</body>
+</html>

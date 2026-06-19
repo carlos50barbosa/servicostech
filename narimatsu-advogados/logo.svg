@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Narimatsu Advogados">
+  <defs>
+    <linearGradient id="naGrad" x1="40" y1="40" x2="200" y2="210" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6c4aa6"/>
+      <stop offset="0.55" stop-color="#3a3f86"/>
+      <stop offset="1" stop-color="#1f2f6b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Fundo branco circular -->
+  <circle cx="120" cy="120" r="120" fill="#ffffff"/>
+
+  <!-- Marca: anel + N -->
+  <g fill="none" stroke="url(#naGrad)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Anel aberto (topo) -->
+    <circle cx="112" cy="92" r="34" stroke-width="11"/>
+
+    <!-- Letra N -->
+    <!-- haste esquerda -->
+    <path d="M84 86 V178" stroke-width="11"/>
+    <!-- diagonal -->
+    <path d="M84 86 L156 178" stroke-width="11"/>
+    <!-- haste direita -->
+    <path d="M156 70 V178" stroke-width="11"/>
+  </g>
+</svg>

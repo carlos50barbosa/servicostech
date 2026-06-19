@@ -24,7 +24,8 @@ const mimeTypes = {
   ".jpeg": "image/jpeg",
   ".webmanifest": "application/manifest+json; charset=utf-8",
   ".xml": "application/xml; charset=utf-8",
-  ".txt": "text/plain; charset=utf-8"
+  ".txt": "text/plain; charset=utf-8",
+  ".pdf": "application/pdf"
 };
 
 function loadEnvFile(filePath) {
@@ -1551,6 +1552,20 @@ const server = http.createServer(async (request, response) => {
 
     route = "page.bigfly";
     await sendFile(response, path.join(PUBLIC_DIR, "bigfly-paragliding", "index.html"));
+    return;
+  }
+
+  if (pathname === "/narimatsu-advogados") {
+    // Garante a barra final para que os assets relativos (styles.css, logo.svg, ...) resolvam sob /narimatsu-advogados/.
+    if (!url.pathname.endsWith("/")) {
+      route = "page.narimatsu_redirect";
+      response.writeHead(301, { Location: "/narimatsu-advogados/" });
+      response.end();
+      return;
+    }
+
+    route = "page.narimatsu";
+    await sendFile(response, path.join(PUBLIC_DIR, "narimatsu-advogados", "index.html"));
     return;
   }
 
