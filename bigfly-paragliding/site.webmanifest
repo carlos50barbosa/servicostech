@@ -1,0 +1,19 @@
+{
+  "name": "BigFly Paragliding",
+  "short_name": "BigFly",
+  "description": "Voos duplos de parapente no Rio de Janeiro com decolagem na Pedra Bonita.",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0d2638",
+  "icons": [
+    {
+      "src": "assets/images/logos/logo-bigfly-transparent.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
