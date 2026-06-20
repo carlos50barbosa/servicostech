@@ -97,18 +97,18 @@ window.BIGFLY_TRANSLATIONS = {
       title: "Da rampa ao céu do Rio",
       posts: [
         {
-          title: "Vista privilegiada do Rio",
-          text: "Veja a cidade de um ângulo que poucas pessoas têm a oportunidade de conhecer. Durante o voo, montanhas, praias e o oceano criam um cenário inesquecível.",
+          title: "Uma vista privilegiada do Rio",
+          text: "Durante o voo, você contempla alguns dos cartões-postais mais bonitos da cidade por um ângulo exclusivo. A cada minuto no ar, o Rio revela sua beleza natural com uma combinação perfeita entre céu, oceano e montanhas.",
           alt: "Instrutor e passageira na rampa de decolagem com as montanhas do Rio ao fundo",
         },
         {
           title: "Sobrevoando a natureza",
-          text: "A Floresta da Tijuca surge logo abaixo dos seus pés, revelando um dos maiores tesouros naturais do Rio de Janeiro.",
+          text: "A Floresta da Tijuca acompanha grande parte da experiência, trazendo a sensação de liberdade, tranquilidade e conexão com a natureza. É uma oportunidade de ver um dos maiores tesouros naturais do Rio de Janeiro de uma forma rara e especial.",
           alt: "Voo duplo de parapente sobre a floresta do Rio de Janeiro",
         },
         {
-          title: "Emoção para guardar para sempre",
-          text: "Cada voo é único. As imagens registradas permitem reviver a experiência e compartilhar esse momento especial com amigos e familiares.",
+          title: "Uma experiência para guardar para sempre",
+          text: "Cada voo é único. As imagens registradas durante a experiência permitem reviver esse momento especial e compartilhar com amigos e familiares uma lembrança marcante da sua aventura no Rio.",
           alt: "Passageira sorrindo durante o voo duplo de parapente sobre o Rio de Janeiro",
         },
       ],
@@ -398,17 +398,17 @@ window.BIGFLY_TRANSLATIONS = {
       posts: [
         {
           title: "A privileged view of Rio",
-          text: "See the city from an angle that few people ever get the chance to experience. During the flight, mountains, beaches and the ocean create an unforgettable scene.",
+          text: "During the flight, you take in some of the city's most beautiful landmarks from an exclusive angle. With every minute in the air, Rio reveals its natural beauty through a perfect combination of sky, ocean and mountains.",
           alt: "Instructor and passenger on the takeoff ramp with Rio's mountains in the background",
         },
         {
           title: "Flying over nature",
-          text: "The Tijuca Forest unfolds right beneath your feet, revealing one of Rio de Janeiro's greatest natural treasures.",
+          text: "The Tijuca Forest accompanies much of the experience, bringing a sense of freedom, calm and connection with nature. It's a chance to see one of Rio de Janeiro's greatest natural treasures in a rare and special way.",
           alt: "Tandem paragliding flight above the forest of Rio de Janeiro",
         },
         {
-          title: "A feeling to keep forever",
-          text: "Every flight is unique. The captured images let you relive the experience and share this special moment with friends and family.",
+          title: "An experience to keep forever",
+          text: "Every flight is unique. The images captured during the experience let you relive this special moment and share a memorable keepsake of your Rio adventure with friends and family.",
           alt: "Passenger smiling during a tandem paragliding flight over Rio de Janeiro",
         },
       ],
@@ -696,18 +696,18 @@ window.BIGFLY_TRANSLATIONS = {
       title: "De la rampa al cielo de Río",
       posts: [
         {
-          title: "Vista privilegiada de Río",
-          text: "Mira la ciudad desde un ángulo que pocas personas tienen la oportunidad de conocer. Durante el vuelo, montañas, playas y el océano crean un escenario inolvidable.",
+          title: "Una vista privilegiada de Río",
+          text: "Durante el vuelo, contemplas algunas de las postales más bonitas de la ciudad desde un ángulo exclusivo. A cada minuto en el aire, Río revela su belleza natural con una combinación perfecta entre cielo, océano y montañas.",
           alt: "Instructor y pasajera en la rampa de despegue con las montañas de Río al fondo",
         },
         {
           title: "Sobrevolando la naturaleza",
-          text: "La Floresta da Tijuca surge justo debajo de tus pies, revelando uno de los mayores tesoros naturales de Río de Janeiro.",
+          text: "La Floresta da Tijuca acompaña gran parte de la experiencia, transmitiendo una sensación de libertad, tranquilidad y conexión con la naturaleza. Es una oportunidad de ver uno de los mayores tesoros naturales de Río de Janeiro de una forma rara y especial.",
           alt: "Vuelo doble en parapente sobre el bosque de Río de Janeiro",
         },
         {
-          title: "Emoción para guardar para siempre",
-          text: "Cada vuelo es único. Las imágenes registradas permiten revivir la experiencia y compartir ese momento especial con amigos y familiares.",
+          title: "Una experiencia para guardar para siempre",
+          text: "Cada vuelo es único. Las imágenes registradas durante la experiencia permiten revivir ese momento especial y compartir con amigos y familiares un recuerdo inolvidable de tu aventura en Río.",
           alt: "Pasajera sonriendo durante un vuelo doble en parapente sobre Río de Janeiro",
         },
       ],
