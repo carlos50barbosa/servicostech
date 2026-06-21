@@ -241,6 +241,13 @@ function siteHeader() {
     <div class="container header-inner">
       <a class="brand" href="/" aria-label="Serviços Tech"><img src="/assets/logo-azul.png" alt="Serviços Tech" width="200" height="46" /></a>
       <nav class="header-nav" aria-label="Navegação do blog">
+        <div class="nav-dropdown">
+          <button type="button" class="nav-link nav-drop-toggle" aria-haspopup="true">Categorias<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-drop-menu"><div class="nav-drop-inner">
+            <a href="/">Todas as categorias</a>
+            ${CATEGORIES.map((c) => `<a href="/?categoria=${encodeURIComponent(c)}">${escapeHtml(c)}</a>`).join("")}
+          </div></div>
+        </div>
         <a class="nav-link back-link" href="${SITE_URL}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
           Voltar ao site
@@ -302,13 +309,15 @@ function cardHtml(post) {
   </article>`;
 }
 
-function renderIndex(posts) {
-  const published = posts.filter((p) => p.published !== false).sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""));
+function renderIndex(posts, activeCat) {
+  let list = posts.filter((p) => p.published !== false);
+  if (activeCat) list = list.filter((p) => (p.category || "").toLowerCase() === activeCat.toLowerCase());
+  const published = list.sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""));
   const [featured, ...rest] = published;
 
   let body = "";
   if (!published.length) {
-    body = `<p style="text-align:center;color:var(--slate);padding:40px 0">Ainda não há artigos publicados.</p>`;
+    body = `<p style="text-align:center;color:var(--slate);padding:40px 0">${activeCat ? "Nenhum artigo na categoria “" + escapeHtml(activeCat) + "”." : "Ainda não há artigos publicados."}</p>`;
   } else {
     const featuredHtml = `<article class="card featured">
       <a class="cover-link" href="/p/${escapeHtml(featured.slug)}">${coverHtml(featured, true)}</a>
@@ -329,9 +338,9 @@ function renderIndex(posts) {
     pageHead("Blog | Serviços Tech", "Dicas e estratégias sobre sites, presença digital e tecnologia.") +
     siteHeader() +
     `<section class="hero"><div class="container">
-      <span class="eyebrow">Blog da Serviços Tech</span>
-      <h1>Ideias e estratégias para o seu negócio crescer online</h1>
-      <p class="lead">Conteúdo prático sobre criação de sites, presença digital, performance e tecnologia.</p>
+      <span class="eyebrow">${activeCat ? "Categoria" : "Blog da Serviços Tech"}</span>
+      <h1>${activeCat ? escapeHtml(activeCat) : "Ideias e estratégias para o seu negócio crescer online"}</h1>
+      <p class="lead">${activeCat ? "Artigos sobre " + escapeHtml(activeCat) + ". " + '<a href="/" style="color:var(--secondary);font-weight:600">Ver todos os artigos</a>' : "Conteúdo prático sobre criação de sites, presença digital, performance e tecnologia."}</p>
     </div></section>
     <main class="posts"><div class="container">${body}</div></main>` +
     siteFooter() +
@@ -657,7 +666,7 @@ async function handle(request, response) {
   }
 
   // publico
-  if (pathname === "/") return sendHtml(response, renderIndex(await loadPosts()));
+  if (pathname === "/") return sendHtml(response, renderIndex(await loadPosts(), url.searchParams.get("categoria")));
   if (pathname.startsWith("/p/")) {
     const slug = pathname.split("/").filter(Boolean)[1];
     const post = (await loadPosts()).find((p) => p.slug === slug && p.published !== false);

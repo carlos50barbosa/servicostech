@@ -63,6 +63,38 @@ img { max-width: 100%; display: block; }
 .header-nav a.nav-link:hover { color: var(--primary); }
 .back-link { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
 .back-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* Dropdown de categorias (abre no hover) */
+.nav-dropdown { position: relative; display: flex; align-items: center; align-self: stretch; }
+.nav-drop-toggle {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: none; border: none; padding: 0; cursor: pointer;
+  font-family: inherit; font-size: 15px; font-weight: 500; color: var(--slate);
+  white-space: nowrap; transition: color 0.2s;
+}
+.nav-drop-toggle .chev { width: 16px; height: 16px; flex-shrink: 0; transition: transform 0.2s; }
+.nav-dropdown:hover .nav-drop-toggle,
+.nav-dropdown:focus-within .nav-drop-toggle { color: var(--primary); }
+.nav-dropdown:hover .nav-drop-toggle .chev,
+.nav-dropdown:focus-within .nav-drop-toggle .chev { transform: rotate(180deg); }
+.nav-drop-menu {
+  position: absolute; top: 100%; left: 0; z-index: 60;
+  padding-top: 10px; /* ponte transparente para o hover não cair no vão */
+  opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+}
+.nav-dropdown:hover .nav-drop-menu,
+.nav-dropdown:focus-within .nav-drop-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.nav-drop-inner {
+  min-width: 210px; background: var(--white);
+  border: 1px solid var(--line); border-radius: 12px;
+  box-shadow: var(--shadow); padding: 8px;
+}
+.nav-drop-inner a {
+  display: block; padding: 9px 12px; border-radius: 8px;
+  font-size: 14.5px; font-weight: 500; color: var(--primary);
+}
+.nav-drop-inner a:hover { background: var(--light); color: var(--secondary); }
 .btn {
   display: inline-flex;
   align-items: center;
@@ -315,6 +347,7 @@ img { max-width: 100%; display: block; }
 
 @media (max-width: 620px) {
   .header-nav .nav-link { display: none; }
+  .header-nav .nav-dropdown { display: none; }
   .grid { grid-template-columns: 1fr; }
   .newsletter form { flex-direction: column; }
   .newsletter .btn-light { justify-content: center; }
