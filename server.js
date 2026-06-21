@@ -3,9 +3,11 @@ const fs = require("node:fs/promises");
 const fsSync = require("node:fs");
 const path = require("node:path");
 const { projects, getProjectBySlug } = require("./projects");
-const blogApp = require("./blog-app");
 
+// Carrega o .env ANTES de exigir o blog-app, que le BLOG_ADMIN_* no require.
 loadEnvFile(path.join(__dirname, ".env"));
+
+const blogApp = require("./blog-app");
 
 const PORT = Number(process.env.PORT) || 3000;
 const PUBLIC_DIR = __dirname;
