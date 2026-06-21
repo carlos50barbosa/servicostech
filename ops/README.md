@@ -15,6 +15,23 @@ só Node nativo + APIs por HTTPS.
 
 ---
 
+## 0. Painel web (relatórios + controle de IPs banidos)
+Dashboard servido pelo próprio Node em **`servicostech.com.br/ops`** (caminho e
+senha configuráveis), protegido por Basic Auth. Mostra os relatórios (status,
+top rotas/IPs com país/cidade, 404 suspeitos, referers, req/hora) **e** lista os
+IPs banidos pelo fail2ban com botões de **Desbanir** / **Banir** (incl. banir um
+IP direto da tabela de top IPs).
+
+Config no `.env` (e `pm2 restart servicos-tech` depois):
+```bash
+OPS_USER=admin
+OPS_PASS=uma-senha-forte
+OPS_PATH=/painel-ops          # opcional: caminho secreto (padrao /ops)
+OPS_BAN_JAIL=servicostech-scanner   # jail usado nos bans manuais
+```
+Requisitos: o app Node roda como **root** (já é o caso) para poder chamar o
+`fail2ban-client`. Acesso: `https://servicostech.com.br${OPS_PATH:-/ops}`.
+
 ## 1. Relatório de acessos
 ```bash
 cd /var/www/servicostech.com.br

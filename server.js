@@ -8,6 +8,7 @@ const { projects, getProjectBySlug } = require("./projects");
 loadEnvFile(path.join(__dirname, ".env"));
 
 const blogApp = require("./blog-app");
+const opsPanel = require("./ops/panel");
 
 const PORT = Number(process.env.PORT) || 3000;
 const PUBLIC_DIR = __dirname;
@@ -1560,6 +1561,20 @@ const server = http.createServer(async (request, response) => {
     route = "proxy.webscraper";
     pathname = request.url.split("?")[0];
     proxyToWebscraper(request, response);
+    return;
+  }
+
+  const OPS = opsPanel.OPS_PATH;
+  if (request.url && (request.url === OPS || request.url.startsWith(OPS + "/") || request.url.startsWith(OPS + "?"))) {
+    route = "ops.panel";
+    pathname = request.url.split("?")[0];
+    opsPanel.handle(request, response).catch((error) => {
+      log("ERROR", "ops_panel_error", { message: error.message, path: request.url });
+      if (!response.headersSent) {
+        response.writeHead(500, { "Content-Type": "text/plain; charset=utf-8" });
+        response.end("Erro interno");
+      }
+    });
     return;
   }
 
