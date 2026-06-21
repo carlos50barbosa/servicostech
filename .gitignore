@@ -27,3 +27,6 @@ pnpm-debug.log*
 .idea/
 .DS_Store
 Thumbs.db
+
+# Dados locais do blog (gerados na VPS pelo painel)
+blog-data/

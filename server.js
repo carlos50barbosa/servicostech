@@ -3,6 +3,7 @@ const fs = require("node:fs/promises");
 const fsSync = require("node:fs");
 const path = require("node:path");
 const { projects, getProjectBySlug } = require("./projects");
+const blogApp = require("./blog-app");
 
 loadEnvFile(path.join(__dirname, ".env"));
 
@@ -17,6 +18,9 @@ const WEBSCRAPER_TARGET = {
   host: process.env.WEBSCRAPER_HOST || "127.0.0.1",
   port: Number(process.env.WEBSCRAPER_PORT) || 5000
 };
+
+// Blog dinamico servido quando o Host e o subdominio do blog.
+const BLOG_HOST = (process.env.BLOG_HOST || "blog.servicostech.com.br").toLowerCase();
 
 const mimeTypes = {
   ".css": "text/css; charset=utf-8",
@@ -1531,6 +1535,19 @@ const server = http.createServer(async (request, response) => {
       ua: getUserAgentSummary(userAgent)
     });
   });
+
+  const blogHostName = (request.headers.host || "").split(":")[0].toLowerCase();
+  if (blogHostName === BLOG_HOST) {
+    route = "blog";
+    blogApp.handle(request, response).catch((error) => {
+      log("ERROR", "blog_error", { message: error.message, path: request.url });
+      if (!response.headersSent) {
+        response.writeHead(500, { "Content-Type": "text/plain; charset=utf-8" });
+        response.end("Erro interno");
+      }
+    });
+    return;
+  }
 
   if (
     request.url &&
