@@ -58,9 +58,11 @@ img { max-width: 100%; display: block; }
   font-weight: 500;
   color: var(--slate);
   transition: color 0.2s;
+  white-space: nowrap;
 }
 .header-nav a.nav-link:hover { color: var(--primary); }
-.back-link { display: inline-flex; align-items: center; gap: 6px; }
+.back-link { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.back-link svg { width: 18px; height: 18px; flex-shrink: 0; }
 .btn {
   display: inline-flex;
   align-items: center;
