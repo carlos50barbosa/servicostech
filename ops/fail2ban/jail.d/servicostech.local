@@ -23,3 +23,17 @@ maxretry = 2
 findtime = 1d
 bantime  = 1d
 # datepattern = %%Y-%%m-%%dT%%H:%%M:%%S
+
+# Rate-limit: bane IP que sozinho passar de 90 requisições em 60s (flood/scraper).
+# Ajuste maxretry/findtime se precisar. Coloque seu próprio IP em ignoreip para
+# nunca ser banido (descomente e troque SEU_IP).
+[servicostech-flood]
+enabled  = true
+filter   = servicostech-flood
+logpath  = /root/.pm2/logs/servicos-tech-out.log
+backend  = polling
+port     = http,https
+maxretry = 90
+findtime = 60
+bantime  = 1h
+# ignoreip = 127.0.0.1/8 ::1 SEU_IP
