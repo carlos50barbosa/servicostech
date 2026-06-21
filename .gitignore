@@ -33,3 +33,7 @@ blog-data/
 
 # Estado dos alertas (cooldown por IP)
 ops/logs/.state/
+
+# Base GeoIP e chave (nunca versionar)
+*.mmdb
+ops/geo/*.mmdb
