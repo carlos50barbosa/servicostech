@@ -96,6 +96,8 @@
   td a{color:var(--secondary);text-decoration:none;}
   .wa{background:var(--wa);color:#fff;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;white-space:nowrap;}
   .wa:hover{background:#1ebe5a;}
+  .wa.clicked{background:#94a3b8;}
+  .wa.clicked:hover{background:#7e8b9c;}
   .empty{color:var(--slate);padding:30px;text-align:center;}
 
   .log{margin-top:16px;max-height:160px;overflow:auto;font-family:ui-monospace,monospace;font-size:12px;color:var(--slate);background:var(--white);border:1px solid var(--line);border-radius:10px;padding:12px;display:none;}
@@ -231,6 +233,7 @@ const $ = (id) => document.getElementById(id);
 // Prefixo da aplicacao: vazio em dev ("/") ou "/webscraper-estabelecimentos" sob proxy reverso.
 const BASE = location.pathname.replace(/\/+$/, "");
 let resultados = [];
+const waClicados = new Set();   // numeros ja clicados (para marcar o botao)
 let es = null;
 
 // ----- Controle de acesso (gate) -----
@@ -329,8 +332,9 @@ function render(){
       const tel = d.telefone || "";
       const telLink = tel ? `<a href="tel:${tel.replace(/\s/g,'')}">${esc(tel)}</a>` : "";
       const num = normalizeWhats(tel);
+      const jaClicado = num && waClicados.has(num) ? " clicked" : "";
       const waBtn = num
-        ? `<button class="wa" data-tel="${esc(tel)}" data-nome="${esc(d.nome)}">WhatsApp</button>`
+        ? `<button class="wa${jaClicado}" data-tel="${esc(tel)}" data-nome="${esc(d.nome)}">WhatsApp</button>`
         : "";
       const tr = document.createElement("tr");
       tr.innerHTML = `<td>${i+1}</td>
@@ -386,6 +390,8 @@ $("rows").addEventListener("click", (e) => {
   if(!b) return;
   const link = waLink(b.dataset.tel, b.dataset.nome);
   if(link) window.open(link, "_blank", "noopener");
+  const num = normalizeWhats(b.dataset.tel);
+  if(num){ waClicados.add(num); b.classList.add("clicked"); }
 });
 
 (function(){
