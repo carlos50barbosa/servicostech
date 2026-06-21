@@ -1,0 +1,4 @@
+Flask>=3.1
+playwright>=1.60
+openpyxl>=3.1
+gunicorn>=21.0

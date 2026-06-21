@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Scraper — Estabelecimentos sem site</title>
+<style>
+  :root { --bg:#0f172a; --card:#1e293b; --acc:#38bdf8; --ok:#22c55e; --mut:#94a3b8; --bd:#334155; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color:#e2e8f0; }
+  header { padding: 22px 24px; border-bottom:1px solid var(--bd); }
+  header h1 { margin:0; font-size:20px; }
+  header p { margin:6px 0 0; color:var(--mut); font-size:14px; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+  form { background:var(--card); border:1px solid var(--bd); border-radius:12px;
+         padding:18px; display:flex; flex-direction:column; gap:14px; }
+  .field { display:flex; flex-direction:column; }
+  label { display:block; font-size:12px; color:var(--mut); margin-bottom:6px; }
+  input[type=text], input[type=number], textarea {
+    width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--bd);
+    background:#0b1220; color:#e2e8f0; font-size:14px; font-family:inherit; }
+  textarea { resize:vertical; line-height:1.5; }
+  .hint { font-size:12px; color:var(--mut); margin-top:6px; }
+  details.gen { border:1px solid var(--bd); border-radius:8px; padding:0 12px; }
+  details.gen summary { cursor:pointer; padding:11px 0; font-size:13px; color:var(--acc); }
+  .genbody { display:flex; flex-direction:column; gap:12px; padding:4px 0 14px; }
+  .opts { display:flex; align-items:end; gap:18px; flex-wrap:wrap; }
+  .opts .chk { padding-bottom:10px; }
+  .chk { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--mut); }
+  button { cursor:pointer; border:none; border-radius:8px; padding:11px 18px;
+           font-size:14px; font-weight:600; }
+  .btn-go { background:var(--acc); color:#04293f; }
+  .btn-go:disabled { opacity:.5; cursor:not-allowed; }
+  .btn-csv { background:var(--ok); color:#052e16; }
+  .btn-xls { background:#0ea371; color:#ecfdf5; }
+  .btn-csv:disabled, .btn-xls:disabled { opacity:.45; cursor:not-allowed; }
+  .btn-ghost { background:transparent; color:var(--mut); border:1px solid var(--bd); }
+  .bar { display:flex; align-items:center; gap:14px; margin:18px 0 10px; flex-wrap:wrap; }
+  .status { font-size:13px; color:var(--mut); flex:1; min-width:200px; }
+  .pill { font-size:13px; padding:4px 10px; border-radius:999px; background:#0b1220;
+          border:1px solid var(--bd); }
+  .pill b { color:var(--ok); }
+  table { width:100%; border-collapse:collapse; background:var(--card);
+          border:1px solid var(--bd); border-radius:12px; overflow:hidden; }
+  th, td { text-align:left; padding:11px 13px; border-bottom:1px solid var(--bd); font-size:14px; }
+  th { background:#0b1220; color:var(--mut); font-weight:600; font-size:12px;
+       text-transform:uppercase; letter-spacing:.04em; }
+  tr:last-child td { border-bottom:none; }
+  td a { color:var(--acc); text-decoration:none; }
+  .wa { cursor:pointer; border:none; border-radius:6px; padding:6px 10px; font-size:12px;
+        font-weight:600; background:#25D366; color:#04331a; white-space:nowrap; }
+  .wa:hover { background:#1ebe5a; }
+  .empty { color:var(--mut); padding:24px; text-align:center; }
+  .log { margin-top:16px; max-height:140px; overflow:auto; font-family: ui-monospace, monospace;
+         font-size:12px; color:var(--mut); background:#0b1220; border:1px solid var(--bd);
+         border-radius:8px; padding:10px; display:none; }
+  .log.show { display:block; }
+  .spin { width:14px; height:14px; border:2px solid var(--bd); border-top-color:var(--acc);
+          border-radius:50%; animation:r .8s linear infinite; display:inline-block; vertical-align:-2px;}
+  @keyframes r { to { transform: rotate(360deg);} }
+  @media (max-width:760px){ form{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>🔎 Web Scraper — Estabelecimentos <span style="color:var(--acc)">sem website</span></h1>
+  <p>Extrai Nome, Telefone, Cidade - UF e CEP do Google Maps, filtrando apenas quem NÃO tem site.</p>
+</header>
+
+<div class="wrap">
+  <form id="form">
+    <div class="field">
+      <label for="buscas">Buscas — uma por linha (cada linha = uma pesquisa de até ~120)</label>
+      <textarea id="buscas" rows="4"
+        placeholder="advogados em Osasco, SP&#10;advocacia em Pinheiros, SP&#10;advogado trabalhista em São Paulo, SP"></textarea>
+      <div class="hint">Cada linha vira uma busca. Estabelecimentos repetidos entre buscas são removidos automaticamente.</div>
+    </div>
+
+    <details class="gen">
+      <summary>⚙ Gerar buscas por cidade (termo + lista de cidades)</summary>
+      <div class="genbody">
+        <div class="field">
+          <label for="gtermo">Termo base</label>
+          <input type="text" id="gtermo" placeholder="advogados">
+        </div>
+        <div class="field">
+          <label for="gcidades">Cidades / bairros — uma por linha</label>
+          <textarea id="gcidades" rows="3" placeholder="Osasco, SP&#10;Pinheiros, SP&#10;Santo Amaro, SP"></textarea>
+        </div>
+        <button type="button" class="btn-ghost" id="gerar">➕ Adicionar às buscas</button>
+      </div>
+    </details>
+
+    <div class="opts">
+      <div class="field" style="max-width:150px;">
+        <label for="max">Máx. por busca</label>
+        <input type="number" id="max" value="40" min="1" max="200">
+      </div>
+      <label class="chk"><input type="checkbox" id="headless" checked> Navegador oculto</label>
+      <label class="chk"><input type="checkbox" id="telefone" checked> Exigir telefone</label>
+      <button type="submit" class="btn-go" id="go">Buscar</button>
+    </div>
+  </form>
+
+  <div class="bar">
+    <span class="status" id="status">Pronto. Informe um termo e clique em Buscar.</span>
+    <span class="pill">Processados: <b id="proc" style="color:#e2e8f0">0</b></span>
+    <span class="pill">Sem site: <b id="found">0</b></span>
+    <button class="btn-csv" id="csv" disabled>⬇ CSV</button>
+    <button class="btn-xls" id="xlsx" disabled>⬇ Excel</button>
+    <button class="btn-ghost" id="toglog" type="button">Logs</button>
+  </div>
+
+  <div class="bar">
+    <div style="flex:1; min-width:220px;">
+      <label for="filtro" style="margin-bottom:4px;">Filtrar por Cidade / UF (ex.: "Osasco" ou "SP")</label>
+      <input type="text" id="filtro" placeholder="Digite para filtrar os resultados...">
+    </div>
+    <span class="pill" id="filtroinfo" style="display:none;">Exibindo <b id="vis">0</b> de <b id="tot">0</b></span>
+  </div>
+
+  <div class="bar">
+    <div style="flex:1; min-width:260px;">
+      <label for="msg" style="margin-bottom:4px;">💬 Mensagem padrão do WhatsApp (use <code style="color:var(--acc)">{nome}</code> para inserir o nome)</label>
+      <input type="text" id="msg" placeholder="Olá {nome}, tudo bem? Vi que vocês não têm site e gostaria de apresentar uma proposta.">
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>#</th><th>Nome</th><th>Telefone</th><th>WhatsApp</th><th>Cidade - UF</th><th>CEP</th><th>Endereço</th></tr>
+    </thead>
+    <tbody id="rows">
+      <tr><td colspan="7" class="empty" id="emptyrow">Nenhum resultado ainda.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="log" id="log"></div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+// Prefixo da aplicacao: vazio em dev (servido em "/") ou "/webscraper-estabelecimentos"
+// quando servido sob um subcaminho via proxy reverso. Mantem os endpoints corretos nos dois casos.
+const BASE = location.pathname.replace(/\/+$/, "");
+let resultados = [];
+let es = null;
+
+function logline(msg){
+  const l = $("log");
+  l.textContent += msg + "\n";
+  l.scrollTop = l.scrollHeight;
+}
+
+function resetUI(){
+  resultados = [];
+  render();
+  $("rows").innerHTML = '<tr><td colspan="7" class="empty">Buscando...</td></tr>';
+  $("proc").textContent = "0";
+  $("log").textContent = "";
+}
+
+function filtrados(){
+  const f = $("filtro").value.trim().toLowerCase();
+  if(!f) return resultados.slice();
+  return resultados.filter(d => (d.cidade_uf||"").toLowerCase().includes(f));
+}
+
+function render(){
+  const lista = filtrados();
+  const tbody = $("rows");
+  tbody.innerHTML = "";
+  if(lista.length === 0){
+    const msg = resultados.length === 0 ? "Nenhum resultado ainda."
+              : "Nenhum resultado para o filtro atual.";
+    tbody.innerHTML = `<tr><td colspan="7" class="empty">${msg}</td></tr>`;
+  } else {
+    lista.forEach((d, i) => {
+      const tel = d.telefone || "";
+      const telLink = tel ? `<a href="tel:${tel.replace(/\s/g,'')}">${esc(tel)}</a>` : "";
+      const num = normalizeWhats(tel);
+      const waBtn = num
+        ? `<button class="wa" data-tel="${esc(tel)}" data-nome="${esc(d.nome)}">WhatsApp</button>`
+        : "";
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${i+1}</td>
+        <td>${esc(d.nome)}</td>
+        <td>${telLink}</td>
+        <td>${waBtn}</td>
+        <td>${esc(d.cidade_uf)}</td>
+        <td>${esc(d.cep)}</td>
+        <td>${esc(d.endereco)}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+  $("found").textContent = resultados.length;
+  $("csv").disabled = lista.length === 0;
+  $("xlsx").disabled = lista.length === 0;
+  const info = $("filtroinfo");
+  if($("filtro").value.trim() && resultados.length > 0){
+    info.style.display = "";
+    $("vis").textContent = lista.length;
+    $("tot").textContent = resultados.length;
+  } else {
+    info.style.display = "none";
+  }
+}
+
+function addRow(d){
+  resultados.push(d);
+  render();
+}
+
+function esc(s){ return (s||"").replace(/[&<>"]/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+// Normaliza um telefone BR para o formato do WhatsApp (DDI 55 + DDD + numero, so digitos)
+function normalizeWhats(tel){
+  let d = (tel||"").replace(/\D/g,"");
+  if(!d) return "";
+  d = d.replace(/^0+/,"");                                   // remove prefixo 0 da operadora
+  if((d.length===12 || d.length===13) && d.startsWith("55")) return d; // ja tem DDI
+  if(d.length===10 || d.length===11) return "55"+d;          // DDD + numero
+  if(!d.startsWith("55")) return "55"+d;                     // fallback
+  return d;
+}
+
+// Monta o link wa.me com a mensagem padrao (substitui {nome})
+function waLink(tel, nome){
+  const num = normalizeWhats(tel);
+  if(!num) return "";
+  let msg = ($("msg").value || "").replace(/\{nome\}/g, nome || "").trim();
+  return "https://wa.me/" + num + (msg ? "?text=" + encodeURIComponent(msg) : "");
+}
+
+// Abre o WhatsApp ao clicar no botao (usa sempre a mensagem atual)
+$("rows").addEventListener("click", (e) => {
+  const b = e.target.closest(".wa");
+  if(!b) return;
+  const link = waLink(b.dataset.tel, b.dataset.nome);
+  if(link) window.open(link, "_blank", "noopener");
+});
+
+// Persiste a mensagem padrao no navegador
+(function(){
+  try {
+    const salvo = localStorage.getItem("wa_msg");
+    if(salvo !== null) $("msg").value = salvo;
+  } catch(_) {}
+  $("msg").addEventListener("input", () => {
+    try { localStorage.setItem("wa_msg", $("msg").value); } catch(_) {}
+  });
+})();
+
+function lerBuscas(){
+  return $("buscas").value.split("\n").map(s => s.trim()).filter(Boolean);
+}
+
+$("gerar").addEventListener("click", () => {
+  const termo = $("gtermo").value.trim();
+  const cidades = $("gcidades").value.split("\n").map(s => s.trim()).filter(Boolean);
+  if(!termo || !cidades.length){
+    alert("Preencha o termo base e ao menos uma cidade.");
+    return;
+  }
+  const novas = cidades.map(c => `${termo} em ${c}`);
+  const atual = $("buscas").value.trim();
+  $("buscas").value = (atual ? atual + "\n" : "") + novas.join("\n");
+});
+
+$("form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const buscas = lerBuscas();
+  if(!buscas.length){ alert("Informe ao menos uma busca (uma por linha)."); return; }
+  if (es) es.close();
+  resetUI();
+  $("go").disabled = true;
+  $("status").innerHTML = '<span class="spin"></span> Iniciando ' + buscas.length + ' busca(s)...';
+
+  const params = new URLSearchParams({
+    max: $("max").value || "40",
+    headless: $("headless").checked ? "1" : "0",
+    telefone: $("telefone").checked ? "1" : "0",
+  });
+  buscas.forEach(q => params.append("q", q));
+  es = new EventSource(BASE + "/scrape?" + params.toString());
+
+  es.addEventListener("progress", (ev) => {
+    $("status").innerHTML = '<span class="spin"></span> ' + esc(JSON.parse(ev.data));
+  });
+  es.addEventListener("result", (ev) => addRow(JSON.parse(ev.data)));
+  es.addEventListener("skipped", (ev) => {
+    const d = JSON.parse(ev.data);
+    $("proc").textContent = (+$("proc").textContent + 1);
+    logline("• " + d);
+  });
+  es.addEventListener("error", (ev) => {
+    try { logline("⚠ " + JSON.parse(ev.data)); } catch(_) {}
+  });
+  es.addEventListener("done", (ev) => {
+    const d = JSON.parse(ev.data);
+    $("proc").textContent = d.processados;
+    const nb = d.buscas ? ` em ${d.buscas} busca(s)` : "";
+    $("status").textContent = `Concluído${nb}. ${d.encontrados} estabelecimento(s) sem site de ${d.processados} processado(s).`;
+    if (resultados.length === 0)
+      $("rows").innerHTML = '<tr><td colspan="7" class="empty">Nenhum estabelecimento sem site encontrado.</td></tr>';
+    $("go").disabled = false;
+    es.close();
+  });
+  es.onerror = () => {
+    $("status").textContent = "Conexão encerrada.";
+    $("go").disabled = false;
+    if (es) es.close();
+  };
+});
+
+$("toglog").addEventListener("click", () => $("log").classList.toggle("show"));
+
+$("filtro").addEventListener("input", render);
+
+$("csv").addEventListener("click", () => {
+  const lista = filtrados();
+  if (!lista.length) return;
+  const head = ["Nome","Telefone","WhatsApp","Cidade - UF","CEP","Endereco"];
+  const linhas = lista.map(d => [d.nome, d.telefone, waLink(d.telefone, d.nome), d.cidade_uf, d.cep, d.endereco]
+    .map(v => '"' + (v||"").replace(/"/g,'""') + '"').join(","));
+  const csv = "﻿" + head.join(",") + "\n" + linhas.join("\n");
+  const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "estabelecimentos_sem_site.csv";
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+$("xlsx").addEventListener("click", async () => {
+  const lista = filtrados();
+  if (!lista.length) return;
+  const btn = $("xlsx");
+  const txt = btn.textContent;
+  btn.disabled = true; btn.textContent = "Gerando...";
+  try {
+    const payload = lista.map(d => ({...d, whatsapp: waLink(d.telefone, d.nome)}));
+    const resp = await fetch(BASE + "/export/xlsx", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(payload),
+    });
+    if (!resp.ok) throw new Error("HTTP " + resp.status);
+    const blob = await resp.blob();
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "estabelecimentos_sem_site.xlsx";
+    a.click();
+    URL.revokeObjectURL(a.href);
+  } catch (e) {
+    alert("Falha ao gerar Excel: " + e.message);
+  } finally {
+    btn.textContent = txt; btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>

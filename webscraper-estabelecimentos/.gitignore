@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Ambientes virtuais
+.venv/
+venv/
+env/
+ENV/
+
+# Playwright / navegadores
+ms-playwright/
+
+# Arquivos gerados
+*.xlsx
+*.csv
+teste.xlsx
+t.xlsx
+
+# IDE / SO
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Claude Code (config local)
+.claude/
