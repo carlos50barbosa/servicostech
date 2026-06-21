@@ -23,6 +23,8 @@ const SEED_FILE = path.join(ROOT, "blog-seed.json"); // seed inicial versionado
 
 const ADMIN_USER = process.env.BLOG_ADMIN_USER || "admin";
 const ADMIN_PASS = process.env.BLOG_ADMIN_PASS || "trocar-esta-senha";
+// Caminho do painel. Use um valor secreto p/ ocultar (ex.: /admin5468). Padrao: /admin
+const ADMIN_PATH = "/" + (process.env.BLOG_ADMIN_PATH || "admin").replace(/^\/+|\/+$/g, "");
 
 const SITE_URL = "https://servicostech.com.br";
 const WHATSAPP =
@@ -438,6 +440,7 @@ function renderAdmin() {
 </div>
 <script>
 const $ = (id) => document.getElementById(id);
+const API = "${ADMIN_PATH}";
 let posts = [];
 
 function toast(text, err){
@@ -446,7 +449,7 @@ function toast(text, err){
 }
 
 async function load(){
-  const r = await fetch('/admin/api/posts');
+  const r = await fetch(API + '/api/posts');
   posts = await r.json();
   const list = $("list");
   if(!posts.length){ list.innerHTML = '<p style="color:#5C6B7A">Nenhum post ainda.</p>'; return; }
@@ -501,7 +504,7 @@ $("form").onsubmit = async (e) => {
     published: $("published").checked
   };
   try{
-    const r = await fetch('/admin/api/save', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+    const r = await fetch(API + '/api/save', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
     if(!r.ok) throw new Error('HTTP '+r.status);
     await r.json();
     toast('Post salvo com sucesso.');
@@ -513,7 +516,7 @@ $("form").onsubmit = async (e) => {
 async function del(id){
   if(!confirm('Excluir este post? Esta ação não pode ser desfeita.')) return;
   try{
-    const r = await fetch('/admin/api/delete', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({id})});
+    const r = await fetch(API + '/api/delete', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({id})});
     if(!r.ok) throw new Error('HTTP '+r.status);
     toast('Post excluído.'); load();
   }catch(err){ toast('Erro ao excluir: '+err.message, true); }
@@ -635,7 +638,7 @@ async function handle(request, response) {
   }
 
   // painel (protegido)
-  if (pathname === "/admin" || pathname.startsWith("/admin/")) {
+  if (pathname === ADMIN_PATH || pathname.startsWith(ADMIN_PATH + "/")) {
     if (!checkAuth(request)) {
       response.writeHead(401, {
         "WWW-Authenticate": 'Basic realm="Painel do Blog", charset="UTF-8"',
@@ -644,10 +647,10 @@ async function handle(request, response) {
       response.end("Autenticacao necessaria");
       return;
     }
-    if (pathname === "/admin") return sendHtml(response, renderAdmin());
-    if (pathname === "/admin/api/posts" && method === "GET") return sendJson(response, await loadPosts());
-    if (pathname === "/admin/api/save" && method === "POST") return handleSave(request, response);
-    if (pathname === "/admin/api/delete" && method === "POST") return handleDelete(request, response);
+    if (pathname === ADMIN_PATH) return sendHtml(response, renderAdmin());
+    if (pathname === ADMIN_PATH + "/api/posts" && method === "GET") return sendJson(response, await loadPosts());
+    if (pathname === ADMIN_PATH + "/api/save" && method === "POST") return handleSave(request, response);
+    if (pathname === ADMIN_PATH + "/api/delete" && method === "POST") return handleDelete(request, response);
     response.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
     response.end("Nao encontrado");
     return;
