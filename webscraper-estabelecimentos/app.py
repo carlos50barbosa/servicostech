@@ -11,6 +11,7 @@ Uso:
 
 import io
 import json
+import os
 
 from flask import (Flask, Response, jsonify, render_template, request,
                    send_file, stream_with_context)
@@ -18,6 +19,28 @@ from flask import (Flask, Response, jsonify, render_template, request,
 from scraper import scrape_batch
 
 app = Flask(__name__)
+
+# Senha de acesso (gate do botao Buscar). Definida em WEBSCRAPER_PASSWORD.
+# Se vazia, o acesso fica liberado (comportamento antigo).
+ACCESS_PASSWORD = os.environ.get("WEBSCRAPER_PASSWORD", "").strip()
+
+
+def _senha_ok(req):
+    if not ACCESS_PASSWORD:
+        return True
+    enviada = (req.args.get("senha") or req.headers.get("X-Access-Senha") or "").strip()
+    return enviada == ACCESS_PASSWORD
+
+
+@app.route("/verificar")
+def verificar():
+    """Informa se ha senha exigida e valida a enviada (usado pelo gate do front)."""
+    if not ACCESS_PASSWORD:
+        return jsonify({"required": False, "ok": True})
+    senha = request.args.get("senha")
+    if senha is None:
+        return jsonify({"required": True, "ok": False})
+    return jsonify({"required": True, "ok": senha.strip() == ACCESS_PASSWORD})
 
 
 @app.route("/")
@@ -27,6 +50,14 @@ def index():
 
 @app.route("/scrape")
 def scrape_stream():
+    if not _senha_ok(request):
+        def _negado():
+            yield _sse("error", "Acesso negado. Informe a senha correta para usar a ferramenta.")
+            yield _sse("done", {"processados": 0, "encontrados": 0, "buscas": 0})
+        return Response(stream_with_context(_negado()),
+                        mimetype="text/event-stream",
+                        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+
     # Aceita varias buscas: ?q=...&q=...  (modo lote)
     queries = [q.strip() for q in request.args.getlist("q") if q and q.strip()]
     if not queries:  # compatibilidade com o parametro antigo
@@ -68,6 +99,9 @@ def _sse(tipo, dado):
 @app.route("/export/xlsx", methods=["POST"])
 def export_xlsx():
     """Recebe a lista de resultados (JSON) e devolve um arquivo .xlsx."""
+    if not _senha_ok(request):
+        return jsonify({"erro": "Acesso negado."}), 403
+
     from openpyxl import Workbook
     from openpyxl.styles import Alignment, Font, PatternFill
     from openpyxl.utils import get_column_letter

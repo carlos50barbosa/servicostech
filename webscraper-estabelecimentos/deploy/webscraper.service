@@ -6,6 +6,9 @@ After=network.target
 Type=simple
 User=root
 Environment=HOME=/root
+# Senha de acesso do botao Buscar (gate). TROQUE por uma senha forte.
+# Deixe vazia/remova esta linha para liberar o acesso sem senha.
+Environment=WEBSCRAPER_PASSWORD=troque-esta-senha
 WorkingDirectory=/var/www/servicostech.com.br/webscraper-estabelecimentos
 ExecStart=/var/www/servicostech.com.br/webscraper-estabelecimentos/.venv/bin/gunicorn -w 1 --worker-class gthread --threads 8 --timeout 0 -b 127.0.0.1:5000 app:app
 Restart=always

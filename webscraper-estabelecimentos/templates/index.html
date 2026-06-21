@@ -3,73 +3,157 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web Scraper — Estabelecimentos sem site</title>
+<title>Serviços Tech — Estabelecimentos sem site</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#0f172a; --card:#1e293b; --acc:#38bdf8; --ok:#22c55e; --mut:#94a3b8; --bd:#334155; }
-  * { box-sizing: border-box; }
-  body { margin:0; font-family: system-ui, "Segoe UI", Roboto, sans-serif;
-         background: var(--bg); color:#e2e8f0; }
-  header { padding: 22px 24px; border-bottom:1px solid var(--bd); }
-  header h1 { margin:0; font-size:20px; }
-  header p { margin:6px 0 0; color:var(--mut); font-size:14px; }
-  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
-  form { background:var(--card); border:1px solid var(--bd); border-radius:12px;
-         padding:18px; display:flex; flex-direction:column; gap:14px; }
-  .field { display:flex; flex-direction:column; }
-  label { display:block; font-size:12px; color:var(--mut); margin-bottom:6px; }
-  input[type=text], input[type=number], textarea {
-    width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--bd);
-    background:#0b1220; color:#e2e8f0; font-size:14px; font-family:inherit; }
-  textarea { resize:vertical; line-height:1.5; }
-  .hint { font-size:12px; color:var(--mut); margin-top:6px; }
-  details.gen { border:1px solid var(--bd); border-radius:8px; padding:0 12px; }
-  details.gen summary { cursor:pointer; padding:11px 0; font-size:13px; color:var(--acc); }
-  .genbody { display:flex; flex-direction:column; gap:12px; padding:4px 0 14px; }
-  .opts { display:flex; align-items:end; gap:18px; flex-wrap:wrap; }
-  .opts .chk { padding-bottom:10px; }
-  .chk { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--mut); }
-  button { cursor:pointer; border:none; border-radius:8px; padding:11px 18px;
-           font-size:14px; font-weight:600; }
-  .btn-go { background:var(--acc); color:#04293f; }
-  .btn-go:disabled { opacity:.5; cursor:not-allowed; }
-  .btn-csv { background:var(--ok); color:#052e16; }
-  .btn-xls { background:#0ea371; color:#ecfdf5; }
-  .btn-csv:disabled, .btn-xls:disabled { opacity:.45; cursor:not-allowed; }
-  .btn-ghost { background:transparent; color:var(--mut); border:1px solid var(--bd); }
-  .bar { display:flex; align-items:center; gap:14px; margin:18px 0 10px; flex-wrap:wrap; }
-  .status { font-size:13px; color:var(--mut); flex:1; min-width:200px; }
-  .pill { font-size:13px; padding:4px 10px; border-radius:999px; background:#0b1220;
-          border:1px solid var(--bd); }
-  .pill b { color:var(--ok); }
-  table { width:100%; border-collapse:collapse; background:var(--card);
-          border:1px solid var(--bd); border-radius:12px; overflow:hidden; }
-  th, td { text-align:left; padding:11px 13px; border-bottom:1px solid var(--bd); font-size:14px; }
-  th { background:#0b1220; color:var(--mut); font-weight:600; font-size:12px;
-       text-transform:uppercase; letter-spacing:.04em; }
-  tr:last-child td { border-bottom:none; }
-  td a { color:var(--acc); text-decoration:none; }
-  .wa { cursor:pointer; border:none; border-radius:6px; padding:6px 10px; font-size:12px;
-        font-weight:600; background:#25D366; color:#04331a; white-space:nowrap; }
-  .wa:hover { background:#1ebe5a; }
-  .empty { color:var(--mut); padding:24px; text-align:center; }
-  .log { margin-top:16px; max-height:140px; overflow:auto; font-family: ui-monospace, monospace;
-         font-size:12px; color:var(--mut); background:#0b1220; border:1px solid var(--bd);
-         border-radius:8px; padding:10px; display:none; }
-  .log.show { display:block; }
-  .spin { width:14px; height:14px; border:2px solid var(--bd); border-top-color:var(--acc);
-          border-radius:50%; animation:r .8s linear infinite; display:inline-block; vertical-align:-2px;}
-  @keyframes r { to { transform: rotate(360deg);} }
-  @media (max-width:760px){ form{ grid-template-columns:1fr; } }
+  :root{
+    --primary:#0F2A3D; --primary-dark:#0A1E2C; --secondary:#1E88E5; --secondary-dark:#1565C0;
+    --light:#F5F7FA; --white:#FFFFFF; --line:#E2E8F0; --slate:#5C6B7A; --dark:#111827;
+    --ok:#16A34A; --wa:#25D366; --radius:14px; --shadow:0 12px 30px rgba(15,42,61,.06);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Inter","Segoe UI",system-ui,Roboto,sans-serif;background:var(--light);color:var(--dark);line-height:1.5;-webkit-font-smoothing:antialiased;}
+  a{color:var(--secondary);}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px;}
+
+  .site-header{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;}
+  .site-header .wrap{display:flex;align-items:center;gap:16px;padding:20px;}
+  .site-header img{height:40px;width:auto;}
+  .site-header .titles{flex:1;min-width:0;}
+  .site-header h1{margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em;}
+  .site-header h1 span{color:#5cc0ff;}
+  .site-header p{margin:4px 0 0;color:rgba(255,255,255,.72);font-size:13.5px;}
+  .site-header .back{color:rgba(255,255,255,.85);font-size:13.5px;text-decoration:none;white-space:nowrap;}
+  .site-header .back:hover{color:#fff;}
+
+  main{padding:24px 0 48px;}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);}
+
+  /* ----- Gate de acesso ----- */
+  .gate{padding:22px 22px 20px;margin-bottom:18px;}
+  .gate-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}
+  .gate-head .lock{flex:none;width:44px;height:44px;border-radius:12px;background:rgba(30,136,229,.12);display:flex;align-items:center;justify-content:center;}
+  .gate-head .lock svg{width:22px;height:22px;stroke:var(--secondary);fill:none;stroke-width:2;}
+  .gate-head h2{margin:0;font-size:18px;color:var(--primary);font-weight:700;}
+  .gate-head p{margin:3px 0 0;font-size:13.5px;color:var(--slate);}
+  .gate-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .gate-row input{flex:1;min-width:200px;}
+  .gate-msg{font-size:13.5px;margin:10px 0 0;min-height:18px;font-weight:600;}
+  .gate-msg.err{color:#b91c1c;}
+  .gate-msg.ok{color:var(--ok);}
+  .gate-contact{font-size:13.5px;color:var(--slate);margin:12px 0 0;}
+  .gate.granted{background:linear-gradient(180deg,#eaf7ee 0%,var(--white) 70%);border-color:#bfe6cb;}
+  .gate.granted .lock{background:rgba(22,163,74,.14);}
+  .gate.granted .lock svg{stroke:var(--ok);}
+
+  /* ----- Formulário ----- */
+  form.card{padding:20px;display:flex;flex-direction:column;gap:16px;}
+  .field{display:flex;flex-direction:column;}
+  label{font-size:12.5px;font-weight:600;color:var(--primary);margin-bottom:6px;}
+  input[type=text],input[type=number],input[type=password],textarea{
+    width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);
+    background:var(--white);color:var(--dark);font-size:14.5px;font-family:inherit;}
+  input:focus,textarea:focus{outline:none;border-color:var(--secondary);box-shadow:0 0 0 3px rgba(30,136,229,.15);}
+  input:disabled,textarea:disabled{background:#f1f4f8;color:#9aa7b4;cursor:not-allowed;}
+  textarea{resize:vertical;line-height:1.5;}
+  .hint{font-size:12px;color:var(--slate);margin-top:6px;}
+  .hint code,label code{color:var(--secondary);background:#eef4fb;padding:1px 5px;border-radius:5px;}
+  details.gen{border:1px solid var(--line);border-radius:10px;padding:0 14px;background:var(--light);}
+  details.gen summary{cursor:pointer;padding:12px 0;font-size:13.5px;font-weight:600;color:var(--secondary);}
+  .genbody{display:flex;flex-direction:column;gap:12px;padding:4px 0 14px;}
+  .opts{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;}
+  .chk{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--slate);padding-bottom:11px;font-weight:500;}
+  .chk input{width:auto;}
+
+  button,.btn{cursor:pointer;border:none;border-radius:10px;padding:11px 20px;font-size:14.5px;font-weight:600;font-family:inherit;transition:background .15s,opacity .15s;}
+  .btn-primary{background:var(--primary);color:#fff;}
+  .btn-primary:hover{background:var(--primary-dark);}
+  .btn-primary:disabled{opacity:.45;cursor:not-allowed;}
+  .btn-secondary{background:var(--secondary);color:#fff;}
+  .btn-secondary:hover{background:var(--secondary-dark);}
+  .btn-ghost{background:var(--white);color:var(--slate);border:1px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--secondary);color:var(--secondary);}
+  .btn-csv{background:#0f9d58;color:#fff;}
+  .btn-xls{background:var(--ok);color:#fff;}
+  .btn-csv:disabled,.btn-xls:disabled{opacity:.4;cursor:not-allowed;}
+  #go{margin-left:auto;}
+
+  /* ----- Barras / pills ----- */
+  .bar{display:flex;align-items:center;gap:12px;margin:18px 0 10px;flex-wrap:wrap;}
+  .status{font-size:13.5px;color:var(--slate);flex:1;min-width:200px;}
+  .pill{font-size:13px;padding:6px 13px;border-radius:999px;background:var(--white);border:1px solid var(--line);color:var(--slate);}
+  .pill b{color:var(--primary);}
+  .pill b.ok{color:var(--ok);}
+
+  /* ----- Tabela (scroll horizontal no mobile) ----- */
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);background:var(--white);-webkit-overflow-scrolling:touch;}
+  table{width:100%;border-collapse:collapse;min-width:780px;}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);font-size:14px;}
+  th{background:var(--light);color:var(--slate);font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;}
+  tr:last-child td{border-bottom:none;}
+  td a{color:var(--secondary);text-decoration:none;}
+  .wa{background:var(--wa);color:#fff;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;white-space:nowrap;}
+  .wa:hover{background:#1ebe5a;}
+  .empty{color:var(--slate);padding:30px;text-align:center;}
+
+  .log{margin-top:16px;max-height:160px;overflow:auto;font-family:ui-monospace,monospace;font-size:12px;color:var(--slate);background:var(--white);border:1px solid var(--line);border-radius:10px;padding:12px;display:none;}
+  .log.show{display:block;}
+  .spin{width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--secondary);border-radius:50%;animation:r .8s linear infinite;display:inline-block;vertical-align:-2px;}
+  @keyframes r{to{transform:rotate(360deg);}}
+
+  /* ----- Responsivo ----- */
+  @media (max-width:760px){
+    .site-header .wrap{flex-wrap:wrap;gap:12px;padding:16px;}
+    .site-header h1{font-size:17px;}
+    .site-header .back{order:3;width:100%;}
+    main{padding:18px 0 36px;}
+    .opts{gap:12px;}
+    .opts .field{max-width:none !important;width:100%;}
+    #go,.gate-row button{margin-left:0;width:100%;}
+    .bar{gap:10px;}
+    th,td{padding:10px 12px;font-size:13px;}
+  }
 </style>
 </head>
 <body>
-<header>
-  <h1>🔎 Web Scraper — Estabelecimentos <span style="color:var(--acc)">sem website</span></h1>
-  <p>Extrai Nome, Telefone, Cidade - UF e CEP do Google Maps, filtrando apenas quem NÃO tem site.</p>
+<header class="site-header">
+  <div class="wrap">
+    <img src="https://servicostech.com.br/assets/logo-branca.png" alt="Serviços Tech" onerror="this.style.display='none'">
+    <div class="titles">
+      <h1>Estabelecimentos <span>sem website</span></h1>
+      <p>Extrai Nome, Telefone, Cidade - UF e CEP do Google Maps — filtrando apenas quem não tem site.</p>
+    </div>
+    <a class="back" href="https://servicostech.com.br" target="_blank" rel="noopener">← Serviços Tech</a>
+  </div>
 </header>
 
+<main>
 <div class="wrap">
-  <form id="form">
+
+  <!-- Gate de acesso -->
+  <div class="gate card" id="gate">
+    <div class="gate-head">
+      <span class="lock" id="gatelock">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      </span>
+      <div>
+        <h2 id="gatetitle">Acesso restrito</h2>
+        <p id="gatesub">Informe a senha para liberar a busca.</p>
+      </div>
+    </div>
+    <div class="gate-row" id="gaterow">
+      <input type="password" id="senha" placeholder="Senha de acesso" autocomplete="off">
+      <button type="button" class="btn btn-primary" id="liberar">Liberar acesso</button>
+    </div>
+    <p class="gate-msg" id="gatemsg"></p>
+    <p class="gate-contact" id="gatecontact">Não tem a senha?
+      <a href="https://wa.me/5511915155349?text=Ol%C3%A1!%20Gostaria%20de%20receber%20acesso%20%C3%A0%20ferramenta%20de%20prospec%C3%A7%C3%A3o%20da%20Servi%C3%A7os%20Tech." target="_blank" rel="noopener">Entre em contato para receber acesso</a>.
+    </p>
+  </div>
+
+  <form id="form" class="card">
     <div class="field">
       <label for="buscas">Buscas — uma por linha (cada linha = uma pesquisa de até ~120)</label>
       <textarea id="buscas" rows="4"
@@ -99,14 +183,14 @@
       </div>
       <label class="chk"><input type="checkbox" id="headless" checked> Navegador oculto</label>
       <label class="chk"><input type="checkbox" id="telefone" checked> Exigir telefone</label>
-      <button type="submit" class="btn-go" id="go">Buscar</button>
+      <button type="submit" class="btn-primary" id="go" disabled>Buscar</button>
     </div>
   </form>
 
   <div class="bar">
     <span class="status" id="status">Pronto. Informe um termo e clique em Buscar.</span>
-    <span class="pill">Processados: <b id="proc" style="color:#e2e8f0">0</b></span>
-    <span class="pill">Sem site: <b id="found">0</b></span>
+    <span class="pill">Processados: <b id="proc">0</b></span>
+    <span class="pill">Sem site: <b id="found" class="ok">0</b></span>
     <button class="btn-csv" id="csv" disabled>⬇ CSV</button>
     <button class="btn-xls" id="xlsx" disabled>⬇ Excel</button>
     <button class="btn-ghost" id="toglog" type="button">Logs</button>
@@ -122,30 +206,95 @@
 
   <div class="bar">
     <div style="flex:1; min-width:260px;">
-      <label for="msg" style="margin-bottom:4px;">💬 Mensagem padrão do WhatsApp (use <code style="color:var(--acc)">{nome}</code> para inserir o nome)</label>
+      <label for="msg" style="margin-bottom:4px;">💬 Mensagem padrão do WhatsApp (use <code>{nome}</code> para inserir o nome)</label>
       <input type="text" id="msg" placeholder="Olá {nome}, tudo bem? Vi que vocês não têm site e gostaria de apresentar uma proposta.">
     </div>
   </div>
 
-  <table>
-    <thead>
-      <tr><th>#</th><th>Nome</th><th>Telefone</th><th>WhatsApp</th><th>Cidade - UF</th><th>CEP</th><th>Endereço</th></tr>
-    </thead>
-    <tbody id="rows">
-      <tr><td colspan="7" class="empty" id="emptyrow">Nenhum resultado ainda.</td></tr>
-    </tbody>
-  </table>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Nome</th><th>Telefone</th><th>WhatsApp</th><th>Cidade - UF</th><th>CEP</th><th>Endereço</th></tr>
+      </thead>
+      <tbody id="rows">
+        <tr><td colspan="7" class="empty" id="emptyrow">Nenhum resultado ainda.</td></tr>
+      </tbody>
+    </table>
+  </div>
 
   <div class="log" id="log"></div>
 </div>
+</main>
 
 <script>
 const $ = (id) => document.getElementById(id);
-// Prefixo da aplicacao: vazio em dev (servido em "/") ou "/webscraper-estabelecimentos"
-// quando servido sob um subcaminho via proxy reverso. Mantem os endpoints corretos nos dois casos.
+// Prefixo da aplicacao: vazio em dev ("/") ou "/webscraper-estabelecimentos" sob proxy reverso.
 const BASE = location.pathname.replace(/\/+$/, "");
 let resultados = [];
 let es = null;
+
+// ----- Controle de acesso (gate) -----
+let accessPass = "";   // senha validada; enviada nas requisicoes ao servidor
+let accessOk = false;  // libera o botao Buscar
+
+function setGranted(){
+  accessOk = true;
+  $("go").disabled = false;
+  const g = $("gate");
+  g.classList.add("granted");
+  $("gatetitle").textContent = "Acesso liberado";
+  $("gatesub").textContent = "Você já pode realizar as buscas.";
+  $("gaterow").style.display = "none";
+  $("gatecontact").style.display = "none";
+  $("gatemsg").textContent = "";
+  $("gatelock").innerHTML = '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+}
+
+function hideGate(){ $("gate").style.display = "none"; }
+
+async function verificar(senha){
+  const url = BASE + "/verificar" + (senha != null ? "?senha=" + encodeURIComponent(senha) : "");
+  const r = await fetch(url);
+  return r.json();
+}
+
+// Ao carregar: descobre se ha senha exigida; tenta reaproveitar a senha da sessao.
+(async function initGate(){
+  try {
+    const saved = sessionStorage.getItem("ws_senha");
+    const d = await verificar(saved);
+    if (!d.required) { accessOk = true; $("go").disabled = false; hideGate(); return; }
+    if (saved && d.ok) { accessPass = saved; setGranted(); return; }
+  } catch(_) {
+    // Se /verificar nao existir/responder (ex.: app antigo), libera o front;
+    // a protecao real continua no servidor (/scrape valida a senha).
+    accessOk = true; $("go").disabled = false; hideGate();
+  }
+})();
+
+$("liberar").addEventListener("click", async () => {
+  const senha = $("senha").value.trim();
+  const msg = $("gatemsg");
+  if (!senha) { msg.className = "gate-msg err"; msg.textContent = "Digite a senha."; return; }
+  $("liberar").disabled = true;
+  try {
+    const d = await verificar(senha);
+    if (d.ok) {
+      accessPass = senha;
+      try { sessionStorage.setItem("ws_senha", senha); } catch(_) {}
+      setGranted();
+    } else {
+      msg.className = "gate-msg err";
+      msg.textContent = "Senha incorreta.";
+    }
+  } catch(_) {
+    msg.className = "gate-msg err";
+    msg.textContent = "Não foi possível validar agora. Tente novamente.";
+  } finally {
+    $("liberar").disabled = false;
+  }
+});
+$("senha").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); $("liberar").click(); } });
 
 function logline(msg){
   const l = $("log");
@@ -215,18 +364,16 @@ function addRow(d){
 function esc(s){ return (s||"").replace(/[&<>"]/g, c =>
   ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
-// Normaliza um telefone BR para o formato do WhatsApp (DDI 55 + DDD + numero, so digitos)
 function normalizeWhats(tel){
   let d = (tel||"").replace(/\D/g,"");
   if(!d) return "";
-  d = d.replace(/^0+/,"");                                   // remove prefixo 0 da operadora
-  if((d.length===12 || d.length===13) && d.startsWith("55")) return d; // ja tem DDI
-  if(d.length===10 || d.length===11) return "55"+d;          // DDD + numero
-  if(!d.startsWith("55")) return "55"+d;                     // fallback
+  d = d.replace(/^0+/,"");
+  if((d.length===12 || d.length===13) && d.startsWith("55")) return d;
+  if(d.length===10 || d.length===11) return "55"+d;
+  if(!d.startsWith("55")) return "55"+d;
   return d;
 }
 
-// Monta o link wa.me com a mensagem padrao (substitui {nome})
 function waLink(tel, nome){
   const num = normalizeWhats(tel);
   if(!num) return "";
@@ -234,7 +381,6 @@ function waLink(tel, nome){
   return "https://wa.me/" + num + (msg ? "?text=" + encodeURIComponent(msg) : "");
 }
 
-// Abre o WhatsApp ao clicar no botao (usa sempre a mensagem atual)
 $("rows").addEventListener("click", (e) => {
   const b = e.target.closest(".wa");
   if(!b) return;
@@ -242,7 +388,6 @@ $("rows").addEventListener("click", (e) => {
   if(link) window.open(link, "_blank", "noopener");
 });
 
-// Persiste a mensagem padrao no navegador
 (function(){
   try {
     const salvo = localStorage.getItem("wa_msg");
@@ -271,6 +416,7 @@ $("gerar").addEventListener("click", () => {
 
 $("form").addEventListener("submit", (e) => {
   e.preventDefault();
+  if(!accessOk){ alert("Informe a senha de acesso para liberar a busca."); return; }
   const buscas = lerBuscas();
   if(!buscas.length){ alert("Informe ao menos uma busca (uma por linha)."); return; }
   if (es) es.close();
@@ -283,6 +429,7 @@ $("form").addEventListener("submit", (e) => {
     headless: $("headless").checked ? "1" : "0",
     telefone: $("telefone").checked ? "1" : "0",
   });
+  if (accessPass) params.append("senha", accessPass);
   buscas.forEach(q => params.append("q", q));
   es = new EventSource(BASE + "/scrape?" + params.toString());
 
@@ -316,7 +463,6 @@ $("form").addEventListener("submit", (e) => {
 });
 
 $("toglog").addEventListener("click", () => $("log").classList.toggle("show"));
-
 $("filtro").addEventListener("input", render);
 
 $("csv").addEventListener("click", () => {
@@ -342,7 +488,8 @@ $("xlsx").addEventListener("click", async () => {
   btn.disabled = true; btn.textContent = "Gerando...";
   try {
     const payload = lista.map(d => ({...d, whatsapp: waLink(d.telefone, d.nome)}));
-    const resp = await fetch(BASE + "/export/xlsx", {
+    const url = BASE + "/export/xlsx" + (accessPass ? "?senha=" + encodeURIComponent(accessPass) : "");
+    const resp = await fetch(url, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(payload),

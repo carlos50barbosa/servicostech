@@ -39,6 +39,17 @@ systemctl enable --now webscraper
 systemctl status webscraper --no-pager
 ```
 
+## 3.1. Senha de acesso (gate do botão Buscar)
+O botão **Buscar** só libera com senha (validada no servidor — `/scrape` e
+`/export/xlsx` exigem a senha). Defina em `WEBSCRAPER_PASSWORD` no `.service`:
+```bash
+# edite /etc/systemd/system/webscraper.service e troque o valor:
+#   Environment=WEBSCRAPER_PASSWORD=sua-senha-forte
+systemctl daemon-reload && systemctl restart webscraper
+```
+Quem não tem a senha vê **"Entre em contato para receber acesso"** (link WhatsApp).
+Para liberar sem senha, remova a linha `WEBSCRAPER_PASSWORD` e reinicie.
+
 ## 4. Conferir
 ```bash
 curl -s -o /dev/null -w "flask local: %{http_code}\n" http://127.0.0.1:5000/
