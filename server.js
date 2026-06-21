@@ -11,6 +11,13 @@ const PUBLIC_DIR = __dirname;
 const LOG_STATIC = process.env.LOG_STATIC === "true";
 let requestSequence = 0;
 
+// Reverse proxy do webscraper (app Flask/Playwright em Python).
+const WEBSCRAPER_PREFIX = "/webscraper-estabelecimentos";
+const WEBSCRAPER_TARGET = {
+  host: process.env.WEBSCRAPER_HOST || "127.0.0.1",
+  port: Number(process.env.WEBSCRAPER_PORT) || 5000
+};
+
 const mimeTypes = {
   ".css": "text/css; charset=utf-8",
   ".html": "text/html; charset=utf-8",
@@ -340,6 +347,7 @@ function renderSiteHeader(options = {}) {
     { href: "/#inicio", label: "Início" },
     { href: "/#beneficios", label: "Benefícios" },
     { href: "/#portfolio", label: "Portfólio" },
+    { href: "https://blog.servicostech.com.br", label: "Blog" },
     { href: "/#oferta", label: "Oferta" },
     { href: "/#contato", label: "Contato" }
   ];
@@ -463,6 +471,7 @@ function renderSiteFooter() {
             <a href="/#beneficios">Benefícios</a>
             <a href="/#oferta">Oferta</a>
             <a href="/#portfolio">Portfólio</a>
+            <a href="https://blog.servicostech.com.br">Blog</a>
             <a href="/#contato">Contato</a>
           </nav>
 
@@ -1449,6 +1458,52 @@ async function sendFile(response, filePath) {
   response.end(file);
 }
 
+// Encaminha /webscraper-estabelecimentos/* para o app Flask (porta 5000),
+// removendo o prefixo. Faz streaming (SSE do /scrape) e repassa POST (/export/xlsx).
+function proxyToWebscraper(request, response) {
+  let upstreamPath = request.url.slice(WEBSCRAPER_PREFIX.length) || "/";
+  if (!upstreamPath.startsWith("/")) {
+    upstreamPath = "/" + upstreamPath;
+  }
+
+  const headers = {
+    ...request.headers,
+    host: `${WEBSCRAPER_TARGET.host}:${WEBSCRAPER_TARGET.port}`
+  };
+
+  const proxyReq = http.request(
+    {
+      host: WEBSCRAPER_TARGET.host,
+      port: WEBSCRAPER_TARGET.port,
+      method: request.method,
+      path: upstreamPath,
+      headers
+    },
+    (proxyRes) => {
+      // Repassa status e cabeçalhos como vieram (inclui text/event-stream do SSE).
+      response.writeHead(proxyRes.statusCode || 502, proxyRes.headers);
+      proxyRes.pipe(response);
+    }
+  );
+
+  proxyReq.on("error", (error) => {
+    log("ERROR", "webscraper_proxy_error", {
+      code: error.code || "UNKNOWN",
+      message: error.message,
+      target: `${WEBSCRAPER_TARGET.host}:${WEBSCRAPER_TARGET.port}`
+    });
+    if (!response.headersSent) {
+      response.writeHead(502, { "Content-Type": "text/plain; charset=utf-8" });
+    }
+    response.end(
+      `Webscraper indisponivel. Inicie o app Flask em ${WEBSCRAPER_TARGET.host}:${WEBSCRAPER_TARGET.port}.`
+    );
+  });
+
+  // Encaminha o corpo (POST /export/xlsx); GETs finalizam automaticamente.
+  request.pipe(proxyReq);
+}
+
 const server = http.createServer(async (request, response) => {
   const startedAt = process.hrtime.bigint();
   const requestId = ++requestSequence;
@@ -1476,6 +1531,18 @@ const server = http.createServer(async (request, response) => {
       ua: getUserAgentSummary(userAgent)
     });
   });
+
+  if (
+    request.url &&
+    (request.url === WEBSCRAPER_PREFIX ||
+      request.url.startsWith(WEBSCRAPER_PREFIX + "/") ||
+      request.url.startsWith(WEBSCRAPER_PREFIX + "?"))
+  ) {
+    route = "proxy.webscraper";
+    pathname = request.url.split("?")[0];
+    proxyToWebscraper(request, response);
+    return;
+  }
 
   if (!request.url || request.method !== "GET") {
     route = "method_not_allowed";

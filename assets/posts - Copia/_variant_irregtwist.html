@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --primary: #0F2A3D;
+    --secondary: #1E88E5;
+    --dark: #111827;
+    --light: #F5F7FA;
+    --white: #FFFFFF;
+    --slate: #5C6B7A;
+    --line: #E2E8F0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1080px; }
+  body {
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    color: var(--dark);
+    position: relative;
+    overflow: hidden;
+    background: var(--light);
+  }
+
+  .bg-lines { position: absolute; inset: 0; width: 1080px; height: 1080px; z-index: 0; }
+  /* clarão suave atrás do cabeçalho para legibilidade do título */
+  .glow {
+    position: absolute; z-index: 1; left: 50%; top: 60px;
+    width: 900px; height: 430px; transform: translateX(-50%);
+    background: radial-gradient(60% 60% at 50% 40%, rgba(245,247,250,0.92) 0%, rgba(245,247,250,0.55) 45%, rgba(245,247,250,0) 75%);
+    pointer-events: none;
+  }
+
+  .poster {
+    position: relative;
+    z-index: 2;
+    width: 1080px;
+    height: 1080px;
+    padding: 52px 70px 46px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header { text-align: center; }
+  .header img { height: 70px; width: auto; display: inline-block; margin-bottom: 16px; }
+
+  h1 {
+    font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+    font-weight: 800;
+    font-size: 80px;
+    line-height: 0.95;
+    letter-spacing: 0.5px;
+    color: var(--primary);
+    text-transform: uppercase;
+  }
+  .subtitle {
+    margin: 14px auto 0;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 1.32;
+    color: var(--slate);
+    max-width: 660px;
+  }
+
+  .grid {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 22px 24px 22px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 12px 30px rgba(15, 42, 61, 0.06);
+  }
+  .card.featured {
+    border: 1.5px solid rgba(30, 136, 229, 0.55);
+    background: linear-gradient(180deg, rgba(30,136,229,0.07) 0%, rgba(255,255,255,1) 60%);
+  }
+  .card .icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: rgba(30, 136, 229, 0.12);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .card .icon svg { width: 24px; height: 24px; stroke: var(--secondary); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .card .label {
+    font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+    font-weight: 600;
+    font-size: 23px;
+    line-height: 1.16;
+    color: var(--primary);
+  }
+  .card .price {
+    margin-top: auto;
+    font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 1.04;
+    color: var(--secondary);
+    padding-top: 12px;
+  }
+  .card .price.small {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--slate);
+  }
+
+  .features {
+    margin: 26px auto 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 11px 30px;
+  }
+  .features li {
+    position: relative;
+    padding-left: 28px;
+    font-size: 21px;
+    font-weight: 500;
+    line-height: 1.25;
+    color: #3A4A57;
+  }
+  .features li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 6px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--secondary);
+    box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.16);
+  }
+
+  .footer {
+    margin-top: auto;
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--line);
+    font-size: 23px;
+  }
+  .footer .site { font-weight: 700; color: var(--primary); letter-spacing: 0.3px; }
+  .footer .wpp { display: flex; align-items: center; gap: 10px; color: var(--slate); font-weight: 600; }
+  .footer .wpp svg { width: 26px; height: 26px; fill: #25D366; }
+</style>
+</head>
+<body>
+  <svg class="bg-lines" id="lines" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"></svg>
+  <div class="glow"></div>
+
+  <div class="poster">
+    <div class="header">
+      <img src="data:image/png;base64,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" alt="Serviços Tech" />
+      <h1>Criação de<br>Sites</h1>
+      <p class="subtitle">Transforme sua presença online com<br>um site profissional</p>
+    </div>
+
+    <div class="grid">
+      <div class="card featured">
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </div>
+        <div class="label">Site institucional<br>até 5 páginas</div>
+        <div class="price">R$997</div>
+      </div>
+
+      <div class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>
+        </div>
+        <div class="label">Site institucional<br>mais de 5 páginas</div>
+        <div class="price small">Valor a combinar</div>
+      </div>
+
+      <div class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M21 16l-5-5L5 20"/></svg>
+        </div>
+        <div class="label">Blog / Portal<br>de notícias</div>
+        <div class="price">R$1.490</div>
+      </div>
+
+      <div class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2 3 7l9 5 9-5-9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg>
+        </div>
+        <div class="label">Outros projetos<br>sob medida</div>
+        <div class="price small">Valor a combinar</div>
+      </div>
+    </div>
+
+    <ul class="features">
+      <li>Design moderno e responsivo</li>
+      <li>Painel administrativo incluso</li>
+      <li>Suporte e hospedagem grátis por 1 ano</li>
+      <li>Botão do WhatsApp integrado</li>
+    </ul>
+
+    <div class="footer">
+      <span class="site">servicostech.com.br</span>
+      <span class="wpp">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.2 1.1-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.5-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5l-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.7.9.2.1.4.2.4.3.1.1.1.6-.1 1.2z"/></svg>
+        (11) 91515-5349
+      </span>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var NS = "http://www.w3.org/2000/svg";
+      var svg = document.getElementById("lines");
+      var W = 1080, H = 1080;
+
+      function addPath(d, width, opacity, color) {
+        var p = document.createElementNS(NS, "path");
+        p.setAttribute("d", d);
+        p.setAttribute("fill", "none");
+        p.setAttribute("stroke", color);
+        p.setAttribute("stroke-width", width);
+        p.setAttribute("opacity", opacity);
+        svg.appendChild(p);
+      }
+
+      // >>> LINES-GEN START (bloco substituível: usa svg, W, H e addPath(d,width,opacity,color))
+      // FITA DE SEDA TORCIDA — variante IRREGTWIST.
+      // Duas faixas (fitas), cada uma = feixe de N warp-lines paralelas correndo no eixo x
+      // em torno de uma espinha. A TORÇÃO twist(t) é NÃO-linear (base*t + somatório de senos),
+      // de modo que os pontos de pinça/cruzamento (onde cos(tw)=0) caiam em x IRREGULARES.
+      // Largura ~constante. As duas fitas usam k/p distintos -> composição não-simétrica.
+
+      var colors = ["#9FB2C2", "#AEC0CE", "#C6D1DB"];
+      var PI = Math.PI;
+      var x0 = -90, x1 = W + 90;
+
+      // Desenha uma fita torcida com torção irregular.
+      function ribbon(cfg) {
+        var N = cfg.N;
+        for (var li = 0; li < N; li++) {
+          var s = (li / (N - 1)) * 2 - 1;   // -1..1 atravessando a largura da fita
+          var d = "";
+          for (var x = x0; x <= x1; x += 4) {
+            var t = (x - x0) / (x1 - x0);   // 0..1 ao longo do comprimento
+
+            // espinha: fluxo suave da fita
+            var sy = cfg.spineY
+                   + cfg.ampEspinha * Math.sin(2 * PI * cfg.freq * t + cfg.fase);
+
+            // largura ~constante (leve respiração orgânica, não pinça)
+            var w = cfg.halfWidth * (1 + 0.06 * Math.sin(2 * PI * 0.8 * t + cfg.wph));
+
+            // TORÇÃO IRREGULAR: base linear + dois senos com k/p distintos.
+            // Os zeros de cos(tw) -> pinças em x espaçados de forma desigual.
+            var tw = cfg.base * t
+                   + cfg.A1 * Math.sin(cfg.k1 * t + cfg.p1)
+                   + cfg.A2 * Math.sin(cfg.k2 * t + cfg.p2)
+                   + cfg.tw0;
+
+            var offset = s * w * Math.cos(tw);
+            var y = sy + offset;
+
+            d += (d === "" ? "M" : "L") + x.toFixed(1) + "," + y.toFixed(1) + " ";
+          }
+          var col = colors[li % colors.length];
+          // opacidade/largura variando levemente por linha (não-uniforme, orgânico)
+          var op = cfg.opBase + (li % 3) * 0.05 + 0.04 * Math.sin(li * 1.7);
+          if (op < 0.30) op = 0.30; if (op > 0.55) op = 0.55;
+          var wd = cfg.wBase + 0.18 * Math.sin(li * 0.9 + cfg.fase);
+          if (wd < 0.6) wd = 0.6; if (wd > 1.1) wd = 1.1;
+          addPath(d.trim(), wd.toFixed(2), op.toFixed(2), col);
+        }
+      }
+
+      // FITA SUPERIOR (~y=235). Torção com k1=5.3, k2=11.7 -> pinças desiguais.
+      ribbon({
+        spineY: 235, ampEspinha: 34, freq: 1.15, fase: 0.6,
+        halfWidth: 190, wph: 0.4,
+        base: 11.0, A1: 2.6, k1: 5.3, p1: 0.9, A2: 1.3, k2: 11.7, p2: 2.3, tw0: 0.2,
+        N: 27, opBase: 0.40, wBase: 0.95
+      });
+
+      // FITA INFERIOR (~y=850). Parâmetros DIFERENTES (fases, raios, k/p) -> assimetria.
+      ribbon({
+        spineY: 850, ampEspinha: 50, freq: 0.85, fase: 2.4,
+        halfWidth: 205, wph: 1.9,
+        base: 13.0, A1: 3.0, k1: 4.1, p1: 2.0, A2: 1.6, k2: 9.3, p2: 0.5, tw0: 1.1,
+        N: 29, opBase: 0.42, wBase: 1.00
+      });
+      // >>> LINES-GEN END
+    })();
+  </script>
+</body>
+</html>
