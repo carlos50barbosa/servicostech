@@ -132,7 +132,7 @@ async function main() {
     const e4 = ip4xx.get(ip) || 0;
     const g = geo[ip];
     const loc = g ? "  " + [g.country, g.city].filter(Boolean).join("/") : "";
-    L.push("  " + pad(n, 7) + pad(ip, 22) + (e4 ? "(" + e4 + " erros)" : "") + loc);
+    L.push("  " + pad(n, 7) + ip.padEnd(24) + (e4 ? "(" + e4 + " erros)" : "") + loc);
   }
 
   if (withGeo) {
