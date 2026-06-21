@@ -1,0 +1,15 @@
+[Unit]
+Description=Webscraper Estabelecimentos (Flask/Playwright)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Environment=HOME=/root
+WorkingDirectory=/var/www/servicostech.com.br/webscraper-estabelecimentos
+ExecStart=/var/www/servicostech.com.br/webscraper-estabelecimentos/.venv/bin/gunicorn -w 1 --worker-class gthread --threads 8 --timeout 0 -b 127.0.0.1:5000 app:app
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
