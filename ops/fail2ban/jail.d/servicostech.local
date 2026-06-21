@@ -1,0 +1,25 @@
+# Jails do Serviços Tech — leem o log do pm2 (stdout do app: 401/404 são WARN).
+# Ajuste o logpath se o app/usuário do pm2 for diferente.
+# Se a data não for reconhecida, descomente o datepattern.
+
+[servicostech-admin]
+enabled  = true
+filter   = servicostech-admin
+logpath  = /root/.pm2/logs/servicos-tech-out.log
+backend  = polling
+port     = http,https
+maxretry = 6
+findtime = 15m
+bantime  = 1h
+# datepattern = %%Y-%%m-%%dT%%H:%%M:%%S
+
+[servicostech-scanner]
+enabled  = true
+filter   = servicostech-scanner
+logpath  = /root/.pm2/logs/servicos-tech-out.log
+backend  = polling
+port     = http,https
+maxretry = 2
+findtime = 1d
+bantime  = 1d
+# datepattern = %%Y-%%m-%%dT%%H:%%M:%%S

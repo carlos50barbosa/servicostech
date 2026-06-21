@@ -30,3 +30,6 @@ Thumbs.db
 
 # Dados locais do blog (gerados na VPS pelo painel)
 blog-data/
+
+# Estado dos alertas (cooldown por IP)
+ops/logs/.state/
