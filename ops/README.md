@@ -126,7 +126,18 @@ O `report.js --geo` passa a usar a base local automaticamente.
 ---
 
 ## Privacidade (LGPD)
-IP é dado pessoal. Você já tem política de privacidade no site — garanta que ela
-menciona a coleta de logs de acesso (base legal: legítimo interesse de
-segurança/operação), defina retenção (o `pm2-logrotate` já limita o histórico) e,
-para estatística, considere anonimizar o IP (mascarar o último octeto).
+IP é dado pessoal. A Política de Privacidade do site já declara a coleta de logs de
+acesso (base legal: legítimo interesse de segurança/operação), a geolocalização
+aproximada derivada do IP, o bloqueio automático por `fail2ban` e a **retenção de
+até 30 dias** dos logs de acesso/segurança.
+
+Para fazer valer esse prazo de 30 dias no servidor, rode uma vez:
+
+```bash
+bash ops/logs/setup-retention.sh   # configura o pm2-logrotate (rotação diária, retain=30)
+```
+
+Recomendações:
+- Prefira a base **MaxMind local** (`GEOIP_MMDB`) ao fallback `ip-api.com`, que envia
+  os IPs a um terceiro nos EUA por HTTP — ver seção GeoIP acima.
+- Para estatística, considere anonimizar o IP (mascarar o último octeto).

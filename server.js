@@ -252,7 +252,7 @@ const legalInfo = {
   contactWhatsApp: "(11) 91515-5349",
   dataController: "José Carlos Barbosa, profissional autônomo responsável pela Serviços Tech.",
   location: "Osasco/SP, Brasil — Atendimento online para todo o Brasil.",
-  lastUpdated: "15 de junho de 2026"
+  lastUpdated: "22 de junho de 2026"
 };
 
 function renderCookieConsent() {
@@ -1260,7 +1260,9 @@ function renderPrivacyPolicyPage() {
                 <li>E-mail;</li>
                 <li>Nome da empresa ou negócio;</li>
                 <li>Mensagem enviada em formulário, WhatsApp, e-mail ou outro canal de atendimento;</li>
-                <li>Informações de navegação, como páginas acessadas, origem do acesso, dispositivo, navegador, endereço IP e cookies.</li>
+                <li>Dados de navegação e de acesso, registrados automaticamente em nossos logs: endereço IP, data e hora do acesso, página acessada (endereço/URL), código de status da resposta, página de origem (referenciador), tipo de dispositivo e versão resumida do navegador (User-Agent) e cookies;</li>
+                <li>Localização geográfica aproximada (país e cidade), derivada do endereço IP para fins de operação e segurança;</li>
+                <li>Quando você consente com os cookies de análise, dados de uso coletados pelo Google Analytics, como páginas visitadas, origem do acesso e interações (cliques em botões e envios de formulário).</li>
               </ul>
             </section>
 
@@ -1273,6 +1275,7 @@ function renderPrivacyPolicyPage() {
                 <li>Prestar serviços contratados e acompanhar demandas do cliente;</li>
                 <li>Melhorar a experiência, desempenho, segurança e conteúdo do site;</li>
                 <li>Realizar comunicações comerciais quando houver autorização ou relação prévia compatível;</li>
+                <li>Garantir a segurança e a disponibilidade do site, registrando os acessos e detectando e bloqueando automaticamente tentativas de invasão, varreduras (scanners), ataques de força bruta e tráfego abusivo (flood);</li>
                 <li>Prevenir fraudes, incidentes de segurança e uso indevido dos canais digitais.</li>
               </ul>
             </section>
@@ -1280,12 +1283,19 @@ function renderPrivacyPolicyPage() {
             <section class="legal-section">
               <h2>4. Base legal para tratamento</h2>
               <p>Tratamos dados pessoais com base na LGPD, de forma simples e proporcional. Dependendo da situação, o tratamento pode ocorrer para executar medidas solicitadas pelo próprio usuário, cumprir obrigações legais, atender interesses legítimos da Serviços Tech ou com consentimento, especialmente para cookies não essenciais e comunicações opcionais.</p>
+              <p>Em especial, o tratamento de endereço IP, logs de acesso e localização aproximada para fins de segurança, prevenção a fraudes e contenção de abuso fundamenta-se no <strong>legítimo interesse</strong> da Serviços Tech (art. 7º, IX, e art. 10 da LGPD), enquanto os cookies de análise e as comunicações opcionais dependem do seu <strong>consentimento</strong>.</p>
             </section>
 
             <section class="legal-section">
               <h2>5. Compartilhamento de dados</h2>
-              <p>Podemos compartilhar dados com ferramentas e fornecedores necessários para funcionamento do negócio, como serviços de hospedagem, e-mail, WhatsApp, formulários, analytics, automações e ferramentas de atendimento, sempre de forma compatível com as finalidades desta política.</p>
-              <p>A Serviços Tech não vende dados pessoais.</p>
+              <p>Podemos compartilhar dados com fornecedores e ferramentas necessários ao funcionamento do negócio, sempre de forma compatível com as finalidades desta política, tais como:</p>
+              <ul>
+                <li>Hospedagem e infraestrutura que executam o site;</li>
+                <li>Google Analytics (Google LLC), para análise de tráfego, apenas mediante o seu consentimento;</li>
+                <li>MaxMind (base GeoLite2), para estimar a localização geográfica aproximada a partir do endereço IP;</li>
+                <li>Ferramentas de e-mail, WhatsApp, formulários e automações de atendimento.</li>
+              </ul>
+              <p>Parte desses serviços é operada por empresas no exterior, o que pode envolver transferência internacional de dados, realizada conforme as hipóteses previstas na LGPD. A Serviços Tech não vende dados pessoais.</p>
             </section>
 
             <section class="legal-section">
@@ -1309,17 +1319,25 @@ function renderPrivacyPolicyPage() {
             <section class="legal-section">
               <h2>8. Segurança dos dados</h2>
               <p>Adotamos medidas técnicas e organizacionais razoáveis para proteger dados pessoais contra acessos não autorizados, perda, alteração, divulgação indevida ou uso incompatível com as finalidades informadas.</p>
+              <p>Entre essas medidas, registramos logs de acesso e utilizamos bloqueio automático de endereços IP (fail2ban) para conter ataques de força bruta ao painel administrativo, varreduras de segurança (scanners) e tráfego abusivo (flood). O acesso aos relatórios e ao controle desses bloqueios é restrito a operadores autenticados.</p>
             </section>
 
             <section class="legal-section">
               <h2>9. Tempo de armazenamento</h2>
-              <p>Os dados são mantidos pelo tempo necessário para atendimento, envio de propostas, execução de serviços, cumprimento de obrigações legais, defesa de direitos ou enquanto houver finalidade legítima relacionada ao relacionamento com o usuário ou cliente.</p>
+              <p>Mantemos cada categoria de dado apenas pelo tempo necessário às finalidades desta política:</p>
+              <ul>
+                <li><strong>Dados de contato e relacionamento</strong> (nome, telefone, e-mail, mensagens e propostas): durante o atendimento e a relação comercial e, depois, pelos prazos legais de guarda e de defesa de direitos;</li>
+                <li><strong>Logs de acesso e de segurança</strong> (incluindo endereço IP): por período limitado, em regra até 30 dias, após o qual são descartados ou anonimizados — salvo quando precisarem ser retidos por mais tempo para apurar um incidente de segurança;</li>
+                <li><strong>Bloqueios de IP por abuso</strong> (fail2ban): temporários, de 1 hora (força bruta e flood) a 24 horas (scanners), sendo o IP liberado automaticamente ao fim do período;</li>
+                <li><strong>Localização aproximada derivada do IP</strong>: calculada apenas no momento da análise, não sendo armazenada de forma autônoma;</li>
+                <li><strong>Cookies e dados de análise</strong> (Google Analytics): pelo prazo definido na configuração da ferramenta (em regra, até 14 meses) e enquanto durar o seu consentimento.</li>
+              </ul>
             </section>
 
             <section class="legal-section">
               <h2>10. Uso de cookies</h2>
-              <p>Usamos cookies essenciais para funcionamento do site e podemos usar cookies não essenciais para análise de tráfego, melhoria da experiência e personalização de conteúdo. O usuário pode aceitar ou recusar cookies não essenciais no aviso exibido no site.</p>
-              <p>Scripts de analytics, marketing, Meta Pixel ou Google Analytics só devem ser carregados quando houver consentimento aceito.</p>
+              <p>Usamos cookies essenciais para o funcionamento do site e, mediante o seu consentimento, cookies de análise para entender o tráfego e melhorar a experiência. Você pode aceitar ou recusar os cookies não essenciais no aviso exibido no site e revisar sua escolha a qualquer momento em <strong>Preferências de cookies</strong>.</p>
+              <p>Quando você aceita, utilizamos o Google Analytics (gtag.js), que grava cookies (como <code>_ga</code>) e processa dados de navegação, podendo transferi-los ao Google. Scripts de análise e marketing só são carregados após o consentimento aceito; enquanto você não aceita, eles não são ativados.</p>
             </section>
 
             <section class="legal-section">
