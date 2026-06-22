@@ -543,7 +543,7 @@
 
   <div class="cookie-consent" data-cookie-consent hidden role="region" aria-label="Aviso de cookies">
     <div class="cookie-consent-inner">
-      <p>Nós usamos cookies para melhorar sua experiência, analisar o tráfego do site e personalizar conteúdos. Você pode aceitar ou recusar os cookies não essenciais. Para saber mais, acesse nossa <a href="/politica-de-privacidade">Política de Privacidade</a>.</p>
+      <p>Usamos cookies para melhorar sua experiência e analisar o tráfego. Saiba mais na <a href="/politica-de-privacidade">Política de Privacidade</a>.</p>
       <div class="cookie-consent-actions" aria-label="Preferências de cookies">
         <button type="button" class="cookie-btn cookie-btn-secondary" data-cookie-reject>Recusar</button>
         <button type="button" class="cookie-btn cookie-btn-primary" data-cookie-accept>Aceitar</button>
@@ -581,15 +581,25 @@
         } catch (error) {}
       }
 
+      function syncBannerHeight() {
+        if (!banner || banner.hidden) return;
+        document.documentElement.style.setProperty('--cookie-h', banner.offsetHeight + 'px');
+      }
+
       function showBanner() {
         if (!banner) return;
         banner.hidden = false;
+        document.body.classList.add('cookie-open');
+        syncBannerHeight();
       }
 
       function hideBanner() {
         if (!banner) return;
         banner.hidden = true;
+        document.body.classList.remove('cookie-open');
       }
+
+      window.addEventListener('resize', syncBannerHeight);
 
       function loadOptionalAnalytics() {
         if (window.servicosTechAnalyticsLoaded) return;
