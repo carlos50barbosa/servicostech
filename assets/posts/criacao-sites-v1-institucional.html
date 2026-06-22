@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --primary: #0F2A3D;
+    --secondary: #1E88E5;
+    --dark: #111827;
+    --light: #F5F7FA;
+    --white: #FFFFFF;
+    --slate: #5C6B7A;
+    --line: #E2E8F0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1080px; }
+  body {
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    color: var(--dark);
+    position: relative;
+    overflow: hidden;
+    background: var(--light);
+  }
+
+  .bg-lines { position: absolute; inset: 0; width: 1080px; height: 1080px; z-index: 0; }
+  /* clarão suave atrás do cabeçalho para legibilidade do título */
+  .glow {
+    position: absolute; z-index: 1; left: 50%; top: 60px;
+    width: 900px; height: 430px; transform: translateX(-50%);
+    background: radial-gradient(60% 60% at 50% 40%, rgba(245,247,250,0.92) 0%, rgba(245,247,250,0.55) 45%, rgba(245,247,250,0) 75%);
+    pointer-events: none;
+  }
+
+  .poster {
+    position: relative;
+    z-index: 2;
+    width: 1080px;
+    height: 1080px;
+    padding: 56px 70px 46px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header { text-align: center; }
+  .header img { height: 66px; width: auto; display: inline-block; margin-bottom: 18px; }
+
+  h1 {
+    font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+    font-weight: 800;
+    font-size: 58px;
+    line-height: 1.04;
+    letter-spacing: 0.3px;
+    color: var(--primary);
+  }
+  h1 .hl { color: var(--secondary); }
+  .subtitle {
+    margin: 16px auto 0;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.32;
+    color: var(--slate);
+    max-width: 640px;
+  }
+
+  /* área central que centraliza o card */
+  .stage {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card {
+    width: 620px;
+    background: linear-gradient(180deg, rgba(30,136,229,0.08) 0%, rgba(255,255,255,1) 42%);
+    border: 1.5px solid rgba(30, 136, 229, 0.55);
+    border-radius: 28px;
+    padding: 44px 52px 46px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 24px 56px rgba(15, 42, 61, 0.12);
+  }
+
+  .card .icon {
+    width: 76px; height: 76px; border-radius: 20px;
+    background: rgba(30, 136, 229, 0.12);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 22px;
+  }
+  .card .icon svg { width: 40px; height: 40px; stroke: var(--secondary); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .card .label {
+    font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.12;
+    color: var(--primary);
+  }
+  .card .sub {
+    margin-top: 8px;
+    font-size: 23px;
+    font-weight: 500;
+    color: var(--slate);
+  }
+
+  .bullets {
+    margin: 26px 0 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    align-items: flex-start;
+  }
+  .bullets li {
+    position: relative;
+    padding-left: 32px;
+    font-size: 21px;
+    font-weight: 500;
+    line-height: 1.25;
+    color: #3A4A57;
+    text-align: left;
+  }
+  .bullets li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 5px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--secondary);
+    box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.16);
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--line);
+    margin: 30px 0 24px;
+  }
+
+  .price-from {
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--slate);
+    letter-spacing: 0.3px;
+  }
+  .price {
+    font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+    font-weight: 800;
+    font-size: 74px;
+    line-height: 1.0;
+    color: var(--secondary);
+    margin-top: 2px;
+  }
+
+  .cta {
+    margin-top: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: #16a34a;
+    color: var(--white);
+    font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+    font-weight: 700;
+    font-size: 27px;
+    letter-spacing: 0.3px;
+    padding: 20px 44px;
+    border-radius: 16px;
+    box-shadow: 0 14px 30px rgba(22, 163, 74, 0.30);
+  }
+  .cta svg { width: 30px; height: 30px; fill: var(--white); }
+
+  .footer {
+    margin-top: auto;
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--line);
+    font-size: 23px;
+  }
+  .footer .site { font-weight: 700; color: var(--primary); letter-spacing: 0.3px; }
+  .footer .wpp { display: flex; align-items: center; gap: 10px; color: var(--slate); font-weight: 600; }
+  .footer .wpp svg { width: 26px; height: 26px; fill: #25D366; }
+</style>
+</head>
+<body>
+  <svg class="bg-lines" id="lines" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"></svg>
+  <div class="glow"></div>
+
+  <div class="poster">
+    <div class="header">
+      <img src="../Logo.png" alt="Serviços Tech" />
+      <h1>Site <span class="hl">profissional</span><br>para sua empresa</h1>
+      <p class="subtitle">Transforme sua presença online e<br>conquiste mais clientes</p>
+    </div>
+
+    <div class="stage">
+      <div class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </div>
+        <div class="label">Site institucional</div>
+        <div class="sub">Até 5 páginas</div>
+
+        <ul class="bullets">
+          <li>Design moderno e responsivo</li>
+          <li>Painel administrativo incluso</li>
+          <li>Hospedagem e suporte a combinar</li>
+        </ul>
+
+        <div class="divider"></div>
+
+        <div class="price-from">A partir de</div>
+        <div class="price">R$990</div>
+
+        <span class="cta">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.2 1.1-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.5-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5l-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.7.9.2.1.4.2.4.3.1.1.1.6-.1 1.2z"/></svg>
+          Chame no WhatsApp
+        </span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="site">servicostech.com.br</span>
+      <span class="wpp">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.2 1.1-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.5-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5l-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.7.9.2.1.4.2.4.3.1.1.1.6-.1 1.2z"/></svg>
+        (11) 91515-5349
+      </span>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var NS = "http://www.w3.org/2000/svg";
+      var svg = document.getElementById("lines");
+      var W = 1080, H = 1080;
+
+      function addPath(d, width, opacity, color) {
+        var p = document.createElementNS(NS, "path");
+        p.setAttribute("d", d);
+        p.setAttribute("fill", "none");
+        p.setAttribute("stroke", color);
+        p.setAttribute("stroke-width", width);
+        p.setAttribute("opacity", opacity);
+        svg.appendChild(p);
+      }
+
+      // >>> LINES-GEN START (bloco substituível: usa svg, W, H e addPath(d,width,opacity,color))
+      // FITA DE SEDA TORCIDA — variante IRREGTWIST.
+      // Duas faixas (fitas), cada uma = feixe de N warp-lines paralelas correndo no eixo x
+      // em torno de uma espinha. A TORÇÃO twist(t) é NÃO-linear (base*t + somatório de senos),
+      // de modo que os pontos de pinça/cruzamento (onde cos(tw)=0) caiam em x IRREGULARES.
+      // Largura ~constante. As duas fitas usam k/p distintos -> composição não-simétrica.
+
+      var colors = ["#9FB2C2", "#AEC0CE", "#C6D1DB"];
+      var PI = Math.PI;
+      var x0 = -90, x1 = W + 90;
+
+      // Desenha uma fita torcida com torção irregular.
+      function ribbon(cfg) {
+        var N = cfg.N;
+        for (var li = 0; li < N; li++) {
+          var s = (li / (N - 1)) * 2 - 1;   // -1..1 atravessando a largura da fita
+          var d = "";
+          for (var x = x0; x <= x1; x += 4) {
+            var t = (x - x0) / (x1 - x0);   // 0..1 ao longo do comprimento
+
+            // espinha: fluxo suave da fita
+            var sy = cfg.spineY
+                   + cfg.ampEspinha * Math.sin(2 * PI * cfg.freq * t + cfg.fase);
+
+            // largura ~constante (leve respiração orgânica, não pinça)
+            var w = cfg.halfWidth * (1 + 0.06 * Math.sin(2 * PI * 0.8 * t + cfg.wph));
+
+            // TORÇÃO IRREGULAR: base linear + dois senos com k/p distintos.
+            // Os zeros de cos(tw) -> pinças em x espaçados de forma desigual.
+            var tw = cfg.base * t
+                   + cfg.A1 * Math.sin(cfg.k1 * t + cfg.p1)
+                   + cfg.A2 * Math.sin(cfg.k2 * t + cfg.p2)
+                   + cfg.tw0;
+
+            var offset = s * w * Math.cos(tw);
+            var y = sy + offset;
+
+            d += (d === "" ? "M" : "L") + x.toFixed(1) + "," + y.toFixed(1) + " ";
+          }
+          var col = colors[li % colors.length];
+          // opacidade/largura variando levemente por linha (não-uniforme, orgânico)
+          var op = cfg.opBase + (li % 3) * 0.05 + 0.04 * Math.sin(li * 1.7);
+          if (op < 0.30) op = 0.30; if (op > 0.55) op = 0.55;
+          var wd = cfg.wBase + 0.18 * Math.sin(li * 0.9 + cfg.fase);
+          if (wd < 0.6) wd = 0.6; if (wd > 1.1) wd = 1.1;
+          addPath(d.trim(), wd.toFixed(2), op.toFixed(2), col);
+        }
+      }
+
+      // FITA SUPERIOR (~y=235). Torção com k1=5.3, k2=11.7 -> pinças desiguais.
+      ribbon({
+        spineY: 235, ampEspinha: 34, freq: 1.15, fase: 0.6,
+        halfWidth: 190, wph: 0.4,
+        base: 11.0, A1: 2.6, k1: 5.3, p1: 0.9, A2: 1.3, k2: 11.7, p2: 2.3, tw0: 0.2,
+        N: 27, opBase: 0.40, wBase: 0.95
+      });
+
+      // FITA INFERIOR (~y=850). Parâmetros DIFERENTES (fases, raios, k/p) -> assimetria.
+      ribbon({
+        spineY: 850, ampEspinha: 50, freq: 0.85, fase: 2.4,
+        halfWidth: 205, wph: 1.9,
+        base: 13.0, A1: 3.0, k1: 4.1, p1: 2.0, A2: 1.6, k2: 9.3, p2: 0.5, tw0: 1.1,
+        N: 29, opBase: 0.42, wBase: 1.00
+      });
+      // >>> LINES-GEN END
+    })();
+  </script>
+</body>
+</html>
