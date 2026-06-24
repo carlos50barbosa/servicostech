@@ -5,7 +5,7 @@ import { withBasePath } from "@/lib/basePath";
 import { getWhatsAppUrl, whatsappLinkProps } from "@/lib/whatsapp";
 import { LinkButton } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
-import { Reveal } from "@/components/ui/Reveal";
+import { FadeIn } from "@/components/ui/FadeIn";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 
 export function Hero() {
@@ -27,61 +27,53 @@ export function Hero() {
       />
 
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 sm:px-8 md:grid-cols-2 md:gap-10">
-        {/* Texto */}
+        {/* Texto — entrada via CSS (FadeIn), não gated por JS, para o conteúdo
+            above-the-fold aparecer já no primeiro paint no mobile. */}
         <div className="order-2 md:order-1">
-          <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-dourado sm:text-sm">
-              {hero.eyebrow}
-            </p>
-          </Reveal>
+          <FadeIn as="p" className="text-xs font-semibold uppercase tracking-[0.18em] text-dourado sm:text-sm">
+            {hero.eyebrow}
+          </FadeIn>
 
-          <Reveal delay={0.05}>
-            <h1 className="mt-4 text-4xl leading-[1.1] text-verde sm:text-5xl md:text-6xl">
-              {hero.headline}
-            </h1>
-          </Reveal>
+          <FadeIn as="h1" delay={0.05} className="mt-4 text-4xl leading-[1.1] text-verde sm:text-5xl md:text-6xl">
+            {hero.headline}
+          </FadeIn>
 
-          <Reveal delay={0.1}>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-texto-suave sm:text-lg">
-              {hero.subtexto}
-            </p>
-          </Reveal>
+          <FadeIn as="p" delay={0.1} className="mt-6 max-w-xl text-base leading-relaxed text-texto-suave sm:text-lg">
+            {hero.subtexto}
+          </FadeIn>
 
-          <Reveal delay={0.15}>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <LinkButton href={getWhatsAppUrl()} {...whatsappLinkProps} size="lg">
-                <WhatsAppIcon className="h-5 w-5" />
-                {hero.ctaPrimario}
-              </LinkButton>
-              <a
-                href="#sobre"
-                className="inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-verde transition-colors hover:text-verde-medio"
-              >
-                {hero.ctaSecundario}
-                <ArrowDown className="h-4 w-4" aria-hidden="true" />
-              </a>
-            </div>
-          </Reveal>
+          <FadeIn delay={0.15} className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <LinkButton href={getWhatsAppUrl()} {...whatsappLinkProps} size="lg">
+              <WhatsAppIcon className="h-5 w-5" />
+              {hero.ctaPrimario}
+            </LinkButton>
+            <a
+              href="#sobre"
+              className="inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-verde transition-colors hover:text-verde-medio"
+            >
+              {hero.ctaSecundario}
+              <ArrowDown className="h-4 w-4" aria-hidden="true" />
+            </a>
+          </FadeIn>
 
           {/* Selos de confiança */}
-          <Reveal delay={0.2}>
-            <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-3">
-              {hero.selos.map((selo) => (
-                <li
-                  key={selo.texto}
-                  className="inline-flex items-center gap-2 text-sm text-texto-suave"
-                >
-                  <Icon name={selo.icone} className="h-4 w-4 text-verde-medio" />
-                  {selo.texto}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
+          <FadeIn as="ul" delay={0.2} className="mt-10 flex flex-wrap gap-x-6 gap-y-3">
+            {hero.selos.map((selo) => (
+              <li
+                key={selo.texto}
+                className="inline-flex items-center gap-2 text-sm text-texto-suave"
+              >
+                <Icon name={selo.icone} className="h-4 w-4 text-verde-medio" />
+                {selo.texto}
+              </li>
+            ))}
+          </FadeIn>
         </div>
 
-        {/* Imagem — o fundo da foto já é creme, então ela se integra ao
-            fundo da seção; o arco dourado da própria foto faz a moldura. */}
-        <Reveal delay={0.1} className="order-1 md:order-2">
+        {/* Imagem (LCP no mobile) — renderizada visível de imediato, sem fade,
+            para o maior elemento pintar assim que os bytes chegam (já tem
+            priority/preload). O fundo creme da foto integra com a seção. */}
+        <div className="order-1 md:order-2">
           <div className="relative mx-auto w-full max-w-sm md:max-w-md">
             <Image
               src={withBasePath(hero.imagem)}
@@ -93,7 +85,7 @@ export function Hero() {
               className="h-auto w-full"
             />
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
