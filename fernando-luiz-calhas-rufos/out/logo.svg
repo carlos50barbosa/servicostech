@@ -1,0 +1,19 @@
+<!-- LOGO PLACEHOLDER — Fernando Luiz, Calhas e Rufos.
+     TROCAR: substitua por logo.svg / logo.png oficial do cliente quando disponível.
+     Mantém a paleta da marca: azul-marinho (#0B1E3F) + dourado (#F2A900). -->
+<svg width="320" height="72" viewBox="0 0 320 72" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fernando Luiz — Calhas e Rufos">
+  <!-- Ícone: calha estilizada com gota dourada -->
+  <g>
+    <rect x="6" y="8" width="56" height="56" rx="14" fill="#0B1E3F"/>
+    <rect x="6.75" y="8.75" width="54.5" height="54.5" rx="13.25" stroke="#F2A900" stroke-opacity="0.35" stroke-width="1.5"/>
+    <!-- perfil da calha (meia-cana) -->
+    <path d="M18 24 H50 V30 C50 41 42 48 34 48 C26 48 18 41 18 30 Z" fill="none" stroke="#C9D1D9" stroke-width="3" stroke-linejoin="round"/>
+    <!-- borda metálica superior -->
+    <path d="M16 24 H52" stroke="#C9D1D9" stroke-width="3" stroke-linecap="round"/>
+    <!-- gota d'água dourada -->
+    <path d="M34 30 C34 30 40 38 40 43 C40 46.3 37.3 49 34 49 C30.7 49 28 46.3 28 43 C28 38 34 30 34 30 Z" fill="#F2A900"/>
+  </g>
+  <!-- Texto da marca -->
+  <text x="76" y="34" font-family="'Montserrat', 'Segoe UI', sans-serif" font-size="22" font-weight="800" letter-spacing="0.5" fill="#0B1E3F">FERNANDO LUIZ</text>
+  <text x="76" y="54" font-family="'Montserrat', 'Segoe UI', sans-serif" font-size="13" font-weight="600" letter-spacing="3.5" fill="#F2A900">CALHAS E RUFOS</text>
+</svg>
