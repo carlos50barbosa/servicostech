@@ -15,6 +15,10 @@ const PUBLIC_DIR = __dirname;
 const LOG_STATIC = process.env.LOG_STATIC === "true";
 let requestSequence = 0;
 
+// Site da psicologa Michelle Pedro: app Next.js exportado estaticamente,
+// servido a partir de michelle-pedro-psicologa/out/ (ver next.config.ts do projeto).
+const MICHELLE_PREFIX = "/michelle-pedro-psicologa";
+
 // Reverse proxy do webscraper (app Flask/Playwright em Python).
 const WEBSCRAPER_PREFIX = "/webscraper-estabelecimentos";
 const WEBSCRAPER_TARGET = {
@@ -1685,6 +1689,60 @@ const server = http.createServer(async (request, response) => {
 
     route = "page.narimatsu";
     await sendFile(response, path.join(PUBLIC_DIR, "narimatsu-advogados", "index.html"));
+    return;
+  }
+
+  // michelle-pedro-psicologa: app Next.js exportado estaticamente
+  // (output: 'export' + basePath em michelle-pedro-psicologa/next.config.ts).
+  // Os arquivos ficam em michelle-pedro-psicologa/out/ e referenciam os assets
+  // sob /michelle-pedro-psicologa/_next/... — por isso mapeamos todo o prefixo
+  // para dentro de out/. Requer `npm run build` na pasta do projeto.
+  if (
+    pathname === MICHELLE_PREFIX ||
+    pathname.startsWith(MICHELLE_PREFIX + "/")
+  ) {
+    const exportDir = path.join(PUBLIC_DIR, "michelle-pedro-psicologa", "out");
+
+    if (pathname === MICHELLE_PREFIX) {
+      // Garante a barra final para que os links/manifestos do Next resolvam
+      // sob o prefixo (mesmo padrão de bigfly/narimatsu).
+      if (!url.pathname.endsWith("/")) {
+        route = "page.michelle_redirect";
+        response.writeHead(301, { Location: MICHELLE_PREFIX + "/" });
+        response.end();
+        return;
+      }
+
+      route = "page.michelle";
+      await sendFile(response, path.join(exportDir, "index.html"));
+      return;
+    }
+
+    // Sub-recursos (assets _next, imagens, sitemap, etc.): remove o prefixo e
+    // resolve dentro de out/, com proteção contra path traversal.
+    const subPath = pathname.slice(MICHELLE_PREFIX.length);
+    const michelleFile = path.normalize(path.join(exportDir, subPath));
+    const michelleRelative = path.relative(exportDir, michelleFile);
+
+    if (michelleRelative.startsWith("..") || path.isAbsolute(michelleRelative)) {
+      route = "static.forbidden";
+      response.writeHead(403, { "Content-Type": "text/plain; charset=utf-8" });
+      response.end("Acesso negado");
+      return;
+    }
+
+    try {
+      route = "page.michelle_asset";
+      await sendFile(response, michelleFile);
+    } catch (error) {
+      const statusCode = error.code === "ENOENT" ? 404 : 500;
+      route =
+        statusCode === 404 ? "page.michelle_not_found" : "page.michelle_error";
+      response.writeHead(statusCode, {
+        "Content-Type": "text/plain; charset=utf-8"
+      });
+      response.end(statusCode === 404 ? "Pagina nao encontrada" : "Erro interno");
+    }
     return;
   }
 
