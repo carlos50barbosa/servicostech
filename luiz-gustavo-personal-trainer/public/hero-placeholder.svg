@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" fill="none" role="img" aria-label="Placeholder da foto do hero">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#15151A"/>
+      <stop offset="100%" stop-color="#0B0B0D"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="32%" r="55%">
+      <stop offset="0%" stop-color="#FF5722" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#FF5722" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M56 0H0V56" fill="none" stroke="#FFFFFF" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <rect width="800" height="1000" fill="url(#grid)"/>
+  <rect width="800" height="1000" fill="url(#glow)"/>
+
+  <!-- Dumbbell icon -->
+  <g transform="translate(400 430)" stroke="#FF5722" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <line x1="-150" y1="0" x2="150" y2="0"/>
+    <rect x="-186" y="-44" width="36" height="88" rx="12" fill="#FF5722" stroke="none"/>
+    <rect x="150" y="-44" width="36" height="88" rx="12" fill="#FF5722" stroke="none"/>
+    <rect x="-226" y="-30" width="28" height="60" rx="10" fill="#FF7A45" stroke="none"/>
+    <rect x="198" y="-30" width="28" height="60" rx="10" fill="#FF7A45" stroke="none"/>
+  </g>
+
+  <text x="400" y="560" text-anchor="middle" font-family="Archivo, Arial, sans-serif" font-size="34" font-weight="800" letter-spacing="2" fill="#F5F5F7">SUA FOTO AQUI</text>
+  <text x="400" y="604" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" fill="#A1A1AA">Foto profissional do Luiz · sugerido 800×1000px</text>
+</svg>

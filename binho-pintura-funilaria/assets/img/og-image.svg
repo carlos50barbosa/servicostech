@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  IMAGEM DE COMPARTILHAMENTO (Open Graph) 1200x630.
+  ATENÇÃO: WhatsApp/Facebook nem sempre renderizam SVG.
+  >> Recomendado exportar como og-image.jpg (1200x630) com uma FOTO real e atualizar as meta tags. <<
+-->
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0A2540"/>
+      <stop offset="0.6" stop-color="#11324f"/>
+      <stop offset="1" stop-color="#1E78C8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- gota / logo -->
+  <path d="M150 120C150 120 200 190 200 240C200 272 178 295 150 295C122 295 100 272 100 240C100 190 150 120 150 120Z" fill="#2E9BE6"/>
+  <ellipse cx="135" cy="225" rx="12" ry="22" fill="#FFFFFF" opacity="0.3"/>
+  <text x="100" y="400" font-family="Segoe UI, Arial, sans-serif" font-size="72" font-weight="800" fill="#FFFFFF">BINHO</text>
+  <text x="100" y="460" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="600" fill="#2E9BE6">Pinturas Automotivas e Funilaria</text>
+  <text x="100" y="525" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#cfe6fb">Pintura de moto e carro — o melhor da região</text>
+  <text x="100" y="575" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700" fill="#25D366">WhatsApp (82) 99994-6480 • Aceitamos cartão</text>
+</svg>

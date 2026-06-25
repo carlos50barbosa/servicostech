@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================================================================
+   Design tokens como CSS variables (espelham o tailwind.config.ts)
+   =========================================================================== */
+:root {
+  --ink: #0b0b0d;
+  --ink-soft: #15151a;
+  --brand: #ff5722;
+  --brand-light: #ff7a45;
+  --health: #22c55e;
+  --cloud: #f5f5f7;
+  --muted: #a1a1aa;
+  --offwhite: #fafafa;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Compensa o header fixo ao navegar por âncoras */
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background-color: var(--ink);
+    color: var(--cloud);
+    font-feature-settings: "ss01", "cv01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Foco visível para navegação por teclado (acessibilidade) */
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Respeita usuários que preferem menos movimento */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Container padrão do site */
+  .container-site {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
+  }
+
+  /* Headline em estilo display atlético */
+  .headline {
+    @apply font-display font-extrabold uppercase leading-[0.95] tracking-tight;
+  }
+
+  /* Texto-olho/eyebrow das seções */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand;
+  }
+
+  /* Botão primário (laranja com brilho) */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand px-7 py-3.5
+           text-sm font-bold uppercase tracking-wide text-white shadow-glow
+           transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-light
+           hover:shadow-glow active:translate-y-0;
+  }
+
+  /* Botão secundário (contorno) */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/20
+           bg-white/5 px-7 py-3.5 text-sm font-bold uppercase tracking-wide text-cloud
+           backdrop-blur transition-all duration-300 hover:-translate-y-0.5
+           hover:border-brand/60 hover:bg-white/10;
+  }
+
+  /* Card padrão escuro */
+  .card-dark {
+    @apply rounded-2xl border border-white/5 bg-ink-soft p-6 shadow-card transition-all
+           duration-300 hover:border-brand/30 hover:shadow-glow-sm;
+  }
+}
+
+/* Gradiente de texto laranja para destaques */
+.text-gradient {
+  background: linear-gradient(135deg, #ff7a45 0%, #ff5722 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Padrão sutil de grade no fundo do hero */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+}

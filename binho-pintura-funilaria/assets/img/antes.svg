@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PLACEHOLDER "ANTES". Substituir pela foto real (estado original do veículo). -->
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Antes - imagem ilustrativa">
+  <rect width="800" height="600" fill="#3a3f44"/>
+  <rect width="800" height="600" fill="#2B2F33" opacity="0.5"/>
+  <g fill="#6B7280" opacity="0.5" transform="translate(190,250)">
+    <path d="M20 120c0-10 8-18 18-18h6l24-58c5-12 16-20 29-20h150c13 0 25 8 31 19l30 59h8c10 0 18 8 18 18v40H20z"/>
+    <circle cx="110" cy="170" r="34" fill="#2B2F33"/>
+    <circle cx="320" cy="170" r="34" fill="#2B2F33"/>
+  </g>
+  <!-- arranhões / desgaste -->
+  <path d="M260 360 l120 -30 M300 400 l90 -20" stroke="#1b1d20" stroke-width="6" opacity="0.6" fill="none"/>
+  <text x="400" y="470" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="800" fill="#FFFFFF" text-anchor="middle" opacity="0.85">ANTES</text>
+  <text x="400" y="510" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#b8bdc4" text-anchor="middle">Substituir pela foto real</text>
+</svg>

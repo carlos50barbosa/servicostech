@@ -20,9 +20,11 @@ let requestSequence = 0;
 // publicar outro, gere o out/ (npm run build) e adicione uma linha aqui.
 const MICHELLE_PREFIX = "/michelle-pedro-psicologa";
 const FERNANDO_PREFIX = "/fernando-luiz-calhas-rufos";
+const LUIZ_PREFIX = "/luiz-gustavo-personal-trainer";
 const STATIC_EXPORT_SITES = [
   { prefix: MICHELLE_PREFIX, dir: "michelle-pedro-psicologa", label: "michelle" },
-  { prefix: FERNANDO_PREFIX, dir: "fernando-luiz-calhas-rufos", label: "fernando" }
+  { prefix: FERNANDO_PREFIX, dir: "fernando-luiz-calhas-rufos", label: "fernando" },
+  { prefix: LUIZ_PREFIX, dir: "luiz-gustavo-personal-trainer", label: "luiz" }
 ];
 
 // Reverse proxy do webscraper (app Flask/Playwright em Python).
@@ -1740,6 +1742,20 @@ const server = http.createServer(async (request, response) => {
 
     route = "page.narimatsu";
     await sendFile(response, path.join(PUBLIC_DIR, "narimatsu-advogados", "index.html"));
+    return;
+  }
+
+  if (pathname === "/binho-pintura-funilaria") {
+    // Garante a barra final para que os assets relativos (css/styles.css, assets/...) resolvam sob /binho-pintura-funilaria/.
+    if (!url.pathname.endsWith("/")) {
+      route = "page.binho_redirect";
+      response.writeHead(301, { Location: "/binho-pintura-funilaria/" });
+      response.end();
+      return;
+    }
+
+    route = "page.binho";
+    await sendFile(response, path.join(PUBLIC_DIR, "binho-pintura-funilaria", "index.html"));
     return;
   }
 

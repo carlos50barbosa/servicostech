@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none" role="img" aria-label="Imagem de capa para redes sociais">
+  <defs>
+    <linearGradient id="ogbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#15151A"/>
+      <stop offset="100%" stop-color="#0B0B0D"/>
+    </linearGradient>
+    <radialGradient id="ogglow" cx="78%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#FF5722" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#FF5722" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ogtext" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FF7A45"/>
+      <stop offset="100%" stop-color="#FF5722"/>
+    </linearGradient>
+    <pattern id="oggrid" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M56 0H0V56" fill="none" stroke="#FFFFFF" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#ogbg)"/>
+  <rect width="1200" height="630" fill="url(#oggrid)"/>
+  <rect width="1200" height="630" fill="url(#ogglow)"/>
+
+  <!-- Brand mark -->
+  <g transform="translate(80 86)">
+    <rect width="64" height="64" rx="16" fill="#FF5722"/>
+    <g transform="translate(32 32)" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" fill="#FFFFFF">
+      <line x1="-14" y1="0" x2="14" y2="0" stroke="#FFFFFF"/>
+      <rect x="-20" y="-9" width="8" height="18" rx="3" stroke="none"/>
+      <rect x="12" y="-9" width="8" height="18" rx="3" stroke="none"/>
+    </g>
+    <text x="84" y="28" font-family="Archivo, Arial, sans-serif" font-size="30" font-weight="800" fill="#F5F5F7">LUIZ GUSTAVO</text>
+    <text x="84" y="56" font-family="Inter, Arial, sans-serif" font-size="18" letter-spacing="4" fill="#FF7A45">PERSONAL TRAINER</text>
+  </g>
+
+  <text x="80" y="320" font-family="Archivo, Arial, sans-serif" font-size="64" font-weight="900" fill="#F5F5F7">Treinar não é só</text>
+  <text x="80" y="392" font-family="Archivo, Arial, sans-serif" font-size="64" font-weight="900" fill="#F5F5F7">sobre estética.</text>
+  <text x="80" y="464" font-family="Archivo, Arial, sans-serif" font-size="64" font-weight="900" fill="url(#ogtext)">É sobre saúde.</text>
+
+  <text x="80" y="548" font-family="Inter, Arial, sans-serif" font-size="24" fill="#A1A1AA">Batalha-AL · Presencial e Online · CREF 003920-G/AL</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" fill="none" role="img" aria-label="Placeholder da foto da seção Sobre">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#15151A"/>
+      <stop offset="100%" stop-color="#0B0B0D"/>
+    </linearGradient>
+    <radialGradient id="glow2" cx="50%" cy="68%" r="55%">
+      <stop offset="0%" stop-color="#22C55E" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#22C55E" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid2" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M56 0H0V56" fill="none" stroke="#FFFFFF" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="1000" fill="url(#bg2)"/>
+  <rect width="800" height="1000" fill="url(#grid2)"/>
+  <rect width="800" height="1000" fill="url(#glow2)"/>
+
+  <!-- Heart pulse icon -->
+  <g transform="translate(400 420)" stroke="#22C55E" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M0 90 C-120 -20 -110 -130 -20 -120 C10 -118 0 -80 0 -80 C0 -80 -10 -118 20 -120 C110 -130 120 -20 0 90 Z" fill="#22C55E" fill-opacity="0.1"/>
+    <polyline points="-120,0 -60,0 -30,-46 10,54 40,0 120,0" stroke="#FF5722"/>
+  </g>
+
+  <text x="400" y="560" text-anchor="middle" font-family="Archivo, Arial, sans-serif" font-size="34" font-weight="800" letter-spacing="2" fill="#F5F5F7">SUA FOTO AQUI</text>
+  <text x="400" y="604" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" fill="#A1A1AA">Foto do Luiz treinando · sugerido 800×1000px</text>
+</svg>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- PLACEHOLDER de galeria. Substituir pela FOTO REAL do Instagram @binho_pintura_e_funilaria -->
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pintura Completa (imagem ilustrativa)">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="800" y2="600" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0A2540"/>
+      <stop offset="1" stop-color="#2B2F33"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#g)"/>
+  <!-- silhueta de carro -->
+  <g fill="#FFFFFF" opacity="0.10" transform="translate(190,250)">
+    <path d="M20 120c0-10 8-18 18-18h6l24-58c5-12 16-20 29-20h150c13 0 25 8 31 19l30 59h8c10 0 18 8 18 18v40H20z"/>
+    <circle cx="110" cy="170" r="34" fill="#0A2540"/>
+    <circle cx="110" cy="170" r="20" fill="#FFFFFF"/>
+    <circle cx="320" cy="170" r="34" fill="#0A2540"/>
+    <circle cx="320" cy="170" r="20" fill="#FFFFFF"/>
+  </g>
+  <text x="400" y="470" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="700" fill="#FFFFFF" text-anchor="middle">Pintura Completa</text>
+  <text x="400" y="510" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#9fc6ea" text-anchor="middle">Substituir pela foto real</text>
+</svg>
