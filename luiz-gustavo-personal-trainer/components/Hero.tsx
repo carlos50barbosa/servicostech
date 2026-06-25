@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { MessageCircle, ArrowDown, ShieldCheck, MapPin, Award } from "lucide-react";
 import { WHATSAPP, whatsappLink } from "@/lib/config";
 import { withBasePath } from "@/lib/base-path";
@@ -28,45 +25,25 @@ export default function Hero() {
       <div className="container-site relative grid items-center gap-12 pb-20 lg:grid-cols-[1.1fr_0.9fr] lg:pb-28">
         {/* Coluna de texto */}
         <div>
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="eyebrow mb-5"
-          >
+          <span className="eyebrow mb-5 hero-in">
             <span className="h-1.5 w-1.5 rounded-full bg-health" />
             Treinar é sobre saúde
-          </motion.span>
+          </span>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            className="headline text-4xl text-cloud sm:text-5xl lg:text-6xl"
-          >
+          <h1 className="headline text-4xl text-cloud sm:text-5xl lg:text-6xl hero-in hero-d1">
             Treinar não é só sobre{" "}
             <span className="text-gradient">estética</span>.
             <br />É sobre <span className="text-gradient">saúde</span>.
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg"
-          >
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg hero-in hero-d2">
             Acompanhamento profissional e individualizado para você alcançar seus
             objetivos com segurança, técnica e resultados que duram. Presencial em
             Batalha-AL ou online, onde você estiver.
-          </motion.p>
+          </p>
 
           {/* Botões */}
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
-          >
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center hero-in hero-d3">
             <a
               href={whatsappLink(
                 "Olá Luiz! Quero começar agora. Pode me contar como funciona o acompanhamento?"
@@ -82,15 +59,10 @@ export default function Hero() {
               <ArrowDown className="h-4 w-4" aria-hidden="true" />
               Conheça meu trabalho
             </a>
-          </motion.div>
+          </div>
 
           {/* Selos de credibilidade */}
-          <motion.ul
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
-            className="mt-10 flex flex-wrap gap-3"
-          >
+          <ul className="mt-10 flex flex-wrap gap-3 hero-in hero-d4">
             {badges.map(({ icon: Icon, label }) => (
               <li
                 key={label}
@@ -100,24 +72,21 @@ export default function Hero() {
                 {label}
               </li>
             ))}
-          </motion.ul>
+          </ul>
         </div>
 
         {/* Coluna da imagem */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="relative mx-auto w-full max-w-md lg:max-w-none"
-        >
+        <div className="relative mx-auto w-full max-w-md lg:max-w-none hero-in-scale hero-d2">
           <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-white/10 bg-ink shadow-card">
-            {/* Foto profissional do Luiz. Para trocar, substitua o arquivo
-                /public/perfil-luiz-gustavo.png (proporção 4:5, ex.: 800x1000px). */}
+            {/* Foto profissional do Luiz (WebP ~54KB, otimizado p/ mobile).
+                Para trocar: gere /public/perfil-luiz-gustavo.webp (proporção 4:5,
+                ex.: 800x1000px). Ex.: sharp('foto.png').webp({quality:80}). */}
             <Image
-              src={withBasePath("/perfil-luiz-gustavo.png")}
+              src={withBasePath("/perfil-luiz-gustavo.webp")}
               alt="Luiz Gustavo, personal trainer"
               fill
               priority
+              fetchPriority="high"
               sizes="(max-width: 1024px) 90vw, 45vw"
               className="scale-[1.04] object-cover object-center brightness-[0.97] contrast-[1.06] saturate-[1.08]"
             />
@@ -144,7 +113,7 @@ export default function Hero() {
             <p className="text-2xl font-extrabold text-cloud">100%</p>
             <p className="text-xs text-muted">Treino individualizado</p>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* CTA flutuante secundário só no mobile */}

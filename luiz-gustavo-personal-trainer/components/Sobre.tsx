@@ -40,9 +40,10 @@ export default function Sobre() {
                 Dica: para variar, troque por uma foto do Luiz treinando em
                 /public (proporção 4:5) e atualize o `src` abaixo. */}
             <Image
-              src={withBasePath("/perfil-luiz-gustavo.png")}
+              src={withBasePath("/perfil-luiz-gustavo.webp")}
               alt="Luiz Gustavo, personal trainer em Batalha-AL"
               fill
+              loading="lazy"
               sizes="(max-width: 1024px) 90vw, 45vw"
               className="scale-[1.18] object-cover object-top brightness-[0.95] contrast-[1.06] saturate-[1.05]"
             />
