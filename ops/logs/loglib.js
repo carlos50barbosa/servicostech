@@ -77,7 +77,13 @@ function parseAccessLine(line) {
   if (at === -1) return null;
 
   const tsM = line.match(/\[([0-9T:.+\-Z]+)\]/);
-  const time = tsM ? new Date(tsM[1]) : null;
+  // Timestamp não-parseável (linha corrompida/truncada) -> null, nunca uma
+  // "Invalid Date" (que é truthy e estoura em toISOString/Intl.format depois).
+  let time = null;
+  if (tsM) {
+    const parsed = new Date(tsM[1]);
+    if (!isNaN(parsed.getTime())) time = parsed;
+  }
   const lvlM = line.match(/\b(INFO|WARN|ERROR)\b/);
   const level = lvlM ? lvlM[1] : "";
 
@@ -234,6 +240,7 @@ const BRT_HOUR_FMT = new Intl.DateTimeFormat("en-CA", {
   hour: "2-digit", hour12: false, hourCycle: "h23"
 });
 function brtHourKey(date) {
+  if (!date || isNaN(date.getTime())) return "";
   const parts = BRT_HOUR_FMT.formatToParts(date);
   const get = (t) => { const p = parts.find((x) => x.type === t); return p ? p.value : ""; };
   return `${get("year")}-${get("month")}-${get("day")} ${get("hour")}h`;
