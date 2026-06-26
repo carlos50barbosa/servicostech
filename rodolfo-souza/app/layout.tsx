@@ -115,6 +115,13 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${sora.variable} ${inter.variable}`}>
       <body>
+        {/* Marca que há JS ANTES do primeiro paint: o CSS de scroll-reveal só
+            oculta elementos quando .js está presente — sem JS, tudo aparece. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
         {/* Link de pular para o conteudo — acessibilidade por teclado. */}
         <a
           href="#inicio"

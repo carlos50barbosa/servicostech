@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import {
   ShieldCheck,
   Search,
@@ -22,20 +19,8 @@ const SELOS = [
   { icon: HeartHandshake, label: "Atendimento humano" },
 ];
 
-// Animacao de entrada escalonada do bloco de texto.
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-};
-const item = {
-  hidden: { opacity: 0, y: 24 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] },
-  },
-};
-
+// Server component, sem framer-motion: o texto do hero é renderizado visível no
+// primeiro paint (nada espera hidratar). A entrada do cartão é só CSS leve.
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-hero pt-[72px] text-white">
@@ -47,38 +32,26 @@ export function Hero() {
       </div>
 
       <Container className="relative grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8 lg:py-28">
-        {/* Coluna de texto */}
-        <motion.div variants={container} initial="hidden" animate="show">
-          <motion.span
-            variants={item}
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium text-white/85 backdrop-blur-sm"
-          >
+        {/* Coluna de texto — visível no primeiro paint (sem JS de animação). */}
+        <div>
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium text-white/85 backdrop-blur-sm">
             <Banknote className="h-4 w-4 text-gold-400" aria-hidden />
             Crédito facilitado em Batalha e região
-          </motion.span>
+          </span>
 
-          <motion.h1
-            variants={item}
-            className="mt-6 text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.4rem]"
-          >
+          <h1 className="mt-6 text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.4rem]">
             Crédito facilitado com as{" "}
             <span className="text-gradient-gold">melhores taxas</span> do mercado
             pra você
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            variants={item}
-            className="mt-5 max-w-xl text-lg leading-relaxed text-white/75"
-          >
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75">
             Transforme o limite do seu cartão em dinheiro na sua conta. Liberação
             via PIX, parcelamento em até 18x — sem consulta ao SPC ou Serasa e sem
             comprovação de renda.
-          </motion.p>
+          </p>
 
-          <motion.div
-            variants={item}
-            className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
-          >
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <ButtonLink href={WA.simular()} variant="gold" size="lg">
               <MessageCircle className="h-5 w-5" aria-hidden />
               Quero simular no WhatsApp
@@ -87,13 +60,10 @@ export function Hero() {
               Como funciona
               <ArrowDown className="h-4 w-4" aria-hidden />
             </ButtonLink>
-          </motion.div>
+          </div>
 
           {/* Selos de confianca */}
-          <motion.ul
-            variants={item}
-            className="mt-10 flex flex-wrap gap-x-6 gap-y-3"
-          >
+          <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-3">
             {SELOS.map(({ icon: Icon, label }) => (
               <li
                 key={label}
@@ -103,20 +73,17 @@ export function Hero() {
                 {label}
               </li>
             ))}
-          </motion.ul>
-        </motion.div>
+          </ul>
+        </div>
 
-        {/* Coluna visual: cartao flutuante */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9, rotate: -6 }}
-          animate={{ opacity: 1, scale: 1, rotate: -4 }}
-          transition={{ duration: 0.9, ease: [0.21, 0.47, 0.32, 0.98], delay: 0.3 }}
-          className="flex justify-center lg:justify-end"
-        >
-          <div className="animate-float">
-            <CreditCard />
+        {/* Coluna visual: cartao flutuante (entrada + float em CSS). */}
+        <div className="flex animate-rise justify-center lg:justify-end">
+          <div className="-rotate-[4deg]">
+            <div className="animate-float">
+              <CreditCard />
+            </div>
           </div>
-        </motion.div>
+        </div>
       </Container>
 
       {/* Onda de transicao para a secao clara seguinte */}

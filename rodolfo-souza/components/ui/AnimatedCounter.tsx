@@ -1,16 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {
-  useInView,
-  useMotionValue,
-  useReducedMotion,
-  animate,
-} from "framer-motion";
 
 /**
- * Contador numerico animado que dispara ao entrar na viewport.
- * Quando `to` nao e numerico (ex.: "PIX"), apenas exibe o texto.
+ * Contador numérico animado que dispara ao entrar na viewport.
+ * Sem framer-motion: IntersectionObserver + requestAnimationFrame.
+ * Respeita prefers-reduced-motion (mostra o valor final direto).
  */
 export function AnimatedCounter({
   to,
@@ -24,24 +19,54 @@ export function AnimatedCounter({
   duration?: number;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-  const reduce = useReducedMotion();
-  const motionValue = useMotionValue(0);
   const [display, setDisplay] = useState(0);
 
   useEffect(() => {
-    if (!inView) return;
-    if (reduce) {
-      setDisplay(to);
+    const el = ref.current;
+    if (!el) return;
+
+    let raf = 0;
+    const reduce =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const run = () => {
+      if (reduce || typeof requestAnimationFrame === "undefined") {
+        setDisplay(to);
+        return;
+      }
+      const start = performance.now();
+      const ms = Math.max(1, duration * 1000);
+      const ease = (t: number) => 1 - Math.pow(1 - t, 3); // easeOutCubic
+      const tick = (now: number) => {
+        const p = Math.min(1, (now - start) / ms);
+        setDisplay(Math.round(ease(p) * to));
+        if (p < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    };
+
+    if (typeof IntersectionObserver === "undefined") {
+      run();
       return;
     }
-    const controls = animate(motionValue, to, {
-      duration,
-      ease: [0.21, 0.47, 0.32, 0.98],
-      onUpdate: (v) => setDisplay(Math.round(v)),
-    });
-    return () => controls.stop();
-  }, [inView, to, duration, reduce, motionValue]);
+    const io = new IntersectionObserver(
+      (entries, obs) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            run();
+            obs.unobserve(entry.target);
+          }
+        }
+      },
+      { rootMargin: "0px 0px -60px 0px" }
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [to, duration]);
 
   return (
     <span ref={ref}>

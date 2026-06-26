@@ -58,6 +58,44 @@
   }
 }
 
+/* ---------- Entrada / scroll-reveal sem framer-motion (CSS + IntersectionObserver) ----------
+   Sem o framer-motion (172 KB), nada fica preso esperando hidratar: o conteúdo
+   pinta no primeiro paint. O scroll-reveal degrada para "visível" se o JS falhar. */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+.animate-rise {
+  animation: rise 0.7s cubic-bezier(0.21, 0.47, 0.32, 0.98) both;
+}
+
+/* Visível por padrão; só oculta quando há JS (.js no <html>) e ainda não entrou
+   na viewport — assim, sem JS / com JS lento, o conteúdo aparece normalmente. */
+html.js [data-reveal],
+html.js [data-reveal-group] [data-reveal-item] {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 24px));
+  transition:
+    opacity 0.6s cubic-bezier(0.21, 0.47, 0.32, 0.98),
+    transform 0.6s cubic-bezier(0.21, 0.47, 0.32, 0.98);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+html.js [data-reveal].is-visible,
+html.js [data-reveal-group].is-visible [data-reveal-item] {
+  opacity: 1;
+  transform: none;
+}
+/* Stagger dos itens de um grupo ao revelar. */
+html.js [data-reveal-group].is-visible [data-reveal-item]:nth-child(1) { transition-delay: calc(0 * var(--reveal-stagger, 80ms)); }
+html.js [data-reveal-group].is-visible [data-reveal-item]:nth-child(2) { transition-delay: calc(1 * var(--reveal-stagger, 80ms)); }
+html.js [data-reveal-group].is-visible [data-reveal-item]:nth-child(3) { transition-delay: calc(2 * var(--reveal-stagger, 80ms)); }
+html.js [data-reveal-group].is-visible [data-reveal-item]:nth-child(4) { transition-delay: calc(3 * var(--reveal-stagger, 80ms)); }
+html.js [data-reveal-group].is-visible [data-reveal-item]:nth-child(5) { transition-delay: calc(4 * var(--reveal-stagger, 80ms)); }
+html.js [data-reveal-group].is-visible [data-reveal-item]:nth-child(6) { transition-delay: calc(5 * var(--reveal-stagger, 80ms)); }
+html.js [data-reveal-group].is-visible [data-reveal-item]:nth-child(7) { transition-delay: calc(6 * var(--reveal-stagger, 80ms)); }
+html.js [data-reveal-group].is-visible [data-reveal-item]:nth-child(8) { transition-delay: calc(7 * var(--reveal-stagger, 80ms)); }
+
 /* Respeita usuarios que pedem menos movimento. */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -67,6 +105,12 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+  /* Garante conteúdo visível mesmo sem o JS de reveal rodar. */
+  html.js [data-reveal],
+  html.js [data-reveal-group] [data-reveal-item] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 

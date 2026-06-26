@@ -1,11 +1,45 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { createElement, useEffect, useRef, type CSSProperties } from "react";
 
 /**
- * Wrapper de scroll-reveal discreto (fade + slide-up).
- * Respeita prefers-reduced-motion automaticamente.
+ * Scroll-reveal (fade + slide-up) SEM framer-motion: só IntersectionObserver +
+ * CSS (ver app/globals.css). O estado oculto é aplicado por CSS apenas quando
+ * há `.js` no <html>, então sem JS / com JS lento o conteúdo aparece normal.
+ * Respeita prefers-reduced-motion via CSS.
  */
+
+// Observa o elemento e adiciona `.is-visible` ao entrar na viewport (uma vez).
+function useRevealRef<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || el.classList.contains("is-visible")) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      el.classList.add("is-visible"); // fallback: revela na hora
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries, obs) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            obs.unobserve(entry.target);
+          }
+        }
+      },
+      { rootMargin: "0px 0px -80px 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return ref;
+}
+
 export function Reveal({
   children,
   delay = 0,
@@ -19,34 +53,21 @@ export function Reveal({
   className?: string;
   as?: "div" | "li" | "span";
 }) {
-  const reduce = useReducedMotion();
-  const MotionTag = motion[as];
+  const ref = useRevealRef<HTMLElement>();
+  const style: CSSProperties = {};
+  if (delay) (style as Record<string, string>)["--reveal-delay"] = `${delay * 1000}ms`;
+  if (y !== 24) (style as Record<string, string>)["--reveal-y"] = `${y}px`;
 
-  const variants: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : y },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, delay, ease: [0.21, 0.47, 0.32, 0.98] },
-    },
-  };
-
-  return (
-    <MotionTag
-      className={className}
-      variants={variants}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-80px" }}
-    >
-      {children}
-    </MotionTag>
+  return createElement(
+    as,
+    { ref, "data-reveal": "", className, style },
+    children
   );
 }
 
 /**
- * Container com stagger para listas/grids: filhos animam em sequencia.
- * Use junto de <Reveal> nos filhos (ou RevealItem).
+ * Container com stagger: os filhos <RevealItem> animam em sequência quando o
+ * grupo entra na viewport.
  */
 export function RevealGroup({
   children,
@@ -57,19 +78,16 @@ export function RevealGroup({
   className?: string;
   stagger?: number;
 }) {
+  const ref = useRevealRef<HTMLDivElement>();
   return (
-    <motion.div
+    <div
+      ref={ref}
+      data-reveal-group=""
       className={className}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-60px" }}
-      variants={{
-        hidden: {},
-        show: { transition: { staggerChildren: stagger } },
-      }}
+      style={{ ["--reveal-stagger" as string]: `${stagger * 1000}ms` } as CSSProperties}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -83,20 +101,11 @@ export function RevealItem({
   className?: string;
   y?: number;
 }) {
-  const reduce = useReducedMotion();
+  const style: CSSProperties = {};
+  if (y !== 24) (style as Record<string, string>)["--reveal-y"] = `${y}px`;
   return (
-    <motion.div
-      className={className}
-      variants={{
-        hidden: { opacity: 0, y: reduce ? 0 : y },
-        show: {
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] },
-        },
-      }}
-    >
+    <div data-reveal-item="" className={className} style={style}>
       {children}
-    </motion.div>
+    </div>
   );
 }

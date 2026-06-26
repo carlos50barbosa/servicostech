@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { Plus, MessageCircle } from "lucide-react";
 import { Section, SectionHeading } from "./ui/Section";
 import { ButtonLink } from "./ui/Button";
@@ -86,24 +85,23 @@ export function FAQ() {
                     </span>
                   </button>
                 </h3>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      id={painelId}
-                      role="region"
-                      aria-labelledby={botaoId}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="overflow-hidden"
-                    >
-                      <p className="px-5 pb-5 leading-relaxed text-ink/65 sm:px-6">
-                        {item.a}
-                      </p>
-                    </motion.div>
+                {/* Acordeão em CSS puro (grid-rows 0fr -> 1fr): anima a altura
+                    sem JS de animação; o conteúdo fica no DOM (bom p/ SEO). */}
+                <div
+                  id={painelId}
+                  role="region"
+                  aria-labelledby={botaoId}
+                  className={cn(
+                    "grid transition-[grid-template-rows] duration-300 ease-in-out",
+                    isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                   )}
-                </AnimatePresence>
+                >
+                  <div className="overflow-hidden">
+                    <p className="px-5 pb-5 leading-relaxed text-ink/65 sm:px-6">
+                      {item.a}
+                    </p>
+                  </div>
+                </div>
               </li>
             );
           })}
