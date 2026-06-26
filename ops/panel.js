@@ -10,7 +10,7 @@
 const crypto = require("crypto");
 const { execFile } = require("child_process");
 const { loadRepoEnv, logFilesFor, parseSince } = require("./logs/loglib");
-const { buildReport } = require("./logs/analyze");
+const { buildReport, buildEvents } = require("./logs/analyze");
 
 loadRepoEnv();
 
@@ -54,6 +54,33 @@ function esc(s) {
 const isJail = (j) => /^[A-Za-z0-9_.-]{1,64}$/.test(j || "");
 const isIp = (ip) => /^[0-9a-fA-F:.]{2,45}$/.test(ip || "");
 
+// Horário amigável no fuso de Brasília (a partir de um ISO/Date).
+const BRT_FMT = new Intl.DateTimeFormat("pt-BR", {
+  timeZone: "America/Sao_Paulo",
+  day: "2-digit", month: "2-digit", year: "numeric",
+  hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false
+});
+function fmtBrt(iso) {
+  if (!iso) return "";
+  const d = iso instanceof Date ? iso : new Date(iso);
+  if (isNaN(d.getTime())) return "";
+  return BRT_FMT.format(d).replace(",", "");
+}
+// Monta querystring ignorando valores vazios/false.
+function qs(obj) {
+  const p = new URLSearchParams();
+  for (const [k, v] of Object.entries(obj)) {
+    if (v === "" || v == null || v === false) continue;
+    p.set(k, v === true ? "1" : String(v));
+  }
+  const s = p.toString();
+  return s ? "?" + s : "";
+}
+function statusBadge(status) {
+  const c = Math.floor(Number(status) / 100);
+  return `<span class="badge s${c}">${esc(status)}</span>`;
+}
+
 // ---------- fail2ban ----------
 function runF2b(args) {
   return new Promise((resolve) => {
@@ -81,6 +108,45 @@ async function listJails() {
 }
 
 // ---------- página ----------
+const CSS = `
+  :root{--primary:#0F2A3D;--primary-dark:#0A1E2C;--secondary:#1E88E5;--light:#F5F7FA;--white:#fff;--line:#E2E8F0;--slate:#5C6B7A;--ok:#16A34A;--warn:#D97706;--err:#DC2626;}
+  *{box-sizing:border-box}body{margin:0;font-family:"Inter","Segoe UI",system-ui,Arial,sans-serif;background:var(--light);color:#111827;font-size:14px}
+  header{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:16px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  header h1{margin:0;font-size:18px;font-weight:800}header .meta{color:rgba(255,255,255,.7);font-size:12.5px}
+  .wrap{max-width:1180px;margin:0 auto;padding:20px}
+  .toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+  .chip{font-size:13px;font-weight:600;color:var(--primary);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px;text-decoration:none}
+  .chip.on{background:var(--secondary);color:#fff;border-color:var(--secondary)}
+  .cards{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+  .kpi{flex:1;min-width:120px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 8px 22px rgba(15,42,61,.05)}
+  .kpi b{display:block;font-size:26px;font-weight:800;color:var(--primary)}.kpi span{color:var(--slate);font-size:12.5px}
+  .kpi.ok b{color:var(--ok)}.kpi.warn b{color:var(--warn)}.kpi.err b{color:var(--err)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 8px 22px rgba(15,42,61,.05);margin-bottom:16px;overflow:hidden}
+  .panel h2{margin:0 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:var(--slate)}
+  table{width:100%;border-collapse:collapse}td{padding:7px 8px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:middle}
+  tr:last-child td{border-bottom:none}.num{text-align:right;white-space:nowrap;color:var(--primary);font-weight:600}
+  .mono{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;word-break:break-all}.muted{color:var(--slate)}
+  .barwrap{display:block;height:8px;background:var(--light);border-radius:6px;overflow:hidden;min-width:60px}
+  .bar{display:block;height:100%;background:var(--secondary)}
+  .btn,.btn-sm{cursor:pointer;border:none;border-radius:8px;font-weight:600;font-family:inherit}
+  .btn{padding:9px 16px;font-size:14px;background:var(--primary);color:#fff}
+  .btn-sm{padding:5px 11px;font-size:12px;background:#eef2f7;color:var(--primary)}
+  .btn-sm.danger,.btn.danger{background:#fde8e8;color:#b91c1c}.btn.danger{background:#b91c1c;color:#fff}
+  .jail{margin-bottom:14px}.jail h3{margin:0 0 6px;font-size:14px;color:var(--primary)}
+  .banform{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.inp{padding:9px 12px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:13.5px}
+  .banform .inp:first-child{flex:1;min-width:180px}
+  .badge{display:inline-block;min-width:36px;text-align:center;padding:2px 7px;border-radius:6px;font-size:12px;font-weight:700}
+  .badge.s2{background:#dcfce7;color:#166534}.badge.s3{background:#e0e7ff;color:#3730a3}.badge.s4{background:#fef3c7;color:#92400e}.badge.s5{background:#fee2e2;color:#991b1b}
+  .filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:16px;box-shadow:0 8px 22px rgba(15,42,61,.05)}
+  .filters label{font-size:13px;color:var(--slate);display:flex;align-items:center;gap:6px}
+  .filters select,.filters .inp{padding:8px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:13px}
+  .trunc{max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  tr.susp td{background:#fff7ed}
+  .pager{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-top:14px}
+  .nav-link{color:var(--secondary);text-decoration:none;font-weight:600;font-size:13px}
+`;
 function bar(n, max) {
   const w = Math.round((n / Math.max(1, max)) * 100);
   return `<span class="barwrap"><span class="bar" style="width:${w}%"></span></span>`;
@@ -148,47 +214,18 @@ function renderDashboard(r, f2b, opts) {
       </div>`;
   }
 
-  const periodo = r.meta.first ? esc(r.meta.first.toISOString().slice(0, 16)) + " → " + esc((r.meta.last || r.meta.first).toISOString().slice(0, 16)) : "";
+  const periodo = r.meta.first ? esc(fmtBrt(r.meta.first)) + " → " + esc(fmtBrt(r.meta.last || r.meta.first)) + " (BRT)" : "";
 
   return `<!doctype html><html lang="pt-BR"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Painel Ops — Serviços Tech</title>
-<style>
-  :root{--primary:#0F2A3D;--primary-dark:#0A1E2C;--secondary:#1E88E5;--light:#F5F7FA;--white:#fff;--line:#E2E8F0;--slate:#5C6B7A;--ok:#16A34A;--warn:#D97706;--err:#DC2626;}
-  *{box-sizing:border-box}body{margin:0;font-family:"Inter","Segoe UI",system-ui,Arial,sans-serif;background:var(--light);color:#111827;font-size:14px}
-  header{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:16px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-  header h1{margin:0;font-size:18px;font-weight:800}header .meta{color:rgba(255,255,255,.7);font-size:12.5px}
-  .wrap{max-width:1180px;margin:0 auto;padding:20px}
-  .toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
-  .chip{font-size:13px;font-weight:600;color:var(--primary);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px;text-decoration:none}
-  .chip.on{background:var(--secondary);color:#fff;border-color:var(--secondary)}
-  .cards{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
-  .kpi{flex:1;min-width:120px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 8px 22px rgba(15,42,61,.05)}
-  .kpi b{display:block;font-size:26px;font-weight:800;color:var(--primary)}.kpi span{color:var(--slate);font-size:12.5px}
-  .kpi.ok b{color:var(--ok)}.kpi.warn b{color:var(--warn)}.kpi.err b{color:var(--err)}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  @media(max-width:820px){.grid{grid-template-columns:1fr}}
-  .panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 8px 22px rgba(15,42,61,.05);margin-bottom:16px;overflow:hidden}
-  .panel h2{margin:0 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:var(--slate)}
-  table{width:100%;border-collapse:collapse}td{padding:7px 8px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:middle}
-  tr:last-child td{border-bottom:none}.num{text-align:right;white-space:nowrap;color:var(--primary);font-weight:600}
-  .mono{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;word-break:break-all}.muted{color:var(--slate)}
-  .barwrap{display:block;height:8px;background:var(--light);border-radius:6px;overflow:hidden;min-width:60px}
-  .bar{display:block;height:100%;background:var(--secondary)}
-  .btn,.btn-sm{cursor:pointer;border:none;border-radius:8px;font-weight:600;font-family:inherit}
-  .btn{padding:9px 16px;font-size:14px;background:var(--primary);color:#fff}
-  .btn-sm{padding:5px 11px;font-size:12px;background:#eef2f7;color:var(--primary)}
-  .btn-sm.danger,.btn.danger{background:#fde8e8;color:#b91c1c}.btn.danger{background:#b91c1c;color:#fff}
-  .jail{margin-bottom:14px}.jail h3{margin:0 0 6px;font-size:14px;color:var(--primary)}
-  .banform{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.inp{padding:9px 12px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:13.5px}
-  .banform .inp:first-child{flex:1;min-width:180px}
-</style></head><body>
+<style>${CSS}</style></head><body>
 <header>
   <h1>🛡️ Painel Ops</h1>
   <span class="meta">${periodo}${r.meta.total ? " &nbsp;|&nbsp; " + r.meta.total + " req em " + r.meta.files + " arquivo(s)" : ""}</span>
 </header>
 <div class="wrap">
-  <div class="toolbar">Janela: ${winLinks} ${geoLink} <a class="chip" href="${OPS_PATH}?since=${since}${geo ? "&geo=1" : ""}">↻ atualizar</a></div>
+  <div class="toolbar">Janela: ${winLinks} ${geoLink} <a class="chip" href="${OPS_PATH}/logs?since=${since}${geo ? "&geo=1" : ""}">📜 Logs</a> <a class="chip" href="${OPS_PATH}?since=${since}${geo ? "&geo=1" : ""}">↻ atualizar</a></div>
   ${statusCards}
 
   <div class="panel"><h2>fail2ban — IPs banidos</h2>${f2bHtml}</div>
@@ -202,7 +239,7 @@ function renderDashboard(r, f2b, opts) {
     ${countries}
   </div>
 
-  <div class="panel"><h2>Requisições por hora</h2><table>${hours}</table></div>
+  <div class="panel"><h2>Requisições por hora (BRT)</h2><table>${hours}</table></div>
 </div>
 <script>
   const BASE = ${JSON.stringify(OPS_PATH)};
@@ -220,6 +257,86 @@ function renderDashboard(r, f2b, opts) {
     if(!ip){ alert("Informe um IP."); return; }
     if(confirm("Banir "+ip+" no jail "+jail+"?")) act(BASE+"/api/ban", {ip, jail});
   }
+</script>
+</body></html>`;
+}
+
+// ---------- visualizador de logs ----------
+function renderLogs(data, opts) {
+  const { since, status, ip, q, geo, susp, offset, limit } = opts;
+  const m = data.meta;
+
+  const sinceOpts = ["6h", "24h", "7d", "30d"]
+    .map((w) => `<option value="${w}"${w === since ? " selected" : ""}>${w}</option>`).join("");
+  const stOpts = [["", "todos"], ["2xx", "2xx"], ["3xx", "3xx"], ["4xx", "4xx"], ["5xx", "5xx"], ["err", "erros (4xx+5xx)"]]
+    .map(([v, l]) => `<option value="${v}"${v === status ? " selected" : ""}>${l}</option>`).join("");
+
+  const rows = data.events.length
+    ? data.events.map((e) => {
+        const local = esc([e.country, e.city].filter(Boolean).join(" / "));
+        return `<tr class="${e.suspicious ? "susp" : ""}">
+        <td class="mono" title="${esc(e.time)}">${esc(fmtBrt(e.time))}</td>
+        <td>${statusBadge(e.status)}</td>
+        <td class="mono">${esc(e.ip)}${e.ip ? ` <button class="btn-sm danger" onclick="ban('${esc(e.ip)}')">ban</button>` : ""}</td>
+        <td>${local || '<span class="muted">—</span>'}</td>
+        <td>${esc(e.route)}</td>
+        <td class="mono trunc" title="${esc(e.path)}">${esc(e.path)}</td>
+        <td class="num">${e.ms ? Number(e.ms).toFixed(1) : "0"}</td>
+        <td class="trunc muted" title="${esc(e.ua)}">${esc(e.ua) || "—"}</td>
+      </tr>`;
+      }).join("")
+    : `<tr><td colspan="8" class="muted">nenhum evento no período/filtro</td></tr>`;
+
+  const base = { since, status, ip, q, geo: geo ? 1 : "", susp: susp ? 1 : "" };
+  const prevOff = Math.max(0, offset - limit);
+  const prev = offset > 0
+    ? `<a class="nav-link" href="${OPS_PATH}/logs${qs({ ...base, offset: prevOff || "" })}">← mais recentes</a>`
+    : `<span class="muted">← mais recentes</span>`;
+  const next = m.hasMore
+    ? `<a class="nav-link" href="${OPS_PATH}/logs${qs({ ...base, offset: offset + limit })}">mais antigos →</a>`
+    : `<span class="muted">mais antigos →</span>`;
+
+  return `<!doctype html><html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logs — Painel Ops</title>
+<style>${CSS}</style></head><body>
+<header>
+  <h1>📜 Logs de acesso</h1>
+  <span class="meta">${m.matched} evento(s) no filtro · exibindo ${m.returned}${m.returned ? " (a partir do #" + (offset + 1) + ")" : ""} · ${m.files} arquivo(s)</span>
+  <a class="nav-link" style="margin-left:auto;color:#fff" href="${OPS_PATH}?since=${esc(since)}${geo ? "&geo=1" : ""}">← Dashboard</a>
+</header>
+<div class="wrap">
+  <form class="filters" method="get" action="${OPS_PATH}/logs">
+    <label>Janela <select name="since">${sinceOpts}</select></label>
+    <label>Status <select name="status">${stOpts}</select></label>
+    <input class="inp" name="ip" placeholder="IP" value="${esc(ip)}" style="min-width:140px">
+    <input class="inp" name="q" placeholder="path, rota ou user-agent" value="${esc(q)}" style="flex:1;min-width:170px">
+    <label><input type="checkbox" name="geo" value="1" ${geo ? "checked" : ""}> GeoIP</label>
+    <label><input type="checkbox" name="susp" value="1" ${susp ? "checked" : ""}> só suspeitos</label>
+    <button class="btn">Filtrar</button>
+  </form>
+
+  <div class="panel" style="overflow-x:auto">
+    <table>
+      <tr>
+        <td class="muted">Horário (BRT)</td><td class="muted">status</td><td class="muted">IP</td>
+        <td class="muted">local</td><td class="muted">rota</td><td class="muted">path</td>
+        <td class="num muted">ms</td><td class="muted">user-agent</td>
+      </tr>
+      ${rows}
+    </table>
+    <div class="pager">${prev}${next}</div>
+  </div>
+</div>
+<script>
+  const BASE = ${JSON.stringify(OPS_PATH)};
+  async function act(url, body){
+    const r = await fetch(url, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body)});
+    const d = await r.json().catch(()=>({}));
+    if(!r.ok || d.error){ alert("Erro: " + (d.error || ("HTTP "+r.status))); return; }
+    location.reload();
+  }
+  function ban(ip){ if(confirm("Banir "+ip+"?")) act(BASE+"/api/ban", {ip}); }
 </script>
 </body></html>`;
 }
@@ -259,6 +376,45 @@ async function handle(request, response) {
   }
   if (sub === "/api/fail2ban" && method === "GET") {
     return sendJson(response, await listJails());
+  }
+  if (sub === "/api/events" && method === "GET") {
+    const p = url.searchParams;
+    const files = OPS_LOG ? [OPS_LOG] : logFilesFor(OPS_APP, "both");
+    let limit = parseInt(p.get("limit") || "200", 10);
+    if (!Number.isFinite(limit) || limit < 1) limit = 200;
+    if (limit > 1000) limit = 1000;
+    let offset = parseInt(p.get("offset") || "0", 10);
+    if (!Number.isFinite(offset) || offset < 0) offset = 0;
+    const data = await buildEvents({
+      files,
+      since: parseSince(p.get("since") || "24h"),
+      filters: { ip: (p.get("ip") || "").trim(), status: (p.get("status") || "").trim(), q: (p.get("q") || "").trim(), suspicious: p.get("susp") === "1" },
+      limit, offset, withGeo: p.get("geo") === "1"
+    });
+    return sendJson(response, data);
+  }
+
+  // Visualizador de logs (eventos individuais)
+  if (sub === "/logs" && method === "GET") {
+    const p = url.searchParams;
+    const sinceArg = p.get("since") || "24h";
+    const status = (p.get("status") || "").trim();
+    const ip = (p.get("ip") || "").trim();
+    const q = (p.get("q") || "").trim();
+    const geo = p.get("geo") === "1";
+    const susp = p.get("susp") === "1";
+    const limit = 200;
+    let offset = parseInt(p.get("offset") || "0", 10);
+    if (!Number.isFinite(offset) || offset < 0) offset = 0;
+    const files = OPS_LOG ? [OPS_LOG] : logFilesFor(OPS_APP, "both");
+    const data = await buildEvents({
+      files, since: parseSince(sinceArg),
+      filters: { ip, status, q, suspicious: susp },
+      limit, offset, withGeo: geo
+    });
+    response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    response.end(renderLogs(data, { since: sinceArg, status, ip, q, geo, susp, offset, limit }));
+    return;
   }
 
   // Dashboard

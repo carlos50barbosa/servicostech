@@ -5,7 +5,7 @@
  * (usada pelo CLI report.js e pelo painel web ops/panel.js).
  */
 
-const { iterAccess, isSuspiciousPath, isPrivateIp, geoLookup } = require("./loglib");
+const { iterAccess, isSuspiciousPath, isPrivateIp, geoLookup, brtHourKey } = require("./loglib");
 
 function topN(map, n) {
   return [...map.entries()].sort((a, b) => b[1] - a[1]).slice(0, n);
@@ -45,7 +45,7 @@ async function buildReport({ files, since = null, top = 15, withGeo = false }) {
     rm.sum += e.ms; rm.n++; routeMs.set(e.route, rm);
 
     if (e.time) {
-      const h = e.time.toISOString().slice(0, 13).replace("T", " ") + "h";
+      const h = brtHourKey(e.time); // bucket por hora no fuso de Brasília
       byHour.set(h, (byHour.get(h) || 0) + 1);
     }
     if (e.status === 404 && isSuspiciousPath(e.path)) {
@@ -101,4 +101,67 @@ async function buildReport({ files, since = null, top = 15, withGeo = false }) {
   };
 }
 
-module.exports = { buildReport, topN };
+// Eventos individuais (log viewer): retorna as entradas mais recentes que batem os
+// filtros, em ordem decrescente de horário, com paginação (offset/limit).
+// filters: { ip, status ("2xx".."5xx" | "err" | "404" | ""), q (path/rota/ua), suspicious }
+async function buildEvents({ files, since = null, filters = {}, limit = 200, offset = 0, withGeo = false }) {
+  const ipf = filters.ip || "";
+  const ql = filters.q ? String(filters.q).toLowerCase() : "";
+  const st = String(filters.status || "");
+  const stClass = /^[2-5]xx$/.test(st) ? Number(st[0]) : null;
+  const stExact = /^\d{3}$/.test(st) ? Number(st) : null;
+  const wantErr = st === "err";
+  const onlySusp = !!filters.suspicious;
+
+  const keep = Math.max(1, offset + limit);
+  const buf = []; // janela com os últimos `keep` matches (ordem crescente)
+  let scanned = 0, matched = 0;
+
+  for (const e of iterAccess({ files, since })) {
+    scanned++;
+    if (ipf && e.ip !== ipf) continue;
+    if (stClass !== null && Math.floor(e.status / 100) !== stClass) continue;
+    if (stExact !== null && e.status !== stExact) continue;
+    if (wantErr && e.status < 400) continue;
+    if (onlySusp && !isSuspiciousPath(e.path)) continue;
+    if (ql && !(
+      e.path.toLowerCase().includes(ql) ||
+      (e.route || "").toLowerCase().includes(ql) ||
+      (e.ua || "").toLowerCase().includes(ql)
+    )) continue;
+
+    matched++;
+    buf.push(e);
+    if (buf.length > keep) buf.shift(); // mantém só a cauda (mais recentes)
+  }
+
+  const page = buf.reverse().slice(offset, offset + limit); // mais recentes primeiro
+
+  let geo = {};
+  if (withGeo) {
+    try { geo = await geoLookup(page.map((e) => e.ip)); } catch (_) {}
+  }
+
+  return {
+    meta: {
+      scanned, matched, returned: page.length, offset, limit,
+      hasMore: matched > offset + page.length, files: files.length
+    },
+    events: page.map((e) => ({
+      time: e.time ? e.time.toISOString() : "",
+      level: e.level,
+      route: e.route,
+      path: e.path,
+      status: e.status,
+      ms: e.ms,
+      ip: e.ip,
+      from: e.from,
+      ua: e.ua,
+      suspicious: isSuspiciousPath(e.path),
+      country: (geo[e.ip] && geo[e.ip].country) || "",
+      city: (geo[e.ip] && geo[e.ip].city) || ""
+    }))
+  };
+}
+
+module.exports = { buildReport, buildEvents, topN };

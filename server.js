@@ -21,10 +21,12 @@ let requestSequence = 0;
 const MICHELLE_PREFIX = "/michelle-pedro-psicologa";
 const FERNANDO_PREFIX = "/fernando-luiz-calhas-rufos";
 const LUIZ_PREFIX = "/luiz-gustavo-personal-trainer";
+const RODOLFO_PREFIX = "/rodolfo-souza";
 const STATIC_EXPORT_SITES = [
   { prefix: MICHELLE_PREFIX, dir: "michelle-pedro-psicologa", label: "michelle" },
   { prefix: FERNANDO_PREFIX, dir: "fernando-luiz-calhas-rufos", label: "fernando" },
-  { prefix: LUIZ_PREFIX, dir: "luiz-gustavo-personal-trainer", label: "luiz" }
+  { prefix: LUIZ_PREFIX, dir: "luiz-gustavo-personal-trainer", label: "luiz" },
+  { prefix: RODOLFO_PREFIX, dir: "rodolfo-souza", label: "rodolfo" }
 ];
 
 // Reverse proxy do webscraper (app Flask/Playwright em Python).
@@ -94,8 +96,28 @@ function formatValue(value) {
   return JSON.stringify(value);
 }
 
+function getBrasiliaTimestamp(date = new Date()) {
+  const formatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Sao_Paulo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    fractionalSecondDigits: 3,
+    hour12: false,
+    hourCycle: "h23",
+  });
+
+  const parts = formatter.formatToParts(date);
+  const get = (type) => parts.find((p) => p.type === type)?.value;
+
+  return `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}:${get("second")}.${get("fractionalSecond")}-03:00`;
+}
+
 function log(level, message, meta = {}) {
-  const timestamp = new Date().toISOString();
+  const timestamp = getBrasiliaTimestamp();
   const fields = Object.entries(meta)
     .map(([key, value]) => `${key}=${formatValue(value)}`)
     .join(" ");
@@ -214,6 +236,46 @@ function getRefererPath(request) {
   }
 }
 
+// Arquivos/diretórios que o handler estático NUNCA deve servir: o fallback
+// estático entrega só assets web (html/css/js de cliente, imagens, fontes).
+// Código do servidor, segredos e metadados ficam de fora. Rotas legítimas
+// (sites, painel ops, proxy do webscraper, sites Next export) são tratadas
+// ANTES deste fallback, então bloquear aqui não as afeta.
+const BLOCKED_PATH_SEGMENTS = new Set(["node_modules"]); // em qualquer nível
+const BLOCKED_TOP_DIRS = new Set(["ops", "webscraper-estabelecimentos"]); // 1º segmento
+const BLOCKED_BASENAMES = new Set([
+  "server.js",
+  "blog-app.js",
+  "projects.js",
+  "blog-seed.json",
+  "package.json",
+  "package-lock.json"
+]);
+const BLOCKED_EXTENSIONS = new Set([".md"]); // docs (README/DESIGN/...) não são assets web
+
+// Recebe o caminho relativo a PUBLIC_DIR (já normalizado). Bloqueia dotfiles
+// (.env, .git, .gitignore, ...), node_modules, diretórios do servidor e o
+// código/-config do próprio servidor por nome de arquivo.
+function isBlockedStaticPath(relativePath) {
+  const segments = relativePath.split(/[\\/]+/).filter(Boolean);
+  if (!segments.length) return false;
+
+  for (const seg of segments) {
+    const low = seg.toLowerCase();
+    // Dotfiles/dotdirs, exceto /.well-known/ (ACME, security.txt, etc.).
+    if (seg.startsWith(".") && low !== ".well-known") return true;
+    if (BLOCKED_PATH_SEGMENTS.has(low)) return true;
+  }
+
+  if (BLOCKED_TOP_DIRS.has(segments[0].toLowerCase())) return true;
+
+  const basename = segments[segments.length - 1].toLowerCase();
+  if (BLOCKED_BASENAMES.has(basename)) return true;
+  if (BLOCKED_EXTENSIONS.has(path.extname(basename))) return true;
+
+  return false;
+}
+
 function resolveRequestPath(requestUrl) {
   const url = new URL(requestUrl, `http://localhost:${PORT}`);
   const pathname = decodeURIComponent(url.pathname);
@@ -222,6 +284,10 @@ function resolveRequestPath(requestUrl) {
   const relativePath = path.relative(PUBLIC_DIR, filePath);
 
   if (relativePath.startsWith("..") || path.isAbsolute(relativePath)) {
+    return null;
+  }
+
+  if (isBlockedStaticPath(relativePath)) {
     return null;
   }
 

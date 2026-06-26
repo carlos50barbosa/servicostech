@@ -226,6 +226,19 @@ function httpJson(url, body) {
   });
 }
 
+// ---------- horário de Brasília ----------
+// Chave de hora no fuso America/Sao_Paulo: "YYYY-MM-DD HHh" (ordenável lexicograficamente).
+const BRT_HOUR_FMT = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "America/Sao_Paulo",
+  year: "numeric", month: "2-digit", day: "2-digit",
+  hour: "2-digit", hour12: false, hourCycle: "h23"
+});
+function brtHourKey(date) {
+  const parts = BRT_HOUR_FMT.formatToParts(date);
+  const get = (t) => { const p = parts.find((x) => x.type === t); return p ? p.value : ""; };
+  return `${get("year")}-${get("month")}-${get("day")} ${get("hour")}h`;
+}
+
 // ---------- util ----------
 function parseSince(arg) {
   if (!arg) return null;
@@ -249,5 +262,6 @@ module.exports = {
   isPrivateIp,
   geoLookup,
   httpJson,
-  parseSince
+  parseSince,
+  brtHourKey
 };

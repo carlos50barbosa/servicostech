@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --roxo-900: #2e0f4f;
+  --roxo-700: #4b1e78;
+  --roxo-500: #7b3fb8;
+  --navy-900: #0a0e27;
+  --gold-500: #e0a02e;
+  --green-500: #1fb573;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Compensa o header sticky ao navegar por ancoras. */
+    scroll-padding-top: 88px;
+  }
+
+  body {
+    @apply bg-cloud text-ink font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+
+  /* Foco visivel e acessivel em qualquer elemento interativo. */
+  :focus-visible {
+    outline: 2px solid var(--gold-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  /* Helper para texto com gradiente dourado nos numeros de impacto. */
+  .text-gradient-gold {
+    @apply bg-gradient-gold bg-clip-text text-transparent;
+  }
+  .text-gradient-roxo {
+    @apply bg-gradient-roxo bg-clip-text text-transparent;
+  }
+
+  /* Grade sutil de fundo para secoes escuras. */
+  .bg-grid {
+    background-image: radial-gradient(
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px
+    );
+    background-size: 28px 28px;
+  }
+}
+
+/* Respeita usuarios que pedem menos movimento. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Esconde a barra de rolagem horizontal eventual dos carrosseis. */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
