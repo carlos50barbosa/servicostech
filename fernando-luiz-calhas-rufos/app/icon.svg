@@ -1,7 +1,0 @@
-<!-- FAVICON — ícone de calha com gota dourada sobre azul-marinho da marca. -->
-<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fernando Luiz Calhas e Rufos">
-  <rect width="64" height="64" rx="14" fill="#0B1E3F"/>
-  <path d="M14 22 H50 V28 C50 40 42 47 32 47 C22 47 14 40 14 28 Z" fill="none" stroke="#C9D1D9" stroke-width="3.5" stroke-linejoin="round"/>
-  <path d="M12 22 H52" stroke="#C9D1D9" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M32 27 C32 27 39 36 39 42 C39 45.9 35.9 49 32 49 C28.1 49 25 45.9 25 42 C25 36 32 27 32 27 Z" fill="#F2A900"/>
-</svg>

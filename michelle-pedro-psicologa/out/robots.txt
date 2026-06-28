@@ -1,5 +1,0 @@
-User-Agent: *
-Allow: /
-
-Host: https://www.michellepedro.com.br
-Sitemap: https://www.michellepedro.com.br/sitemap.xml
