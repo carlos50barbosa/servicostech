@@ -328,7 +328,7 @@ const legalInfo = {
   contactWhatsApp: "(11) 91515-5349",
   dataController: "José Carlos Barbosa, profissional autônomo responsável pela Serviços Tech.",
   location: "Osasco/SP, Brasil — Atendimento online para todo o Brasil.",
-  lastUpdated: "22 de junho de 2026"
+  lastUpdated: "1 de julho de 2026"
 };
 
 function renderCookieConsent() {
@@ -588,6 +588,39 @@ function renderLayout({ title, description, canonicalPath, image, content, heade
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1676878263502157');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1676878263502157&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <!-- Meta Pixel: evento Lead ao clicar em qualquer botão de WhatsApp -->
+  <script>
+  document.addEventListener('click', function (e) {
+    var el = e.target;
+    while (el && el.nodeType === 1 && el.tagName !== 'A') el = el.parentNode;
+    if (el && el.tagName === 'A') {
+      var href = (el.getAttribute('href') || '').toLowerCase();
+      if ((href.indexOf('wa.me') > -1 || href.indexOf('whatsapp.com') > -1) && typeof fbq === 'function') {
+        fbq('track', 'Lead', { content_name: 'WhatsApp' });
+      }
+    }
+  }, true);
+  </script>
+
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}" />
   <meta name="robots" content="index, follow" />
@@ -1339,6 +1372,7 @@ function renderPrivacyPolicyPage() {
                 <li>Dados de navegação e de acesso, registrados automaticamente em nossos logs: endereço IP, data e hora do acesso, página acessada (endereço/URL), código de status da resposta, página de origem (referenciador), tipo de dispositivo e versão resumida do navegador (User-Agent) e cookies;</li>
                 <li>Localização geográfica aproximada (país e cidade), derivada do endereço IP para fins de operação e segurança;</li>
                 <li>Quando você consente com os cookies de análise, dados de uso coletados pelo Google Analytics, como páginas visitadas, origem do acesso e interações (cliques em botões e envios de formulário).</li>
+                <li>Dados de navegação e de interação coletados pelo pixel da Meta (Meta Pixel), como visualizações de página e cliques em botões de contato (WhatsApp), associados a identificadores de cookies da Meta (por exemplo, <code>_fbp</code>). Esses dados são usados para medir e otimizar campanhas de anúncios e para exibir anúncios direcionados (remarketing) nas plataformas da Meta.</li>
               </ul>
             </section>
 
@@ -1360,6 +1394,7 @@ function renderPrivacyPolicyPage() {
               <h2>4. Base legal para tratamento</h2>
               <p>Tratamos dados pessoais com base na LGPD, de forma simples e proporcional. Dependendo da situação, o tratamento pode ocorrer para executar medidas solicitadas pelo próprio usuário, cumprir obrigações legais, atender interesses legítimos da Serviços Tech ou com consentimento, especialmente para cookies não essenciais e comunicações opcionais.</p>
               <p>Em especial, o tratamento de endereço IP, logs de acesso e localização aproximada para fins de segurança, prevenção a fraudes e contenção de abuso fundamenta-se no <strong>legítimo interesse</strong> da Serviços Tech (art. 7º, IX, e art. 10 da LGPD), enquanto os cookies de análise e as comunicações opcionais dependem do seu <strong>consentimento</strong>.</p>
+              <p>O pixel da Meta (Meta Pixel) é utilizado para medição, otimização e direcionamento de anúncios (remarketing) com fundamento no <strong>legítimo interesse</strong> da Serviços Tech em divulgar seus serviços, sendo ativado nas visitas ao site. Você pode se opor a esse tratamento a qualquer momento, conforme descrito na seção 10 (bloqueio de cookies no navegador e preferências de anúncios na Meta).</p>
             </section>
 
             <section class="legal-section">
@@ -1368,6 +1403,7 @@ function renderPrivacyPolicyPage() {
               <ul>
                 <li>Hospedagem e infraestrutura que executam o site;</li>
                 <li>Google Analytics (Google LLC), para análise de tráfego, apenas mediante o seu consentimento;</li>
+                <li>Meta Platforms, Inc. (Facebook/Instagram), por meio do Meta Pixel, para medição, otimização e direcionamento de anúncios (remarketing);</li>
                 <li>MaxMind (base GeoLite2), para estimar a localização geográfica aproximada a partir do endereço IP;</li>
                 <li>Ferramentas de e-mail, WhatsApp, formulários e automações de atendimento.</li>
               </ul>
@@ -1407,13 +1443,15 @@ function renderPrivacyPolicyPage() {
                 <li><strong>Bloqueios de IP por abuso</strong> (fail2ban): temporários, de 1 hora (força bruta e flood) a 24 horas (scanners), sendo o IP liberado automaticamente ao fim do período;</li>
                 <li><strong>Localização aproximada derivada do IP</strong>: calculada apenas no momento da análise, não sendo armazenada de forma autônoma;</li>
                 <li><strong>Cookies e dados de análise</strong> (Google Analytics): pelo prazo definido na configuração da ferramenta (em regra, até 14 meses) e enquanto durar o seu consentimento.</li>
+                <li><strong>Cookies do Meta Pixel</strong> (por exemplo, <code>_fbp</code>): pelo prazo definido pela Meta (em regra, até cerca de 90 dias no navegador); os dados enviados à Meta seguem as políticas e os prazos da própria plataforma.</li>
               </ul>
             </section>
 
             <section class="legal-section">
               <h2>10. Uso de cookies</h2>
               <p>Usamos cookies essenciais para o funcionamento do site e, mediante o seu consentimento, cookies de análise para entender o tráfego e melhorar a experiência. Você pode aceitar ou recusar os cookies não essenciais no aviso exibido no site e revisar sua escolha a qualquer momento em <strong>Preferências de cookies</strong>.</p>
-              <p>Quando você aceita, utilizamos o Google Analytics (gtag.js), que grava cookies (como <code>_ga</code>) e processa dados de navegação, podendo transferi-los ao Google. Scripts de análise e marketing só são carregados após o consentimento aceito; enquanto você não aceita, eles não são ativados.</p>
+              <p>Quando você aceita os cookies de análise, utilizamos o Google Analytics (gtag.js), que grava cookies (como <code>_ga</code>) e processa dados de navegação, podendo transferi-los ao Google. Esses cookies de análise só são ativados após o seu consentimento; enquanto você não aceita, eles não são ativados.</p>
+              <p>Independentemente dessa escolha, utilizamos o <strong>pixel da Meta</strong> (Meta Pixel), uma ferramenta de publicidade que grava cookies da Meta (como <code>_fbp</code>) e envia dados de navegação e de interação — por exemplo, visualizações de página e cliques no botão de WhatsApp — à Meta Platforms, Inc., para medir e otimizar campanhas e exibir anúncios direcionados (remarketing). Você pode desativá-lo bloqueando cookies de terceiros no navegador, usando extensões de bloqueio de rastreadores ou ajustando suas <a href="https://www.facebook.com/adpreferences" target="_blank" rel="noopener">preferências de anúncios na Meta</a>.</p>
             </section>
 
             <section class="legal-section">
